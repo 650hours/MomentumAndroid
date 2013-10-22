@@ -2,9 +2,14 @@ body, html {
     margin:0;   
     height:100%;
     width:100%;
+	text-align:center;
+	background-color: #fff !important;
 }
 
 /* COMMON STYLES*/
+.view-content {
+	background-color: white;
+}
 .view-content h1{
     color:#42454a;
     font-size:1.8em;
@@ -20,21 +25,25 @@ body, html {
     color:#4a4e54;
     font-size:1em;
 }
+a:link a:visited a:hover a:active {
+	text-decoration: none;
+}
 
 /* IMAGE STYLES*/
-.img {
-    background-image:url(../styles/images/icenium.png);
+.logo {
+    background-image:url(../images/momentum.png);
+    background-repeat:no-repeat;
+    text-align:center;
+    width:273px;
+    height:85px;
+    margin:40px auto;
+}
+.amway {
+    background-image:url(../images/amway.png);
     background-repeat:no-repeat;
     text-align:center;
     width:320px;
-    height:193px;
-    margin:0px auto;
-}
-.logo {
-    background-image:url(../styles/images/logo.png);
-    background-repeat:no-repeat;
-    width:85px;
-    height:60px;
+    height:98px;
     margin:40px auto;
 }
 
@@ -253,15 +262,21 @@ body, html {
 
 /* RETINA DISPLAY STYLES*/
 @media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
-    .img {
-        background-image:url(../styles/images/icenium2x.png);
+     .logo {
+        background-image:url(../images/momentum2x.png);
         background-repeat:no-repeat;
         background-size:100%;
+		width:545px;
+		height:170px;
+		margin:40px auto;
     }
-    .logo {
-        background-image:url(../styles/images/logo2x.png);
+	.amway {
+        background-image:url(../images/amway2x.png);
         background-repeat:no-repeat;
         background-size:100%;
+		width:640px;
+		height:195px;
+		margin:40px auto;
     }
     #map-search {
         background-image:url(../styles/images/search2x.png);

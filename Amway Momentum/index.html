@@ -5,6 +5,7 @@
         <meta charset="utf-8" />
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="styles/main.css" rel="stylesheet" />
+		<link href="styles/topcoat-mobile-light.css" rel="stylesheet" />
 
         <script src="cordova.js"></script>
         <script src="kendo/js/jquery.min.js"></script>
@@ -16,6 +17,7 @@
 
     </head>
     <body>
+
 		
         <!--Home-->
         <div id="tabstrip-home"
@@ -31,8 +33,7 @@
 					<p>Your session id is <span data-bind="text: sessionId"></span> and your short user id is <span data-bind="text: userShortId"></span></p>
                 </h1>
 				
-				<div id="resultBlock">
-                </div>
+				<div id="resultBlock"></div>
 
                 <ul data-role="listview" data-style="inset" data-bind="invisible: isLoggedIn">
                     <li>
@@ -53,24 +54,64 @@
                     <a id="login" data-role="button" data-bind="click: onLogin, invisible: isLoggedIn" class="login-button">Login</a>
                     <a id="logout" data-role="button" data-bind="click: onLogout, visible: isLoggedIn" class="login-button">Logout</a>
                 </div>
+				
+				<div class="amway"></div>
+				
             </div>
+        </div>
+		
+		<!--Agenda-->
+		<div id="tabstrip-agenda"
+			data-role="view"
+			data-title="Agenda"
+			data-model="app.loginService.viewModel"
+			data-show="loadAgenda">
+			
+			<div class="view-content">
+				<div id="agendaTitle">&nbsp;</div>
+				<div id="agendaWelcome" style="text-align: left">&nbsp;</div>
+			</div>
+			
         </div>
 		
 		<!--Workshops-->
 		<div id="tabstrip-workshops"
 			data-role="view"
-			data-title="Workshop list"
+			data-title="Workshops"
 			data-model="app.loginService.viewModel"
-			data-show="loadWorkShopList">
+			data-show="loadWorkshopList">
 			
-				<h1>Your Workshops</h1>
-				<div id="userWorkshopList">
+			<div class="view-content">
+			
+				<div class="topcoat-list">
+					<ul data-role="listview" data-style="inset" data-type="group">
+						<li><h1 class="topcoat-list__header">Your Workshops</h1></li>
+						<div id="userWorkshopList" class="topcoat-button-bar">&nbsp;</div>
+					</ul>
+					<ul data-role="listview" data-style="inset" data-type="group">
+						<li><h1 class="topcoat-list__header">Other Workshops</h1></li>
+						<div id="otherWorkshopList" class="topcoat-button-bar">&nbsp;</div>
+					</ul>
 				</div>
-				<h1>Other Workshops</h1>
-				<div id="otherWorkshopList">
-				</div>
+				
+			</div>
 			
 		</div>
+		
+		
+		<!--Workshop view-->
+		<div id="tabstrip-workshop"
+			data-role="view"
+			data-title="Workshop"
+			data-model="app.loginService.viewModel"
+			data-show="loadWorkshop">
+			
+			<div class="view-content">
+				Hello.
+				<div id="workshopText">&nbsp;</div>
+			</div>
+			
+        </div>
 
         <!--Layout-->
         <div id="tabstrip-home" 
@@ -79,22 +120,24 @@
 			data-model="app.loginService.viewModel">
 
             <!--Header-->
-            <div data-role="header">
+            <div data-role="header" style="background-color: white">
                 <div data-role="navbar">
                     <span data-role="view-title"></span>
                 </div>
             </div>
 
             <!--Footer-->
-            <div data-role="footer">
+            <div data-role="footer" data-bind="visible: isLoggedIn">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-agenda" data-icon="home">Wall</a>
-                    <a href="#tabstrip-ajax" data-icon="contacts">Agenda</a>
+                    <a href="#tabstrip-wall" data-icon="contacts">Wall</a>
+                    <a href="#tabstrip-agenda" data-icon="contacts">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="search">Workshops</a>
-                    <a href="work.html" data-icon="globe">Hospitality</a>
-					<a href="#tabstrip-home" data-icon="globe" data-bind="click: onLogout, visible: isLoggedIn">Log out</a>
+                    <a href="#tabstrip-hospitality" data-icon="globe">Hospitality</a>
+					<a href="#tabstrip-logout" data-icon="globe">Log out</a>
                 </div>
             </div>
         </div>
+			
+
     </body>
 </html>
