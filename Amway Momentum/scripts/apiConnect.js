@@ -1,5 +1,6 @@
 // Load the agenda
 function loadAgenda() {
+	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getAgenda',
 	error: function() {
@@ -11,6 +12,30 @@ function loadAgenda() {
 	})
 }
 
+// Load hospitality desk
+function loadHospitality() {
+	
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/getHospitality',
+	error: function() {
+		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
+    },
+	cache: false}).done(function(data) {
+		
+		// Build visit text
+		var visitText = data.visitText + '<p><center><a href="javascript:window.open(encodeURI(\'https://en.wikipedia.org/wiki/Taj_mahal\'), \'_blank\', \'location=yes\');"><button class="topcoat-button--large" style="background-color: lime">Wikipedia page</button></a></center></p>';
+		
+		// Build trip advisor text
+		var tripadvisorText = data.tripadvisorText + '<p><center><a href="javascript:window.open(encodeURI(\'http://cityguides.tripadvisor.com/\'), \'_blank\', \'location=yes\');"><button class="topcoat-button--large" style="background-color: lime">TripAdvisor New Delhi</button></a></center></p>';
+		
+		$("#introTitle").html('<h1>' + data.introTitle + '</h1>');
+		$("#introText").html(data.introText);
+		$("#visitTitle").html('<h1>' + data.visitTitle + '</h1>');
+		$("#visitText").html(visitText);
+		$("#tripadvisorTitle").html('<h1>' + data.tripadvisorTitle + '</h1>');
+		$("#tripadvisorText").html(tripadvisorText);
+	})
+}
 
 // Load workshop list
 function loadWorkshopList() {
