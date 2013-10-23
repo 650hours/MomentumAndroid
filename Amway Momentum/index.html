@@ -107,8 +107,20 @@
 			data-show="loadWorkshop">
 			
 			<div class="view-content">
-				Hello.
-				<div id="workshopText">&nbsp;</div>
+				<h1><div id="workshopTitle">&nbsp;</div></h1>
+				<div id="workshopDescription" style="text-align: left">&nbsp;</div>
+				<h1>Topics</h1>
+				<div class="topcoat-list">
+					<ul data-role="listview" data-style="inset" data-type="group">
+						<div id="topicList" class="topcoat-button-bar">&nbsp;</div>
+					</ul>
+				</div>
+				<h1>Resources</h1>
+				<div class="topcoat-list">
+					<ul data-role="listview" data-style="inset" data-type="group">
+						<div id="resourceList" class="topcoat-button-bar">&nbsp;</div>
+					</ul>
+				</div>
 			</div>
 			
         </div>
@@ -147,9 +159,9 @@
             <!--Footer-->
             <div data-role="footer" data-bind="visible: isLoggedIn">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-wall" data-icon="contacts">Wall</a>
                     <a href="#tabstrip-agenda" data-icon="contacts">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="search">Workshops</a>
+					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
                     <a href="#tabstrip-hospitality" data-icon="globe">Hospitality</a>
 					<a href="#tabstrip-logout" data-icon="globe">Log out</a>
                 </div>

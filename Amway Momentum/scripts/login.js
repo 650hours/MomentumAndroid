@@ -8,7 +8,7 @@
 		password: "",
 		sessionId: "",
         userShortId: "",
-
+		
         onLogin: function () {
             var that = this,
                 username = that.get("username").trim(),
