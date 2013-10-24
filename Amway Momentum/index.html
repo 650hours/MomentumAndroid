@@ -23,15 +23,15 @@
         <div id="tabstrip-home"
 			data-role="view"
 			data-title="Home"
-			data-model="app.loginService.viewModel">
+			data-model="app.loginService.viewModel"
+			data-show="hideNavigation">
 
             <div class="view-content">
                 <div class="logo"></div>
                 <h3 data-bind="invisible: isLoggedIn"><center>Please log in</center></h3>
-                <h1 class="welcome" data-bind="visible: isLoggedIn">
-                    <p>Welcome, <span data-bind="text: username"></span> - please use the navigation to proceed!</p>
-					<p>Your session id is <span data-bind="text: sessionId"></span> and your short user id is <span data-bind="text: userShortId"></span></p>
-                </h1>
+                <div data-bind="visible: isLoggedIn" id="loginWelcome">
+					<p>Welcome, <span data-bind="text: username"></span> - please use the navigation to proceed!</p>
+                </div>
 				
 				<div id="resultBlock"></div>
 
@@ -52,13 +52,25 @@
 
                 <div class="buttonArea">
                     <a id="login" data-role="button" data-bind="click: onLogin, invisible: isLoggedIn" class="login-button">Login</a>
-                    <a id="logout" data-role="button" data-bind="click: onLogout, visible: isLoggedIn" class="login-button">Logout</a>
                 </div>
 				
 				<div class="amway"></div>
 				
             </div>
         </div>
+
+		<!--Logout-->
+		<div id="tabstrip-logout"
+			data-role="view"
+			data-title="Logout"
+			data-model="app.loginService.viewModel">
+			
+			hello
+			
+			<div class="buttonArea">
+				<a id="logout" data-role="button" data-bind="click: onLogout, visible: isLoggedIn" class="login-button">Logout</a>
+			</div>
+		</div>
 		
 		<!--Agenda-->
 		<div id="tabstrip-agenda"
@@ -68,8 +80,8 @@
 			data-show="loadAgenda">
 			
 			<div class="view-content">
-				<h1><div id="agendaTitle">&nbsp;</div></h1>
-				<div id="agendaWelcome" style="text-align: left">&nbsp;</div>
+				<h1><div id="agendaTitle">hre&nbsp;</div></h1>
+				<div id="agendaWelcome" style="text-align: left">sdf&nbsp;</div>
 			</div>
 			
         </div>
@@ -97,7 +109,6 @@
 			</div>
 			
 		</div>
-		
 		
 		<!--Workshop view-->
 		<div id="tabstrip-workshop"
@@ -156,6 +167,16 @@
 			
         </div>
 		
+		<!--Wall-->
+		<div id="tabstrip-wall"
+			data-role="view"
+			data-title="Wall"
+			data-model="app.loginService.viewModel"
+			data-show="loadWall">
+			
+			<p>hello</p>
+		</div>
+		
         <!--Layout-->
         <div id="tabstrip-home" 
 			data-role="layout"  
@@ -170,7 +191,7 @@
             </div>
 
             <!--Footer-->
-            <div data-role="footer" data-bind="visible: isLoggedIn">
+            <div data-role="footer">
                 <div data-role="tabstrip" id="footerNavigation">
                     <a href="#tabstrip-agenda" data-icon="contacts">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="search">Workshops</a>

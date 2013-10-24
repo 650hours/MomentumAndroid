@@ -10,14 +10,12 @@
         userShortId: "",
 		
         onLogin: function () {
-            var that = this,
-                username = that.get("username").trim(),
-                password = that.get("password").trim();
+			var that = this,
+				username = that.get('username').trim(),
+				password = that.get('password').trim();
 
-            if (username === "" || password === "") {
-                navigator.notification.alert("Both fields are required!",
-                    function () { }, "Login failed", 'OK');
-
+            if (username === '' || password === '') {
+                navigator.notification.alert('Both fields are required!', function () { }, 'Login failed', 'OK');
                 return;
             }
 
@@ -29,11 +27,10 @@
 				cache: false}).done(function(data) {
 					
 					if(data.result == 1) {
-						that.set("isLoggedIn", true);
+						that.set('isLoggedIn', true);
 						that.set('sessionId', data.sessionId);
 						that.set('userShortId', data.userShortId);
-						//var app = new kendo.mobile.Application();
-						//app.navigate('work.html');
+						$('#footerNavigation').show();
 					} else {
 						$("#resultBlock").html('Sorry, we were unable to log you in, please try again.');
                     }

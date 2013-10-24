@@ -1,3 +1,11 @@
+function hideNavigation() {
+	$('#footerNavigation').hide();
+}
+
+function doLogout() {
+	alert(1);
+}
+
 // Load the agenda
 function loadAgenda() {
 	
