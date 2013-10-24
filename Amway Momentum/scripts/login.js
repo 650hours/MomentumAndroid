@@ -54,6 +54,7 @@
             that.set("username", "");
             that.set("password", "");
         }
+
     });
 
     app.loginService = {

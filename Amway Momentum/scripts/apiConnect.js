@@ -9,7 +9,7 @@ function loadAgenda() {
 	cache: false}).done(function(data) {
 		
 		// Put content in place on the page
-		$("#agendaTitle").html('<h1>' + data.agendaTitle + '</h1>');
+		$("#agendaTitle").html(data.agendaTitle);
 		$("#agendaWelcome").html(data.agendaText);
 	})
 }
@@ -32,11 +32,11 @@ function loadHospitality() {
 		var tripadvisorText = data.tripadvisorText + '<p><center><a href="javascript:window.open(encodeURI(\'http://cityguides.tripadvisor.com/\'), \'_blank\', \'location=yes\');"><button class="topcoat-button--large" style="background-color: lime">TripAdvisor New Delhi</button></a></center></p>';
 		
 		// Put content in place on the page
-		$("#introTitle").html('<h1>' + data.introTitle + '</h1>');
+		$("#introTitle").html(data.introTitle);
 		$("#introText").html(data.introText);
-		$("#visitTitle").html('<h1>' + data.visitTitle + '</h1>');
+		$("#visitTitle").html(data.visitTitle);
 		$("#visitText").html(visitText);
-		$("#tripadvisorTitle").html('<h1>' + data.tripadvisorTitle + '</h1>');
+		$("#tripadvisorTitle").html(data.tripadvisorTitle);
 		$("#tripadvisorText").html(tripadvisorText);
 	})
 }
@@ -89,7 +89,7 @@ function loadWorkshop(e) {
 		// Topics for this workshop
 		if(data.topics.length > 0) {
 			$.each(data.topics, function(i,item) {
-				topicList = topicList + '<a href="#tabstrip-topic?wid='+item.topicId+'"><li class="topcoat-list__item">' + item.topicTitle + '</li></a>';
+				topicList = topicList + '<a href="#tabstrip-topic?tid='+item.topicId+'"><li class="topcoat-list__item">' + item.topicTitle + '</li></a>';
 			})
 		} else {
 			topicList = '<li class="topcoat-list__item">There are no topics for this workshop</li>';
@@ -98,7 +98,7 @@ function loadWorkshop(e) {
 		// Resources for this workshop
 		if(data.resources.length > 0) {
 			$.each(data.resources, function(i,item) {
-				resourceList = resourceList + '<a href="#tabstrip-topic?wid='+item.resourceId+'"><li class="topcoat-list__item">' + item.resourceName + '</li></a>';
+				resourceList = resourceList + '<a href="javascript:window.open(encodeURI(\'' + item.resourcePath +'\'), \'_blank\', \'location=yes\');"><li class="topcoat-list__item">' + item.resourceName + ' (' + item.resourceType + ')</li></a>';
 			})
 		} else {
 			resourceList = '<li class="topcoat-list__item">There are no resources for this workshop</li>';
@@ -110,6 +110,24 @@ function loadWorkshop(e) {
 		$("#topicList").html(topicList);
 		$("#resourceList").html(resourceList);
 	});
+}
+
+// Load a topic
+function loadTopic(e) {
+	
+	var topicId = e.view.params.tid;
+	
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/getTopic/' + topicId,
+	error: function() {
+		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
+    },
+	cache: false}).done(function(data) {
+		
+		// Put content in place on the page
+		$("#topicTitle").html(data.topicTitle);
+		$("#topicDescription").html(data.topicDescription);
+	})
 }
 
 

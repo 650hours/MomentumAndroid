@@ -68,7 +68,7 @@
 			data-show="loadAgenda">
 			
 			<div class="view-content">
-				<div id="agendaTitle">&nbsp;</div>
+				<h1><div id="agendaTitle">&nbsp;</div></h1>
 				<div id="agendaWelcome" style="text-align: left">&nbsp;</div>
 			</div>
 			
@@ -125,6 +125,19 @@
 			
         </div>
 
+		<!--Topic view-->
+		<div id="tabstrip-topic"
+			data-role="view"
+			data-title="Workshop"
+			data-model="app.loginService.viewModel"
+			data-show="loadTopic">
+			
+			<div class="view-content">
+				<h1><div id="topicTitle">&nbsp;</div></h1>
+				<div id="topicDescription" style="text-align: left">&nbsp;</div>
+			</div>
+		</div>
+		
 		<!--Hospitality-->
 		<div id="tabstrip-hospitality"
 			data-role="view"
@@ -133,11 +146,11 @@
 			data-show="loadHospitality">
 			
 			<div class="view-content">
-				<div id="introTitle">&nbsp;</div>
+				<h1><div id="introTitle">&nbsp;</div></h1>
 				<div id="introText" style="text-align: left">&nbsp;</div>
-				<div id="visitTitle">&nbsp;</div>
+				<h1><div id="visitTitle">&nbsp;</div></h1>
 				<div id="visitText" style="text-align: left">&nbsp;</div>
-				<div id="tripadvisorTitle">&nbsp;</div>
+				<h1><div id="tripadvisorTitle">&nbsp;</div></h1>
 				<div id="tripadvisorText" style="text-align: left">&nbsp;</div>
 			</div>
 			
@@ -158,7 +171,7 @@
 
             <!--Footer-->
             <div data-role="footer" data-bind="visible: isLoggedIn">
-                <div data-role="tabstrip">
+                <div data-role="tabstrip" id="footerNavigation">
                     <a href="#tabstrip-agenda" data-icon="contacts">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="search">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
