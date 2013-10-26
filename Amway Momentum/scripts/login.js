@@ -31,6 +31,7 @@
 						that.set('sessionId', data.sessionId);
 						that.set('userShortId', data.userShortId);
 						$('#footerNavigation').show();
+						loadAgenda();
 					} else {
 						$("#resultBlock").html('Sorry, we were unable to log you in, please try again.');
                     }

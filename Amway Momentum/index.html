@@ -14,7 +14,6 @@
         <script src="scripts/app.js"></script>
 		<script src="scripts/login.js"></script>
 		<script src="scripts/apiConnect.js"></script>
-
     </head>
     <body>
 
@@ -23,38 +22,48 @@
         <div id="tabstrip-home"
 			data-role="view"
 			data-title="Home"
-			data-model="app.loginService.viewModel"
-			data-show="hideNavigation">
+			data-model="app.loginService.viewModel">
 
             <div class="view-content">
-                <div class="logo"></div>
-                <h3 data-bind="invisible: isLoggedIn"><center>Please log in</center></h3>
-                <div data-bind="visible: isLoggedIn" id="loginWelcome">
-					<p>Welcome, <span data-bind="text: username"></span> - please use the navigation to proceed!</p>
-                </div>
 				
-				<div id="resultBlock"></div>
+				<!--// Shown when not logged in //-->
+				<div id="loginBox"data-bind="invisible: isLoggedIn">
+					
+                	<div class="logo"></div>
+					
+                	<h3><center>Please log in</center></h3>
 
-                <ul data-role="listview" data-style="inset" data-bind="invisible: isLoggedIn">
-                    <li>
-                        <label>
-                            Username
-                            <input type="text" data-bind="value: username"/>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Password
-                            <input type="password" data-bind="value: password" />
-                        </label>
-                    </li>
-                </ul>
+					<div id="resultBlock"></div>
 
-                <div class="buttonArea">
-                    <a id="login" data-role="button" data-bind="click: onLogin, invisible: isLoggedIn" class="login-button">Login</a>
-                </div>
+	                <ul data-role="listview" data-style="inset">
+	                    <li>
+	                        <label>
+	                            Username
+	                            <input type="text" data-bind="value: username"/>
+	                        </label>
+	                    </li>
+	                    <li>
+	                        <label>
+	                            Password
+	                            <input type="password" data-bind="value: password" />
+	                        </label>
+	                    </li>
+	                </ul>
+
+	                <div class="buttonArea">
+	                    <a id="login" data-role="button" data-bind="click: onLogin, invisible: isLoggedIn" class="login-button">Login</a>
+	                </div>
 				
-				<div class="amway"></div>
+					<div class="amway"></div>
+				</div>
+				
+				<!--// Show when logged in - this is the "Agenda" //-->
+				<div data-bind="visible: isLoggedIn" data-show="loadAgenda">
+					<div class="view-content">
+						<h1><div id="agendaTitle">&nbsp;</div></h1>
+						<div id="agendaWelcome" style="text-align: left">&nbsp;</div>
+					</div>
+                </div>
 				
             </div>
         </div>
@@ -65,26 +74,20 @@
 			data-title="Logout"
 			data-model="app.loginService.viewModel">
 			
-			hello
+			<div class="view-content">
+				<div data-bind="visible: isLoggedIn">
 			
-			<div class="buttonArea">
-				<a id="logout" data-role="button" data-bind="click: onLogout, visible: isLoggedIn" class="login-button">Logout</a>
+					Please confirm you wish to log out, <span data-bind="text: username"></span>!	
+					<div class="buttonArea">
+						<a id="logout" data-role="button" data-bind="click: onLogout" class="login-button">Logout</a>
+					</div>
+				</div>
+				
+				<div data-bind="invisible: isLoggedIn">
+					You are now logged out please <a href="#tabstrip-home">log in here</a>.
+				</div>
 			</div>
 		</div>
-		
-		<!--Agenda-->
-		<div id="tabstrip-agenda"
-			data-role="view"
-			data-title="Agenda"
-			data-model="app.loginService.viewModel"
-			data-show="loadAgenda">
-			
-			<div class="view-content">
-				<h1><div id="agendaTitle">hre&nbsp;</div></h1>
-				<div id="agendaWelcome" style="text-align: left">sdf&nbsp;</div>
-			</div>
-			
-        </div>
 		
 		<!--Workshops-->
 		<div id="tabstrip-workshops"
@@ -174,7 +177,9 @@
 			data-model="app.loginService.viewModel"
 			data-show="loadWall">
 			
-			<p>hello</p>
+			<div class="view-content">
+				<p>hello, this will be the wall</p>
+			</div>
 		</div>
 		
         <!--Layout-->
@@ -193,7 +198,7 @@
             <!--Footer-->
             <div data-role="footer">
                 <div data-role="tabstrip" id="footerNavigation">
-                    <a href="#tabstrip-agenda" data-icon="contacts">Agenda</a>
+                    <a href="#tabstrip-home" data-icon="contacts">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="search">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
                     <a href="#tabstrip-hospitality" data-icon="globe">Hospitality</a>
@@ -201,7 +206,8 @@
                 </div>
             </div>
         </div>
-			
+		
+		<script>$('#footerNavigation').hide();</script>
 
     </body>
 </html>

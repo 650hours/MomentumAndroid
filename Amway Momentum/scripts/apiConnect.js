@@ -2,13 +2,9 @@ function hideNavigation() {
 	$('#footerNavigation').hide();
 }
 
-function doLogout() {
-	alert(1);
-}
-
 // Load the agenda
 function loadAgenda() {
-	
+
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getAgenda',
 	error: function() {
