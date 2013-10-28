@@ -55,7 +55,7 @@
         <!--Home-->
         <div id="tabstrip-home"
 			data-role="view"
-			data-title="Home"
+			data-title="Agenda"
 			data-model="app.loginService.viewModel">
 
             <div class="view-content">
@@ -124,7 +124,7 @@
 				
 				<div data-bind="visible: isLoggedIn">
 			
-					<p></p>Please confirm you wish to log out, <span data-bind="text: username"></span>!</p>
+					<p>Please confirm you wish to log out, <span data-bind="text: username"></span>!</p>
 					<div class="buttonArea">
 						<a id="logout" data-role="button" data-bind="click: onLogout" class="login-button">Logout</a>
 					</div>
@@ -238,15 +238,15 @@
 			data-model="app.loginService.viewModel">
 
             <!--Header-->
-            <div data-role="header" style="background-color: white">
+            <div data-role="header" style="background-color: white" id="header">
                 <div data-role="navbar">
                     <span data-role="view-title"></span>
                 </div>
             </div>
 
             <!--Footer-->
-            <div data-role="footer">
-                <div data-role="tabstrip" id="footerNavigation">
+            <div data-role="footer" id="footer">
+                <div data-role="tabstrip">
                     <a href="#tabstrip-home" data-icon="contacts">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="search">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
@@ -256,7 +256,10 @@
             </div>
         </div>
 		
-		<script>$('#footerNavigation').hide();</script>
+		<script>
+			$('#header').hide();
+			$('#footer').hide();
+        </script>
 
     </body>
 </html>

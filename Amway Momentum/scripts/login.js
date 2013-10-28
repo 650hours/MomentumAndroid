@@ -30,7 +30,8 @@
 						that.set('isLoggedIn', true);
 						that.set('sessionId', data.sessionId);
 						that.set('userShortId', data.userShortId);
-						$('#footerNavigation').show();
+						$('#header').show();
+						$('#footer').show();
 						loadAgenda();
 					} else {
 						$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');
@@ -39,15 +40,17 @@
         },
 
         onLogout: function () {
-            var that = this;
 
+			$('#header').show();
+			$('#footer').show();
+			
+            var that = this;
+			
             that.clearForm();
-			$('#footerNavigation').hide();
             that.set("isLoggedIn", false);
 			that.set('sessionId', '');
-			alert(1);
 			
-			app.navigate("#tabstrip-home");
+			//app.navigate("#tabstrip-home");
         },
 
         clearForm: function () {
