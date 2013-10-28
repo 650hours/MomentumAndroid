@@ -17,6 +17,40 @@
     </head>
     <body>
 
+		<!--// Override styles //-->
+		<style>
+			.km-ios .km-view .km-content {
+			    background-color: white;
+			}
+			.km-ios .km-view .km-navbar {
+			    background-color: #f08638;
+			    background-image: none;
+			    background-image: none;
+			    background-image: none;
+			    background-repeat: repeat;
+			    background-position: 0 0;
+			}
+			.km-ios .km-view .km-navbar .km-view-title > * {
+			    color: white;
+			}
+			.km-android .km-view .km-content .km-listgroupinset .km-group-title {
+			}
+			.km-android .km-view .km-content {
+			    background-color: rgb(255, 255, 255);
+			}
+			.km_footer {
+				background: #f08638;
+            }
+			.km-ios .km-tabstrip {
+				background-color: #f08638;
+            }
+			.km-ios .km-view .km-tabstrip .km-button {
+			    background-color: #f08638;
+			}
+			.km-ios .km-tabstrip .km-state-active .km-icon {
+				color: White;
+            }
+        </style>
 		
         <!--Home-->
         <div id="tabstrip-home"
@@ -27,32 +61,42 @@
             <div class="view-content">
 				
 				<!--// Shown when not logged in //-->
-				<div id="loginBox"data-bind="invisible: isLoggedIn">
+				<div id="loginBox" data-bind="invisible: isLoggedIn">
 					
                 	<div class="logo"></div>
 					
-                	<h3><center>Please log in</center></h3>
+                	<h1><center>Please log in</center></h1>
 
 					<div id="resultBlock"></div>
 
 	                <ul data-role="listview" data-style="inset">
 	                    <li>
 	                        <label>
-	                            Username
+	                            <div style="text-align: left;">user name:</div>
 	                            <input type="text" data-bind="value: username"/>
 	                        </label>
 	                    </li>
 	                    <li>
 	                        <label>
-	                            Password
+	                            <div style="text-align: left;">password:</div>
 	                            <input type="password" data-bind="value: password" />
 	                        </label>
 	                    </li>
 	                </ul>
 
 	                <div class="buttonArea">
-	                    <a id="login" data-role="button" data-bind="click: onLogin, invisible: isLoggedIn" class="login-button">Login</a>
+	                    <a  id="login"
+							data-role="button"
+							data-bind="click: onLogin, invisible: isLoggedIn"
+							class="login-button"
+							style="background-color: #f08638; float: right; margin-right: 12px;">Login</a>
 	                </div>
+					<br clear="all" />
+					
+					<div>
+						<h2>Need help?</h2>
+						<p style="text-align: left">Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum</p>
+                    </div>
 				
 					<div class="amway"></div>
 				</div>
@@ -75,9 +119,12 @@
 			data-model="app.loginService.viewModel">
 			
 			<div class="view-content">
+				
+				<div class="logo"></div>
+				
 				<div data-bind="visible: isLoggedIn">
 			
-					Please confirm you wish to log out, <span data-bind="text: username"></span>!	
+					<p></p>Please confirm you wish to log out, <span data-bind="text: username"></span>!</p>
 					<div class="buttonArea">
 						<a id="logout" data-role="button" data-bind="click: onLogout" class="login-button">Logout</a>
 					</div>
@@ -100,11 +147,11 @@
 			
 				<div class="topcoat-list">
 					<ul data-role="listview" data-style="inset" data-type="group">
-						<li><h1 class="topcoat-list__header">Your Workshops</h1></li>
+						<li><h2 class="topcoat-list__header">Your Workshops</h2></li>
 						<div id="userWorkshopList" class="topcoat-button-bar">&nbsp;</div>
 					</ul>
 					<ul data-role="listview" data-style="inset" data-type="group">
-						<li><h1 class="topcoat-list__header">Other Workshops</h1></li>
+						<li><h2 class="topcoat-list__header">Other Workshops</h2></li>
 						<div id="otherWorkshopList" class="topcoat-button-bar">&nbsp;</div>
 					</ul>
 				</div>
@@ -138,6 +185,20 @@
 			</div>
 			
         </div>
+		
+		<!--Wall-->
+		<div id="tabstrip-wall"
+			data-role="view"
+			data-title="Wall"
+			data-model="app.loginService.viewModel"
+			data-show="loadWall">
+			
+			<div class="view-content">
+				<div style="width:98%; max-width:500px; margin: auto">
+					<div id="wallPosts" style="text-align: left">&nbsp;</div>
+				</div>
+			</div>
+		</div>
 
 		<!--Topic view-->
 		<div id="tabstrip-topic"
@@ -169,18 +230,6 @@
 			</div>
 			
         </div>
-		
-		<!--Wall-->
-		<div id="tabstrip-wall"
-			data-role="view"
-			data-title="Wall"
-			data-model="app.loginService.viewModel"
-			data-show="loadWall">
-			
-			<div class="view-content">
-				<p>hello, this will be the wall</p>
-			</div>
-		</div>
 		
         <!--Layout-->
         <div id="tabstrip-home" 

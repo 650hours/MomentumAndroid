@@ -116,6 +116,42 @@ function loadWorkshop(e) {
 	});
 }
 
+// Load the wall - starts with 10 posts, but supports paging
+function loadWall() {
+	
+	var wallPosts = '<table>';
+	
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/getWallposts/',
+	error: function() {
+		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
+    },
+	cache: false}).done(function(data) {
+		
+		// Build the lists of wall posts
+		$.each(data, function(i,item) {
+			
+			if(item.image != '') {
+				wallPosts = wallPosts + '<tr>' +
+							'<td><img src="http://amway.650h.co.uk/' + item.image + '" width="100px" /></td>' +
+							'<td><p><b>' + item.nickname + ':</b> ' + item.postText + '</p></td></tr>';
+			} else {
+				wallPosts = wallPosts + '<tr>' +
+							'<td colspan="2"><p><strong>' + item.nickname + ':</strong> ' + item.postText + '</p></td></tr>';
+			}
+			
+			wallPosts = wallPosts + '<tr><td colspan="2">' +
+							'<p><a href="#tabstrip-post?wid='+item.wallpostId+'">Like Comment</a>' +
+							'<p style="text-alight: right">' + item.numberLikes + ' Likes ' +
+							item.numberComments + ' Comments</td></tr>';
+		});
+		
+		wallPosts = wallPosts + '</table>';
+		
+		$("#wallPosts").html(wallPosts);
+	});
+}
+
 // Load a topic
 function loadTopic(e) {
 	

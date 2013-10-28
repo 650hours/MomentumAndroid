@@ -22,7 +22,7 @@
 			$.ajax({
     			url: 'http://amway.650h.co.uk/index/default/login',
 				error: function(){
-					$("#resultBlock").html('Sorry, we were unable to log you in, please try again.');	
+					$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');	
                 },
 				cache: false}).done(function(data) {
 					
@@ -33,7 +33,7 @@
 						$('#footerNavigation').show();
 						loadAgenda();
 					} else {
-						$("#resultBlock").html('Sorry, we were unable to log you in, please try again.');
+						$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');
                     }
 			    });           
         },
@@ -42,8 +42,12 @@
             var that = this;
 
             that.clearForm();
+			$('#footerNavigation').hide();
             that.set("isLoggedIn", false);
 			that.set('sessionId', '');
+			alert(1);
+			
+			app.navigate("#tabstrip-home");
         },
 
         clearForm: function () {
