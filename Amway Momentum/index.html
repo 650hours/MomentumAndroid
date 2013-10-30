@@ -6,6 +6,7 @@
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="styles/main.css" rel="stylesheet" />
 		<link href="styles/topcoat-mobile-light.css" rel="stylesheet" />
+		<link href="styles/overrideStyles.css"  rel="stylesheet" />
 
         <script src="cordova.js"></script>
         <script src="kendo/js/jquery.min.js"></script>
@@ -16,41 +17,6 @@
 		<script src="scripts/apiConnect.js"></script>
     </head>
     <body>
-
-		<!--// Override styles //-->
-		<style>
-			.km-ios .km-view .km-content {
-			    background-color: white;
-			}
-			.km-ios .km-view .km-navbar {
-			    background-color: #f08638;
-			    background-image: none;
-			    background-image: none;
-			    background-image: none;
-			    background-repeat: repeat;
-			    background-position: 0 0;
-			}
-			.km-ios .km-view .km-navbar .km-view-title > * {
-			    color: white;
-			}
-			.km-android .km-view .km-content .km-listgroupinset .km-group-title {
-			}
-			.km-android .km-view .km-content {
-			    background-color: rgb(255, 255, 255);
-			}
-			.km_footer {
-				background: #f08638;
-            }
-			.km-ios .km-tabstrip {
-				background-color: #f08638;
-            }
-			.km-ios .km-view .km-tabstrip .km-button {
-			    background-color: #f08638;
-			}
-			.km-ios .km-tabstrip .km-state-active .km-icon {
-				color: White;
-            }
-        </style>
 		
         <!--Home-->
         <div id="tabstrip-home"
@@ -64,8 +30,6 @@
 				<div id="loginBox" data-bind="invisible: isLoggedIn">
 					
                 	<div class="logo"></div>
-					
-                	<h1><center>Please log in</center></h1>
 
 					<div id="resultBlock"></div>
 
@@ -89,13 +53,12 @@
 							data-role="button"
 							data-bind="click: onLogin, invisible: isLoggedIn"
 							class="login-button"
-							style="background-color: #f08638; float: right; margin-right: 12px;">Login</a>
+							style="background-color: #f08638;">Login</a>
 	                </div>
 					<br clear="all" />
 					
 					<div>
-						<h2>Need help?</h2>
-						<p style="text-align: left">Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum Explanatory text lorem ipsum</p>
+						<p>Please vist the hospitality desk on site for assistance when logging in.</p>
                     </div>
 				
 					<div class="amway"></div>
@@ -247,11 +210,11 @@
             <!--Footer-->
             <div data-role="footer" id="footer">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="contacts">Agenda</a>
-                    <a href="#tabstrip-workshops" data-icon="search">Workshops</a>
+                    <a href="#tabstrip-home" data-icon="home">Agenda</a>
+                    <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
-                    <a href="#tabstrip-hospitality" data-icon="globe">Hospitality</a>
-					<a href="#tabstrip-logout" data-icon="globe">Log out</a>
+                    <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
+					<a href="#tabstrip-logout" data-icon="delete">Log out</a>
                 </div>
             </div>
         </div>

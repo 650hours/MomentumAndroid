@@ -89,6 +89,8 @@ function loadWorkshop(e) {
 		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
     },
 	cache: false}).done(function(data) {
+		
+		jQuery('#header').hide();
 				
 		// Topics for this workshop
 		if(data.topics.length > 0) {

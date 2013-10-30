@@ -38,20 +38,26 @@ body, html {
 
 /* IMAGE STYLES*/
 .logo {
-    background-image:url(../images/momentum.png);
-    background-repeat:no-repeat;
-    text-align:center;
-    width:273px;
-    height:85px;
-    margin:40px auto;
+	background-image:url(../images/momentum.png);
+	background-repeat:no-repeat;
+	text-align:center;
+	width:273px;
+	height:85px;
+	margin:30px auto;
 }
 .amway {
-    background-image:url(../images/amway.png);
-    background-repeat:no-repeat;
-    text-align:center;
-    width:320px;
-    height:98px;
-    margin:40px auto;
+	background-image:url(../images/amway.png);
+	background-repeat:no-repeat;
+	text-align:center;
+	width:210px;
+	height:64px;
+	margin:30px auto;
+}
+
+/* NAVIGATION ICONS */
+.agendaIcon {
+	background-image:url(../images/icons/agenda.png);
+	background-repeat:no-repeat;
 }
 
 /* BUTTON STYLES*/
@@ -167,33 +173,8 @@ body, html {
         background-image:url(../images/amway2x.png);
         background-repeat:no-repeat;
         background-size:100%;
-		width:640px;
-		height:195px;
+		width:420px;
+		height:128px;
 		margin:40px auto;
-    }
-    #map-search {
-        background-image:url(../styles/images/search2x.png);
-        background-repeat:no-repeat;
-        background-size:100%;
-    }
-    #map-search:active {
-        background-image:url(../styles/images/search_active2x.png);
-        background-repeat:no-repeat;
-        background-size:100%;
-    }
-    #map-navigate-home {
-        background-image:url(../styles/images/location2x.png);
-        background-repeat:no-repeat;
-        background-size:100%;
-    }
-    #map-navigate-home:active {
-        background-image:url(../styles/images/location_active2x.png);
-        background-repeat:no-repeat;
-        background-size:100%;
-    }
-    .weather-icon {
-        background-image:url(../styles/images/sprite-weather2x.png);
-        background-repeat:no-repeat;
-        background-size:100%;
     }
 }

@@ -40,9 +40,13 @@
         },
 
         onLogout: function () {
+			
+			var ele = document.getElementById("header");
+			alert(ele);
+			ele.style.display = "none";
 
-			$('#header').show();
-			$('#footer').show();
+			$('#header').hide();
+			$('#footer').hide();
 			
             var that = this;
 			

@@ -1,0 +1,31 @@
+.km-ios .km-view .km-content {
+    background-color: white;
+}
+.km-ios .km-view .km-navbar {
+    background-color: #f08638;
+    background-image: none;
+    background-image: none;
+    background-image: none;
+    background-repeat: repeat;
+    background-position: 0 0;
+}
+.km-ios .km-view .km-navbar .km-view-title > * {
+    color: white;
+}
+.km-android .km-view .km-content .km-listgroupinset .km-group-title {
+}
+.km-android .km-view .km-content {
+    background-color: rgb(255, 255, 255);
+}
+.km_footer {
+	background: #f08638;
+}
+.km-ios .km-tabstrip {
+	background-color: #f08638;
+}
+.km-ios .km-view .km-tabstrip .km-button {
+    background-color: #f08638;
+}
+.km-ios .km-tabstrip .km-state-active .km-icon {
+	color: White;
+}
