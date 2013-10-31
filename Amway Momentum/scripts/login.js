@@ -20,7 +20,7 @@
             }
 
 			$.ajax({
-    			url: 'http://amway.650h.co.uk/index/default/login',
+    			url: 'http://amway.650h.co.uk/index/default/login/' + username + '/' + password,
 				error: function(){
 					$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');	
                 },
@@ -30,6 +30,8 @@
 						that.set('isLoggedIn', true);
 						that.set('sessionId', data.sessionId);
 						that.set('userShortId', data.userShortId);
+						window.localStorage.setItem("userShortId", data.userShortId);
+
 						$('#header').show();
 						$('#footer').show();
 						loadAgenda();
@@ -41,11 +43,12 @@
 
         onLogout: function () {
 			
-			var ele = document.getElementById("header");
+			var ele = document.getElementById("footer");
 			alert(ele);
 			ele.style.display = "none";
+			
+			$('#footer').addClass("changeFooter");
 
-			$('#header').hide();
 			$('#footer').hide();
 			
             var that = this;

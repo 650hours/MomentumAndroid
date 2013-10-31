@@ -30,10 +30,20 @@ body, html {
 }
 .view-content p{
     color:#4a4e54;
-    font-size:1em;
 }
 .view-content a {
 	text-decoration: none;
+}
+.position-left{
+    float:left;
+}
+.position-right {
+    float:right;
+}
+.position.center {
+    position:absolute;
+    margin:0 auto;
+    width:100%;
 }
 
 /* IMAGE STYLES*/
@@ -54,10 +64,50 @@ body, html {
 	margin:30px auto;
 }
 
-/* NAVIGATION ICONS */
-.agendaIcon {
-	background-image:url(../images/icons/agenda.png);
+/* WALL POSTS */
+.wallPost {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	background-color:#fdf3eb;
+	border: 1px solid #e0e0e0;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	padding: 0 0.5em 0.5em 1em;
+}
+.likeButton {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid #e0e0e0;
+	padding: 4px 5px 4px 2em;
+	margin-right: 0.5em;
+	background-image:url(../images/icons/like.svg);
 	background-repeat:no-repeat;
+	background-size: 20px 16px;
+	font-size: 0.7em;
+}
+.commentButton {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid #e0e0e0;
+	padding: 4px 5px 4px 2em;
+	margin-right: 0.5em;
+	background-image:url(../images/icons/comment.svg);
+	background-repeat:no-repeat;
+	background-size: 20px 16px;
+	font-size: 0.7em;
+}
+
+.buttonSelected {
+	background-color: #f08638;
+}
+
+.changeFooter {
+	background-color: White;
 }
 
 /* BUTTON STYLES*/
@@ -68,18 +118,6 @@ body, html {
     width:85%;
     max-width:200px;
     line-height:1.6em;
-}
-
-.position-left{
-    float:left;
-}
-.position-right {
-    float:right;
-}
-.position.center {
-    position:absolute;
-    margin:0 auto;
-    width:100%;
 }
 
 /* DEVICE SPECIFIC STYLES*/

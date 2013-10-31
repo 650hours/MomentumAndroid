@@ -120,11 +120,12 @@ function loadWorkshop(e) {
 
 // Load the wall - starts with 10 posts, but supports paging
 function loadWall() {
-	
-	var wallPosts = '<table>';
+
+	var wallPosts = '';
+	var uid = window.localStorage.getItem("userShortId");
 	
 	$.ajax({
-	url: 'http://amway.650h.co.uk/index/default/getWallposts/',
+	url: 'http://amway.650h.co.uk/index/default/getWallposts/' + uid + '/0/10',
 	error: function() {
 		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
     },
@@ -133,24 +134,57 @@ function loadWall() {
 		// Build the lists of wall posts
 		$.each(data, function(i,item) {
 			
+			var pid = item.wallpostId;
+			var ptx = item.postText;
+			var nck = item.nickname;
+			
+			wallPosts = wallPosts + '<div class="wallPost">';
+			
 			if(item.image != '') {
-				wallPosts = wallPosts + '<tr>' +
+				wallPosts = wallPosts + '<table><tr>' +
 							'<td><img src="http://amway.650h.co.uk/' + item.image + '" width="100px" /></td>' +
-							'<td><p><b>' + item.nickname + ':</b> ' + item.postText + '</p></td></tr>';
+							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
 			} else {
-				wallPosts = wallPosts + '<tr>' +
-							'<td colspan="2"><p><strong>' + item.nickname + ':</strong> ' + item.postText + '</p></td></tr>';
+				wallPosts = wallPosts + '<table><tr>' +
+							'<td colspan="2"><p><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
 			}
 			
-			wallPosts = wallPosts + '<tr><td colspan="2">' +
-							'<p><a href="#tabstrip-post?wid='+item.wallpostId+'">Like Comment</a>' +
-							'<p style="text-alight: right">' + item.numberLikes + ' Likes ' +
-							item.numberComments + ' Comments</td></tr>';
+			wallPosts = wallPosts + '<tr><td colspan="2">';
+			
+			// Like button
+			if(item.likedByThisUser) {
+				wallPosts = wallPosts + '<span class="likeButton buttonSelected" id="likeButton' + pid + '"><a href="javascript: void(0);">Like</a></span>';
+            } else {
+				wallPosts = wallPosts + '<span class="likeButton" id="likeButton' + pid + '"><a href="javascript: void(0);" onClick="postLike(' + pid + ',' + uid + ');">Like</a></span>';
+			}
+			
+			// Comment button
+			
+			wallPosts = wallPosts + '<span class="commentButton"><a href="#tabstrip-comment?pid=' + pid +'">Comment</a></span>' +
+							'<span id="currentLikes' + pid + '">' + item.numberLikes + '</span> Likes ' +
+							item.numberComments + ' Comments</td></tr></table></div>';
 		});
 		
-		wallPosts = wallPosts + '</table>';
-		
 		$("#wallPosts").html(wallPosts);
+	});
+}
+
+function postLike(pid, uid) {
+	
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/postLike/' + pid + '/' + uid,
+	error: function() {
+		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
+    },
+	cache: false}).done(function(data) {
+		
+		// Make sure we target the correct like data
+		var replaceDiv = '#currentLikes' + pid;
+		var likeButton = '#likeButton' + pid;
+		
+		// Do it!
+		$(replaceDiv).html(data.currentLikes);
+		$(likeButton).addClass("buttonSelected");
 	});
 }
 
