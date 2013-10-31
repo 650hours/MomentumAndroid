@@ -157,10 +157,69 @@
 			data-show="loadWall">
 			
 			<div class="view-content">
-				<div style="width:98%; max-width:500px; margin: auto">
+				<div>
 					<div id="wallPosts" style="text-align: left">&nbsp;</div>
 				</div>
+				
+				<div>
+					<a href="#tabstrip-addComment">Add comment here</a>
+                </div>
 			</div>
+		</div>
+
+		<!--AddPost-->
+		<div id="tabstrip-addPost"
+			data-role="view"
+			data-title="Add Post"
+			data-model="app.loginService.viewModel"
+			data-show="allowComment">
+			
+			<div class="view-content">
+					<div id="postBox">
+					<div style="text-align: left;">Your post:</div>
+					<input type="hidden" name="pid" value="1" />
+					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
+					<textarea data-bind="value: newpost" rows="10" style="background-color: #FFFFFF; border-style: solid;  border-width: 1px; width: 98%"></textarea>
+					<div class="buttonArea">
+	                    <a  id="postcomment"
+							data-role="button"
+							data-bind="click: onNewPost"
+							class="login-button"
+							style="background-color: #f08638;">Post</a>
+	                </div>
+				</div>
+			</div>
+			
+			<div id="postMade" style="display: none">
+				<p>Your post has been made.</p>
+            </div>
+		</div>
+		
+		<!--Comment-->
+		<div id="tabstrip-comment"
+			data-role="view"
+			data-title="Comment"
+			data-model="app.loginService.viewModel">
+			
+			<div class="view-content">
+					<div id="commentBox">
+					<div style="text-align: left;">Your comment:</div>
+					<input type="hidden" name="pid" value="1" />
+					<textarea data-bind="value: comment" rows="10" style="background-color: #FFFFFF; border-style: solid;  border-width: 1px; width: 98%"></textarea>
+					<div class="buttonArea">
+	                    <a  id="postcomment"
+							data-role="button"
+							data-bind="click: onPostComment"
+							class="login-button"
+							style="background-color: #f08638;">Post</a>
+	                </div>
+				</div>
+			</div>
+			
+			<div id="commentMade" style="display: none">
+				<p>Your comment has been added.</p>
+				<p>Please <a href="#tabstrip-wall" style="text-decoration: underline">click here</a> to return to the wall.</p>
+            </div>
 		</div>
 
 		<!--Topic view-->
@@ -203,8 +262,9 @@
             <!--Header-->
             <div data-role="header" style="background-color: white" id="header">
                 <div data-role="navbar">
-                    <span data-role="view-title"></span>
-					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
+					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton" style="display: none">Back</a>
+					<span data-role="view-title"></span>
+					<a data-align="right" data-icon="organize" data-role="button" href="#tabstrip-addPost">Comment</a>
                 </div>
             </div>
 
@@ -223,6 +283,7 @@
 		<script>
 			$('#header').hide();
 			$('#footer').hide();
+			$("#back-button").hide();
         </script>
 
     </body>

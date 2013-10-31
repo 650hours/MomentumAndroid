@@ -9,6 +9,59 @@
 		sessionId: "",
         userShortId: "",
 		
+		// This is nothing to do with login - it handle post submssion to the wall!
+		onNewPost: function () {
+			
+			var that = this,
+				newpost = that.get('newpost').trim();
+	
+			if(newpost === '') {
+                navigator.notification.alert('Please enter a post!', function () { }, 'Login failed', 'OK');
+                return;
+            }
+			
+			// We need the userId to attribute the post to
+			var uid = window.localStorage.getItem("userShortId");
+			
+			$.ajax({
+    			url: 'http://amway.650h.co.uk/index/default/newPost/' + uid + '/' + encodeURI(newpost),
+				error: function() {
+					$("#resultBlock").html('<h2>Sorry, an error ocurred. Please try again.</h2>');	
+                },
+				cache: false}).done(function(data) {
+					
+                	$('#postMade').show();
+					$('#postBox').hide();
+			    });  
+		},
+		
+		// This is nothing to do with login - it handle comment submssion from the wall!
+		onPostComment: function () {
+			
+			var that = this,
+				comment = that.get('comment').trim();
+			
+			if(comment === '') {
+                navigator.notification.alert('Please enter a comment!', function () { }, 'Login failed', 'OK');
+                return;
+            }
+			
+			// We need the original post and the ID of the user making the comment
+			var pid = window.localStorage.getItem("pid");
+			var uid = window.localStorage.getItem("userShortId");
+			
+			$.ajax({
+    			url: 'http://amway.650h.co.uk/index/default/postComment/' + pid + '/' + uid + '/' + encodeURI(comment),
+				error: function() {
+					$("#resultBlock").html('<h2>Sorry, an error ocurred. Please try again.</h2>');	
+                },
+				cache: false}).done(function(data) {
+					
+                	$('#commentMade').show();
+					$('#commentBox').hide();
+			    });  
+		},
+		
         onLogin: function () {
 			var that = this,
 				username = that.get('username').trim(),

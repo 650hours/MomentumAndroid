@@ -2,6 +2,11 @@ function hideNavigation() {
 	$('#footerNavigation').hide();
 }
 
+function allowComment() {
+	$('#postMade').hide();
+	$('#postBox').show();
+}
+
 // Load the agenda
 function loadAgenda() {
 
@@ -80,6 +85,12 @@ function loadWorkshopList() {
 // Load an individual workshop
 function loadWorkshop(e) {
 	
+	// Show the back button - not working!
+	$("#back-button").show();
+	
+	//var mine = $("#back-button").html();
+	//console.log("mine " + mine);
+	
 	var workshopId = e.view.params.wid;	
 	var topicList = resourceList = '';
 
@@ -89,8 +100,6 @@ function loadWorkshop(e) {
 		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
     },
 	cache: false}).done(function(data) {
-		
-		jQuery('#header').hide();
 				
 		// Topics for this workshop
 		if(data.topics.length > 0) {
@@ -141,11 +150,11 @@ function loadWall() {
 			wallPosts = wallPosts + '<div class="wallPost">';
 			
 			if(item.image != '') {
-				wallPosts = wallPosts + '<table><tr>' +
+				wallPosts = wallPosts + '<table width="100%"><tr>' +
 							'<td><img src="http://amway.650h.co.uk/' + item.image + '" width="100px" /></td>' +
 							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
 			} else {
-				wallPosts = wallPosts + '<table><tr>' +
+				wallPosts = wallPosts + '<table width="100%"><tr>' +
 							'<td colspan="2"><p><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
 			}
 			
@@ -159,10 +168,13 @@ function loadWall() {
 			}
 			
 			// Comment button
+			wallPosts = wallPosts + '<span class="commentButton"><a href="#tabstrip-comment" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">Comment</a></span>';
 			
-			wallPosts = wallPosts + '<span class="commentButton"><a href="#tabstrip-comment?pid=' + pid +'">Comment</a></span>' +
-							'<span id="currentLikes' + pid + '">' + item.numberLikes + '</span> Likes ' +
-							item.numberComments + ' Comments</td></tr></table></div>';
+			// Likes & comments count
+			wallPosts = wallPosts + '<span class="likesOrComments">' +
+									'<span id="currentLikes' + pid + '">' + item.numberLikes + '</span> Likes ' +
+									'<span id="currentComments' + pid + '">' + item.numberComments + ' Comments' +
+									'</span></td></tr></table></div>';
 		});
 		
 		$("#wallPosts").html(wallPosts);
@@ -186,6 +198,10 @@ function postLike(pid, uid) {
 		$(replaceDiv).html(data.currentLikes);
 		$(likeButton).addClass("buttonSelected");
 	});
+}
+
+function postComment(pid) {
+	alert('pid is ' + pid);
 }
 
 // Load a topic

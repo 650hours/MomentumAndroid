@@ -9,6 +9,9 @@ body, html {
 /* COMMON STYLES*/
 .view-content {
 	background-color: white;
+	width:98%;
+	max-width:800px;
+	margin: auto
 }
 .view-content h1{
     color:#000;
@@ -16,7 +19,7 @@ body, html {
     text-align:center;
 	font-weight: lighter;
 }
-.view-content h2{
+.view-content h2 {
     color:#000;
     font-size:1.5em;
     text-align:center;
@@ -24,11 +27,11 @@ body, html {
 	padding-bottom: 0;
 	margin-bottom: 0;
 }
-.view-content h3{
+.view-content h3 {
     color:#42454a;
     font-size:1.1em;
 }
-.view-content p{
+.view-content p {
     color:#4a4e54;
 }
 .view-content a {
@@ -86,7 +89,7 @@ body, html {
 	background-image:url(../images/icons/like.svg);
 	background-repeat:no-repeat;
 	background-size: 20px 16px;
-	font-size: 0.7em;
+	font-size: 0.8em;
 }
 .commentButton {
 	-webkit-border-radius: 5px;
@@ -99,7 +102,13 @@ body, html {
 	background-image:url(../images/icons/comment.svg);
 	background-repeat:no-repeat;
 	background-size: 20px 16px;
-	font-size: 0.7em;
+	font-size: 0.8em;
+}
+
+.likesOrComments {
+	font-size: 0.8em;
+	float: right;
+	text-align: right;
 }
 
 .buttonSelected {
