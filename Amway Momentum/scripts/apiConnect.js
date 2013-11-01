@@ -1,10 +1,24 @@
+// Hide everything on the first screen or when logging out
 function hideNavigation() {
-	$('#footerNavigation').hide();
+		$('#header').hide();
+		$('#footer').hide();
+		$("#back-button").hide();
 }
 
-function allowComment() {
+
+// Make sure we are able to make a post (in case we've already made one)
+function allowPost() {
 	$('#postMade').hide();
 	$('#postBox').show();
+	$('#newPost').val('');
+}
+
+
+// Make sure we are able to make a comment (in case we've already made one)
+function allowComment() {
+	$('#commentMade').hide();
+	$('#commentBox').show();
+	$('#newComment').val('');
 }
 
 // Load the agenda
@@ -12,10 +26,7 @@ function loadAgenda() {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getAgenda',
-	error: function() {
-		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
-    },
-	cache: false}).done(function(data) {
+	error: handleAjaxError(), cache: false}).done(function(data) {
 		
 		// Put content in place on the page
 		$("#agendaTitle").html(data.agendaTitle);
@@ -29,10 +40,7 @@ function loadHospitality() {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getHospitality',
-	error: function() {
-		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
-    },
-	cache: false}).done(function(data) {
+	error: handleAjaxError(), cache: false}).done(function(data) {
 		
 		// Build visit text
 		var visitText = data.visitText + '<p><center><a href="javascript:window.open(encodeURI(\'https://en.wikipedia.org/wiki/Taj_mahal\'), \'_blank\', \'location=yes\');"><button class="topcoat-button--large" style="background-color: lime">Wikipedia page</button></a></center></p>';
@@ -59,10 +67,7 @@ function loadWorkshopList() {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWorkshopsList',
-	error: function() {
-		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
-    },
-	cache: false}).done(function(data) {
+	error: handleAjaxError(), cache: false}).done(function(data) {
 		
 		// Build the lists of user attended workshops and other workshops
 		$.each(data, function(i,item) {
@@ -96,10 +101,7 @@ function loadWorkshop(e) {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWorkshop/' + workshopId,
-	error: function() {
-		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
-    },
-	cache: false}).done(function(data) {
+	error: handleAjaxError(), cache: false}).done(function(data) {
 				
 		// Topics for this workshop
 		if(data.topics.length > 0) {
@@ -127,6 +129,7 @@ function loadWorkshop(e) {
 	});
 }
 
+
 // Load the wall - starts with 10 posts, but supports paging
 function loadWall() {
 
@@ -135,17 +138,14 @@ function loadWall() {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWallposts/' + uid + '/0/10',
-	error: function() {
-		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
-    },
-	cache: false}).done(function(data) {
+	error: handleAjaxError(), cache: false}).done(function(data) {
 		
 		// Build the lists of wall posts
 		$.each(data, function(i,item) {
 			
-			var pid = item.wallpostId;
-			var ptx = item.postText;
-			var nck = item.nickname;
+			var pid = item.wallpostId,
+				ptx = item.postText,
+				nck = item.nickname;
 			
 			wallPosts = wallPosts + '<div class="wallPost">';
 			
@@ -171,24 +171,84 @@ function loadWall() {
 			wallPosts = wallPosts + '<span class="commentButton"><a href="#tabstrip-comment" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">Comment</a></span>';
 			
 			// Likes & comments count
-			wallPosts = wallPosts + '<span class="likesOrComments">' +
+			wallPosts = wallPosts + '<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');"><span class="likesOrComments">' +
 									'<span id="currentLikes' + pid + '">' + item.numberLikes + '</span> Likes ' +
 									'<span id="currentComments' + pid + '">' + item.numberComments + ' Comments' +
-									'</span></td></tr></table></div>';
+									'</span></a></td></tr></table></div>';
 		});
 		
 		$("#wallPosts").html(wallPosts);
 	});
 }
 
+// View a specific wallpost, along with likes and comments
+function viewPost() {
+	
+	// We need the postId, of course!
+	var pid = window.localStorage.getItem("pid");
+
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/getPost/' + pid,
+	error: handleAjaxError(), cache: false}).done(function(data) {
+		
+		var post = data.post,
+			comments = data.comments,
+			likes = eval(data.likes),
+			originalPost = '',
+			likesList = '',
+			commentList = '';
+		
+		var nck = post[0].nickname,
+			ptx = post[0].postText,
+			img = post[0].image;
+			
+		
+		// Make original post
+		if(img != '') {
+			originalPost = originalPost + '<table width="100%"><tr>' +
+							'<td><img src="http://amway.650h.co.uk/' + img + '" width="100px" /></td>' +
+							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr></table>';
+		} else {
+			originalPost = originalPost + '<p style="font-weight: bold; color: red">' + nck + ' said:</p>' +
+							'<p>' + ptx + '</p>';
+		}
+		
+		$('#originalPost').html(originalPost);
+		
+		// Make likes list
+		if(likes.length > 0) {
+			$.each(likes, function(i,like) {
+				likesList = likesList + like.nickname + ', ';
+			});
+			likesList = 'Liked by: ' + likesList.substring(0,likesList.length-2);
+		} else {
+			likesList = "No likes";
+        }
+		
+		$('#likesList').html(likesList);
+		
+		// Make comments area
+		if(comments.length > 0) {
+			$.each(comments, function(i,comment) {
+				commentList = commentList + '<div class="op_commentBox">' + comment.nickname + ' replied: ' + comment.commentText + '</div>';
+			});
+		} else {
+			commentsList = "No comments";
+        }
+		
+		$('#commentList').html(commentList);
+	});
+	
+	
+}
+
+
+// Add a like to a post
 function postLike(pid, uid) {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/postLike/' + pid + '/' + uid,
-	error: function() {
-		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
-    },
-	cache: false}).done(function(data) {
+	error: handleAjaxError(), cache: false}).done(function(data) {
 		
 		// Make sure we target the correct like data
 		var replaceDiv = '#currentLikes' + pid;
@@ -200,9 +260,7 @@ function postLike(pid, uid) {
 	});
 }
 
-function postComment(pid) {
-	alert('pid is ' + pid);
-}
+
 
 // Load a topic
 function loadTopic(e) {
@@ -211,10 +269,7 @@ function loadTopic(e) {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getTopic/' + topicId,
-	error: function() {
-		$("#resultBlock").html('Sorry, a connection problem occured, please try again.');	
-    },
-	cache: false}).done(function(data) {
+	error: handleAjaxError(), cache: false}).done(function(data) {
 		
 		// Put content in place on the page
 		$("#topicTitle").html(data.topicTitle);
@@ -223,5 +278,8 @@ function loadTopic(e) {
 }
 
 
-
-
+// Handle error in AJAX
+function handleAjaxError() {
+	//alert(1);
+	//navigator.notification.alert('Sorry, a connection problem occured resulting in your request failing, please try again.');
+}

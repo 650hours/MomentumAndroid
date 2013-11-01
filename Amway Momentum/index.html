@@ -31,8 +31,6 @@
 					
                 	<div class="logo"></div>
 
-					<div id="resultBlock"></div>
-
 	                <ul data-role="listview" data-style="inset">
 	                    <li>
 	                        <label>
@@ -160,26 +158,40 @@
 				<div>
 					<div id="wallPosts" style="text-align: left">&nbsp;</div>
 				</div>
-				
-				<div>
-					<a href="#tabstrip-addComment">Add comment here</a>
-                </div>
 			</div>
 		</div>
 
-		<!--AddPost-->
+		<!--Viewpost-->
+		<div id="tabstrip-viewPost"
+			data-role="view"
+			data-title="Add Post"
+			data-model="app.loginService.viewModel"
+			data-show="viewPost">
+			
+			<div class="view-content">
+				<div id="originalPost" class="op_post">&nbsp;</div>
+				<div id="likesList" class="op_likesList">&nbsp;</div>
+				<div id="commentList" class="op_comments">&nbsp;</div>
+			</div>
+			
+		</div>
+			
+		<!--Addpost-->
 		<div id="tabstrip-addPost"
 			data-role="view"
 			data-title="Add Post"
 			data-model="app.loginService.viewModel"
-			data-show="allowComment">
+			data-show="allowPost">
 			
 			<div class="view-content">
 					<div id="postBox">
 					<div style="text-align: left;">Your post:</div>
 					<input type="hidden" name="pid" value="1" />
 					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
-					<textarea data-bind="value: newpost" rows="10" style="background-color: #FFFFFF; border-style: solid;  border-width: 1px; width: 98%"></textarea>
+					<textarea data-bind="value: newpost"
+								id="newPost" rows="10"
+								style="background-color: #FFFFFF; border-style: solid; 
+								border-width: 1px; width: 98%"></textarea>
 					<div class="buttonArea">
 	                    <a  id="postcomment"
 							data-role="button"
@@ -199,13 +211,17 @@
 		<div id="tabstrip-comment"
 			data-role="view"
 			data-title="Comment"
-			data-model="app.loginService.viewModel">
+			data-model="app.loginService.viewModel"
+			data-show="allowComment">
 			
 			<div class="view-content">
 					<div id="commentBox">
 					<div style="text-align: left;">Your comment:</div>
 					<input type="hidden" name="pid" value="1" />
-					<textarea data-bind="value: comment" rows="10" style="background-color: #FFFFFF; border-style: solid;  border-width: 1px; width: 98%"></textarea>
+					<textarea data-bind="value: comment"
+								id="newComment" rows="10"
+								style="background-color: #FFFFFF; border-style: solid;
+								border-width: 1px; width: 98%"></textarea>
 					<div class="buttonArea">
 	                    <a  id="postcomment"
 							data-role="button"
@@ -267,6 +283,8 @@
 					<a data-align="right" data-icon="organize" data-role="button" href="#tabstrip-addPost">Comment</a>
                 </div>
             </div>
+			
+			<div id="resultBlock">&nbsp;</div>
 
             <!--Footer-->
             <div data-role="footer" id="footer">
@@ -281,9 +299,7 @@
         </div>
 		
 		<script>
-			$('#header').hide();
-			$('#footer').hide();
-			$("#back-button").hide();
+			hideNavigation();
         </script>
 
     </body>

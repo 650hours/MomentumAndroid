@@ -119,6 +119,28 @@ body, html {
 	background-color: White;
 }
 
+.op_post {
+	text-align: left;
+}
+.op_likesList {
+	font-size: 0.8em;
+	text-align: left;
+}
+.op_comments {
+	font-size: 0.9em;
+	text-align: left;
+}
+.op_commentBox {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	background-color:#fdf3eb;
+	border: 1px solid #e0e0e0;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	padding: 0 0.5em 0.5em 1em;
+}
+
 /* BUTTON STYLES*/
 .buttonArea {
     text-align: center;

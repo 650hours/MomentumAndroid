@@ -96,13 +96,15 @@
 
         onLogout: function () {
 			
-			var ele = document.getElementById("footer");
-			alert(ele);
-			ele.style.display = "none";
+			hideNavigation();
 			
-			$('#footer').addClass("changeFooter");
+			//var ele = document.getElementById("footer");
+			//alert(ele);
+			//ele.style.display = "none";
+			
+			//$('#footer').addClass("changeFooter");
 
-			$('#footer').hide();
+			//$('#footer').hide();
 			
             var that = this;
 			
