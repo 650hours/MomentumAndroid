@@ -1,0 +1,249 @@
+body, html {
+    margin:0;   
+    height:100%;
+    width:100%;
+	text-align:center;
+	background-color: #fff !important;
+}
+
+/* COMMON STYLES*/
+.view-content {
+	background-color: white;
+	width:98%;
+	max-width:800px;
+	margin: auto
+}
+.view-content h1{
+    color:#000;
+    font-size:2em;
+    text-align:center;
+	font-weight: lighter;
+}
+.view-content h2 {
+    color:#000;
+    font-size:1.5em;
+    text-align:center;
+	font-weight: lighter;
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+.view-content h3 {
+    color:#42454a;
+    font-size:1.1em;
+}
+.view-content p {
+    color:#4a4e54;
+}
+.view-content a {
+	text-decoration: none;
+}
+.position-left{
+    float:left;
+}
+.position-right {
+    float:right;
+}
+.position.center {
+    position:absolute;
+    margin:0 auto;
+    width:100%;
+}
+
+/* IMAGE STYLES*/
+.logo {
+	background-image:url(../images/momentum.png);
+	background-repeat:no-repeat;
+	text-align:center;
+	width:273px;
+	height:85px;
+	margin:30px auto;
+}
+.amway {
+	background-image:url(../images/amway.png);
+	background-repeat:no-repeat;
+	text-align:center;
+	width:210px;
+	height:64px;
+	margin:30px auto;
+}
+
+/* WALL POSTS */
+.wallPost {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	background-color:#fdf3eb;
+	border: 1px solid #e0e0e0;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	padding: 0 0.5em 0.5em 1em;
+}
+.likeButton {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid #e0e0e0;
+	padding: 4px 5px 4px 2em;
+	margin-right: 0.5em;
+	background-image:url(../images/icons/like.svg);
+	background-repeat:no-repeat;
+	background-size: 20px 16px;
+	font-size: 0.8em;
+}
+.commentButton {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid #e0e0e0;
+	padding: 4px 5px 4px 2em;
+	margin-right: 0.5em;
+	background-image:url(../images/icons/comment.svg);
+	background-repeat:no-repeat;
+	background-size: 20px 16px;
+	font-size: 0.8em;
+}
+
+.likesOrComments {
+	font-size: 0.8em;
+	float: right;
+	text-align: right;
+}
+
+.buttonSelected {
+	background-color: #f08638;
+}
+
+.changeFooter {
+	background-color: White;
+}
+
+.op_post {
+	text-align: left;
+}
+.op_likesList {
+	font-size: 0.8em;
+	text-align: left;
+}
+.op_comments {
+	font-size: 0.9em;
+	text-align: left;
+}
+.op_commentBox {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	background-color:#fdf3eb;
+	border: 1px solid #e0e0e0;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	padding: 0 0.5em 0.5em 1em;
+}
+
+/* BUTTON STYLES*/
+.buttonArea {
+    text-align: center;
+}
+.login-button {
+    width:85%;
+    max-width:200px;
+    line-height:1.6em;
+}
+
+/* DEVICE SPECIFIC STYLES*/
+#skin-change{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.km-ios .km-listview-wrapper .km-listinset li{
+    background-color:#fff;   
+    border-color:#ababab;
+}
+.km-ios .km-view .km-content{
+    background-image: none;
+    background: #f0f0f0;
+}
+.km-tablet .km-ios .km-navbar .km-view-title{
+    color:#000;
+    text-shadow: 0 -1px rgba(255,255,255,0.3);
+}
+.km-android .view-content h1 {
+    color:#8a8b8f;
+}
+.km-android .view-content p,
+.km-android .view-content h3{
+    color:#2e5968;
+}
+.km-android .weather-info.temperature.low{
+    color:#2e5968;
+}
+
+.km-ios .km-view .weather {
+    background: #5fb4ed; /* Old browsers */
+    background: -moz-linear-gradient(top, #5fb4ed 0%, #0076c5 74%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5fb4ed), color-stop(74%,#0076c5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* IE10+ */
+    background: linear-gradient(to bottom, #5fb4ed 0%,#0076c5 74%); /* W3C */
+}
+.km-flat .km-view .weather{
+    background:#b0b0b0;
+}
+.km-flat .km-list>li{
+    box-shadow:none;
+}
+
+.km-ios .km-list > li,
+.km-flat .km-list>li {
+    background:none;
+    border:none;
+}
+
+/* Separator Style*/
+.separator > .dark {
+    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2) 70%, rgba(0,0,0,0) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0)), color-stop(30%,rgba(0,0,0,0.2)), color-stop(50%,rgba(0,0,0,0.2)), color-stop(70%,rgba(0,0,0,0.2)), color-stop(100%,rgba(0,0,0,0)));
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
+    background: -o-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
+    background: -ms-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
+    height: 1px;
+    border: none;
+    width: 100%;
+    opacity:0.3;
+}
+.separator > .light {
+    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+    height: 1px;
+    border: none;
+    width: 100%;
+    opacity:0.3;
+}
+
+/* RETINA DISPLAY STYLES*/
+@media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
+     .logo {
+        background-image:url(../images/momentum2x.png);
+        background-repeat:no-repeat;
+        background-size:100%;
+		width:545px;
+		height:170px;
+		margin:40px auto;
+    }
+	.amway {
+        background-image:url(../images/amway2x.png);
+        background-repeat:no-repeat;
+        background-size:100%;
+		width:420px;
+		height:128px;
+		margin:40px auto;
+    }
+}
