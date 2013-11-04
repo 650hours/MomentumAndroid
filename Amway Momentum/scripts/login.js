@@ -57,8 +57,11 @@
                 },
 				cache: false}).done(function(data) {
 					
-                	$('#commentMade').show();
-					$('#commentBox').hide();
+					var newComment = '<div id="commentList" class="op_comments"><div class="op_commentBox">' +
+									'<p><span style="font-weight: bold">You</span> replied:</p><p> ' + comment + '</p></div></div>';
+					
+                	$('#commentMade').html(newComment);
+					$('#newComment').val('');
 			    });  
 		},
 		
@@ -85,8 +88,7 @@
 						that.set('userShortId', data.userShortId);
 						window.localStorage.setItem("userShortId", data.userShortId);
 
-						$('#header').show();
-						$('#footer').show();
+						showNavigation();
 						loadAgenda();
 					} else {
 						$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');
@@ -95,24 +97,14 @@
         },
 
         onLogout: function () {
-			
-			hideNavigation();
-			
-			//var ele = document.getElementById("footer");
-			//alert(ele);
-			//ele.style.display = "none";
-			
-			//$('#footer').addClass("changeFooter");
-
-			//$('#footer').hide();
-			
+					
             var that = this;
 			
             that.clearForm();
             that.set("isLoggedIn", false);
 			that.set('sessionId', '');
 			
-			//app.navigate("#tabstrip-home");
+			navigateToHome();
         },
 
         clearForm: function () {
@@ -127,4 +119,12 @@
     app.loginService = {
         viewModel: new LoginViewModel()
     };
+	
+	// Navigate to home after logging out.
+	function navigateToHome() {
+		var app = new kendo.mobile.Application();
+		app.navigate("#tabstrip-home");
+		hideNavigation();
+	}
+	
 })(window);

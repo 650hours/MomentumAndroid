@@ -1,10 +1,16 @@
 // Hide everything on the first screen or when logging out
 function hideNavigation() {
-		$('#header').hide();
-		$('#footer').hide();
-		$("#back-button").hide();
+	$('#header').hide();
+	$('#footer').hide();
+	$("#back-button").hide();
 }
 
+// Show navigations
+function showNavigation() {
+	$('#header').show();
+	$('#footer').show();
+	$("#back-button").show();
+}
 
 // Make sure we are able to make a post (in case we've already made one)
 function allowPost() {
@@ -13,13 +19,6 @@ function allowPost() {
 	$('#newPost').val('');
 }
 
-
-// Make sure we are able to make a comment (in case we've already made one)
-function allowComment() {
-	$('#commentMade').hide();
-	$('#commentBox').show();
-	$('#newComment').val('');
-}
 
 // Load the agenda
 function loadAgenda() {
@@ -41,20 +40,14 @@ function loadHospitality() {
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getHospitality',
 	error: handleAjaxError(), cache: false}).done(function(data) {
-		
-		// Build visit text
-		var visitText = data.visitText + '<p><center><a href="javascript:window.open(encodeURI(\'https://en.wikipedia.org/wiki/Taj_mahal\'), \'_blank\', \'location=yes\');"><button class="topcoat-button--large" style="background-color: lime">Wikipedia page</button></a></center></p>';
-		
-		// Build trip advisor text
-		var tripadvisorText = data.tripadvisorText + '<p><center><a href="javascript:window.open(encodeURI(\'http://cityguides.tripadvisor.com/\'), \'_blank\', \'location=yes\');"><button class="topcoat-button--large" style="background-color: lime">TripAdvisor New Delhi</button></a></center></p>';
-		
+
 		// Put content in place on the page
 		$("#introTitle").html(data.introTitle);
 		$("#introText").html(data.introText);
 		$("#visitTitle").html(data.visitTitle);
-		$("#visitText").html(visitText);
+		$("#visitText").html(data.visitText);
 		$("#tripadvisorTitle").html(data.tripadvisorTitle);
-		$("#tripadvisorText").html(tripadvisorText);
+		$("#tripadvisorText").html(data.tripadvisorText);
 	})
 }
 
@@ -72,7 +65,7 @@ function loadWorkshopList() {
 		// Build the lists of user attended workshops and other workshops
 		$.each(data, function(i,item) {
 			if(item.userIsAttending == 1) {
-				userWorkshopList = userWorkshopList + '<a href="#tabstrip-workshop?wid='+item.workshopId+'"><li class="topcoat-list__item">' + item.workshopTitle + '</li></a>';
+				userWorkshopList = userWorkshopList + '<li class="topcoat-list__item"><a href="#tabstrip-workshop?wid='+item.workshopId+'">' + item.workshopTitle + '</a></li>';
 			} else {
 				otherWorkshopList = otherWorkshopList + '<a href="#tabstrip-workshop?wid='+item.workshopId+'"><li class="topcoat-list__item">' + item.workshopTitle + '</li></a>';
             }
@@ -161,20 +154,35 @@ function loadWall() {
 			wallPosts = wallPosts + '<tr><td colspan="2">';
 			
 			// Like button
+			
+			// 1 like, 2 likes
+			var likeText = ' likes';
+			if(item.numberLikes == 1) {
+				likeText = ' like';
+			}
+			
 			if(item.likedByThisUser) {
-				wallPosts = wallPosts + '<span class="likeButton buttonSelected" id="likeButton' + pid + '"><a href="javascript: void(0);">Like</a></span>';
+				wallPosts = wallPosts + '<span class="likeButton buttonSelected" id="likeButton'+pid+'">' +
+										'<a href="javascript: void(0);">'+item.numberLikes+likeText+'</a></span>';
             } else {
-				wallPosts = wallPosts + '<span class="likeButton" id="likeButton' + pid + '"><a href="javascript: void(0);" onClick="postLike(' + pid + ',' + uid + ');">Like</a></span>';
+				wallPosts = wallPosts + '<span class="likeButton" id="likeButton'+pid+'">' +
+										'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');">'+item.numberLikes+likeText+'</a></span>';
 			}
 			
 			// Comment button
-			wallPosts = wallPosts + '<span class="commentButton"><a href="#tabstrip-comment" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">Comment</a></span>';
+			
+			// 1 comment, 2 comments
+			var commentText = ' comments';
+			if(item.numberLikes == 1) {
+				likeText = ' comment';
+			}
+			
+			
+			wallPosts = wallPosts + '<span class="commentButton">' +
+									'<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">'+item.numberComments+commentText+'</a></span>';
 			
 			// Likes & comments count
-			wallPosts = wallPosts + '<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');"><span class="likesOrComments">' +
-									'<span id="currentLikes' + pid + '">' + item.numberLikes + '</span> Likes ' +
-									'<span id="currentComments' + pid + '">' + item.numberComments + ' Comments' +
-									'</span></a></td></tr></table></div>';
+			wallPosts = wallPosts + '</td></tr></table></div>';
 		});
 		
 		$("#wallPosts").html(wallPosts);
@@ -186,6 +194,9 @@ function viewPost() {
 	
 	// We need the postId, of course!
 	var pid = window.localStorage.getItem("pid");
+	
+	// And we need the user id to see if they made any posts
+	var uid = window.localStorage.getItem("userShortId");
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getPost/' + pid,
@@ -196,41 +207,50 @@ function viewPost() {
 			likes = eval(data.likes),
 			originalPost = '',
 			likesList = '',
-			commentList = '';
+			commentList = '',
+			nickname = '';
 		
 		var nck = post[0].nickname,
 			ptx = post[0].postText,
 			img = post[0].image;
 			
-		
-		// Make original post
-		if(img != '') {
-			originalPost = originalPost + '<table width="100%"><tr>' +
-							'<td><img src="http://amway.650h.co.uk/' + img + '" width="100px" /></td>' +
-							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr></table>';
-		} else {
-			originalPost = originalPost + '<p style="font-weight: bold; color: red">' + nck + ' said:</p>' +
-							'<p>' + ptx + '</p>';
-		}
-		
-		$('#originalPost').html(originalPost);
-		
 		// Make likes list
 		if(likes.length > 0) {
-			$.each(likes, function(i,like) {
-				likesList = likesList + like.nickname + ', ';
+			$.each(likes, function(i,like) {			
+				if(like.userShortId == uid) {
+					nickname = 'You';
+                } else {
+					nickname = like.nickname;
+                }
+				likesList = likesList + nickname + ', ';
 			});
 			likesList = 'Liked by: ' + likesList.substring(0,likesList.length-2);
 		} else {
 			likesList = "No likes";
         }
 		
-		$('#likesList').html(likesList);
+		// Make original post
+		if(img != '') {
+			originalPost = originalPost + '<div class="wallPost"><table width="100%"><tr>' +
+							'<td><img src="http://amway.650h.co.uk/' + img + '" width="100px" /></td>' +
+							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr></table><p>'+likesList+'</p></div>';
+		} else {
+			originalPost = originalPost + '<div class="wallPost"><p style="font-weight: bold">' + nck + ' said:</p>' +
+							'<p>' + ptx + '</p><p style="font-size: 0.8em">'+likesList+'</p></div>';
+		}
+		
+		$('#originalPost').html(originalPost);
 		
 		// Make comments area
 		if(comments.length > 0) {
 			$.each(comments, function(i,comment) {
-				commentList = commentList + '<div class="op_commentBox">' + comment.nickname + ' replied: ' + comment.commentText + '</div>';
+				if(comment.userShortId == uid) {
+					nickname = 'You';
+                } else {
+					nickname = comment.nickname;
+                }
+				commentList = commentList + '<div class="op_commentBox">' +
+											'<p><span style="font-weight: bold">' + nickname + '</span> replied:</p><p> ' + comment.commentText + '</p></div>';
 			});
 		} else {
 			commentsList = "No comments";

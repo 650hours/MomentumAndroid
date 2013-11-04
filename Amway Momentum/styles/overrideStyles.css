@@ -9,6 +9,14 @@
     background-repeat: repeat;
     background-position: 0 0;
 }
+.km-ios7 .km-view .km-navbar {
+    background-color: #f08638;
+    background-image: none;
+    background-image: none;
+    background-image: none;
+    background-repeat: repeat;
+    background-position: 0 0;
+}
 .km-ios .km-view .km-navbar .km-view-title > * {
     color: white;
 }
@@ -23,9 +31,52 @@
 .km-ios .km-tabstrip {
 	background-color: #f08638;
 }
+.km-ios7 .km-tabstrip {
+	background-color: #f08638;
+}
 .km-ios .km-view .km-tabstrip .km-button {
     background-color: #f08638;
 }
-.km-ios .km-tabstrip .km-state-active .km-icon {
-	color: White;
+.km-ios7 .km-view .km-tabstrip .km-button {
+    background-color: #f08638;
 }
+
+/* Footer icon colour */
+.km-ios .km-view .km-tabstrip .km-state-active span.km-icon {
+    color: rgb(0, 0, 0);
+}
+.km-ios7 .km-view .km-tabstrip .km-state-active span.km-icon {
+    color: rgb(0, 0, 0);
+}
+
+/* Buttons */
+.km-ios .km-view .km-content .km-button .km-text {
+    color: Lime;
+}
+.km-ios .km-view .km-content .km-button {
+    background-color: rgb(229, 229, 229);
+}
+.km-ios7 .km-view .km-content .km-button .km-text {
+    color: Green;
+	padding: 0;
+}
+.km-ios7 .km-view .km-content .km-button {
+    background-color: rgb(229, 229, 229);
+	font-weight: bold;
+	font-size: 1.1em;
+}
+.km-ios7 .km-widget {
+	color: #000;
+}
+
+/* List header */
+.km-ios .km-listgroup .km-group-title, .km-ios7 .km-listgroupinset .km-group-title {
+	line-height: 1em;
+	border-top: 0;
+}
+.km-ios7 .km-listgroup .km-group-title, .km-ios7 .km-listgroupinset .km-group-title {
+	line-height: 1em;
+	border-top: 0;
+	padding-bottom: 1em;
+}
+

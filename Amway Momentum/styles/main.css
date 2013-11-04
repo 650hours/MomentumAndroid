@@ -73,7 +73,6 @@ body, html {
 	-moz-border-radius: 20px;
 	border-radius: 20px;
 	background-color:#fdf3eb;
-	border: 1px solid #e0e0e0;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	padding: 0 0.5em 0.5em 1em;
@@ -82,7 +81,6 @@ body, html {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	background-color: white;
 	border: 1px solid #e0e0e0;
 	padding: 4px 5px 4px 2em;
 	margin-right: 0.5em;
@@ -95,7 +93,6 @@ body, html {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	background-color: white;
 	border: 1px solid #e0e0e0;
 	padding: 4px 5px 4px 2em;
 	margin-right: 0.5em;
@@ -135,7 +132,6 @@ body, html {
 	-moz-border-radius: 20px;
 	border-radius: 20px;
 	background-color:#fdf3eb;
-	border: 1px solid #e0e0e0;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	padding: 0 0.5em 0.5em 1em;
@@ -176,22 +172,7 @@ body, html {
 .km-android .view-content h3{
     color:#2e5968;
 }
-.km-android .weather-info.temperature.low{
-    color:#2e5968;
-}
 
-.km-ios .km-view .weather {
-    background: #5fb4ed; /* Old browsers */
-    background: -moz-linear-gradient(top, #5fb4ed 0%, #0076c5 74%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5fb4ed), color-stop(74%,#0076c5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* IE10+ */
-    background: linear-gradient(to bottom, #5fb4ed 0%,#0076c5 74%); /* W3C */
-}
-.km-flat .km-view .weather{
-    background:#b0b0b0;
-}
 .km-flat .km-list>li{
     box-shadow:none;
 }
@@ -229,7 +210,7 @@ body, html {
 }
 
 /* RETINA DISPLAY STYLES*/
-@media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
+/*@media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
      .logo {
         background-image:url(../images/momentum2x.png);
         background-repeat:no-repeat;
@@ -246,4 +227,4 @@ body, html {
 		height:128px;
 		margin:40px auto;
     }
-}
+}*/
