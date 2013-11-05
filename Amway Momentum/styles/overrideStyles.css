@@ -1,7 +1,7 @@
 /* Fix for footer appearing above keyboard - http://www.icenium.com/resources/forums/icenium-graphite-/latest-version-of-graphite-not-fit-for-purpose- */
-/*#tabstrip-login .km-footer {
+#tabstrip-login .km-footer {
     position: absolute;
-}*/
+}
 
 /* Appliation background colour */
 .km-ios .km-view .km-content {

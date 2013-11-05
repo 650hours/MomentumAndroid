@@ -240,15 +240,13 @@
 			
 			<div class="view-content">
 					<div id="postBox">
-					<div style="text-align: left;">Your post:</div>
-					<input type="hidden" name="pid" value="1" />
-					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
 					<textarea data-bind="value: newpost"
 								id="newPost" rows="10"
 								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%"
 								onFocus="$('.km-footer').hide();"
 								onBlur="$('.km-footer').show();">
                     </textarea>
+					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
 					<div class="buttonArea">
 	                    <a  id="postcomment"
 							data-role="button"
@@ -304,8 +302,6 @@
 					<span data-role="view-title"></span>
                 </div>
             </div>
-			
-			<div id="resultBlock">&nbsp;</div>
 
             <!--Footer-->
             <div data-role="footer" id="footer">
