@@ -12,13 +12,6 @@ function showNavigation() {
 	$("#back-button").show();
 }
 
-// Make sure we are able to make a post (in case we've already made one)
-function allowPost() {
-	$('#postMade').hide();
-	$('#postBox').show();
-	$('#newPost').val('');
-}
-
 
 // Load the agenda
 function loadAgenda() {
@@ -83,11 +76,8 @@ function loadWorkshopList() {
 // Load an individual workshop
 function loadWorkshop(e) {
 	
-	// Show the back button - not working!
-	$("#back-button").show();
-	
-	//var mine = $("#back-button").html();
-	//console.log("mine " + mine);
+	// Scroll to the top of the page
+	$(".km-scroll-container").css("-webkit-transform", "");
 	
 	var workshopId = e.view.params.wid;	
 	var topicList = resourceList = '';
@@ -108,7 +98,7 @@ function loadWorkshop(e) {
 		// Resources for this workshop
 		if(data.resources.length > 0) {
 			$.each(data.resources, function(i,item) {
-				resourceList = resourceList + '<a href="javascript:window.open(encodeURI(\'' + item.resourcePath +'\'), \'_blank\', \'location=yes\');"><li class="topcoat-list__item">' + item.resourceName + ' (' + item.resourceType + ')</li></a>';
+				resourceList = resourceList + '<a onclick="window.open(\'' + item.resourcePath +'\',\'_blank\');"><li class="topcoat-list__item">' + item.resourceName + ' (' + item.resourceType + ')</li></a>';
 			})
 		} else {
 			resourceList = '<li class="topcoat-list__item">There are no resources for this workshop</li>';
@@ -120,6 +110,25 @@ function loadWorkshop(e) {
 		$("#topicList").html(topicList);
 		$("#resourceList").html(resourceList);
 	});
+}
+
+
+// Load a topic
+function loadTopic(e) {
+	
+	// Scroll to the top of the page
+	$(".km-scroll-container").css("-webkit-transform", "");
+	
+	var topicId = e.view.params.tid;
+	
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/getTopic/' + topicId,
+	error: handleAjaxError(), cache: false}).done(function(data) {
+		
+		// Put content in place on the page
+		$("#topicTitle").html(data.topicTitle);
+		$("#topicDescription").html(data.topicDescription);
+	})
 }
 
 
@@ -166,7 +175,7 @@ function loadWall() {
 										'<a href="javascript: void(0);">'+item.numberLikes+likeText+'</a></span>';
             } else {
 				wallPosts = wallPosts + '<span class="likeButton" id="likeButton'+pid+'">' +
-										'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');">'+item.numberLikes+likeText+'</a></span>';
+										'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');" style="">'+item.numberLikes+likeText+'</a></span>';
 			}
 			
 			// Comment button
@@ -278,23 +287,6 @@ function postLike(pid, uid) {
 		$(replaceDiv).html(data.currentLikes);
 		$(likeButton).addClass("buttonSelected");
 	});
-}
-
-
-
-// Load a topic
-function loadTopic(e) {
-	
-	var topicId = e.view.params.tid;
-	
-	$.ajax({
-	url: 'http://amway.650h.co.uk/index/default/getTopic/' + topicId,
-	error: handleAjaxError(), cache: false}).done(function(data) {
-		
-		// Put content in place on the page
-		$("#topicTitle").html(data.topicTitle);
-		$("#topicDescription").html(data.topicDescription);
-	})
 }
 
 

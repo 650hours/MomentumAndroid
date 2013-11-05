@@ -27,7 +27,7 @@
 			data-title="Agenda"
 			data-model="app.loginService.viewModel">
 
-            <div class="view-content">
+            <div class="view-content" style="max-width:450px;">
 				
 				<!--// Shown when not logged in //-->
 				<div id="loginBox" data-bind="invisible: isLoggedIn">
@@ -38,13 +38,13 @@
 	                    <li>
 	                        <label>
 	                            <div style="text-align: left;">user name:</div>
-	                            <input type="text" data-bind="value: username"/>
+	                            <input type="text" data-bind="value: username" style="width: 66%" />
 	                        </label>
 	                    </li>
 	                    <li>
 	                        <label>
 	                            <div style="text-align: left;">password:</div>
-	                            <input type="password" data-bind="value: password" />
+	                            <input type="password" data-bind="value: password" style="width: 66%" />
 	                        </label>
 	                    </li>
 	                </ul>
@@ -138,7 +138,7 @@
 		<div id="tabstrip-workshop"
 			data-role="view"
 			data-title="Workshop"
-			data-layout="tabstrip-layout-workshop"
+			data-layout="tabstrip-layout-back"
 			data-model="app.loginService.viewModel"
 			data-show="loadWorkshop">
 			
@@ -164,7 +164,7 @@
 		<div id="tabstrip-topic"
 			data-role="view"
 			data-title="Workshop"
-			data-layout="tabstrip-layout-workshop"
+			data-layout="tabstrip-layout-back"
 			data-model="app.loginService.viewModel"
 			data-show="loadTopic">
 			
@@ -199,7 +199,7 @@
 		<div id="tabstrip-viewPost"
 			data-role="view"
 			data-title="View Post"
-			data-layout="tabstrip-layout-wallpost"
+			data-layout="tabstrip-layout-back"
 			data-model="app.loginService.viewModel"
 			data-show="viewPost">
 			
@@ -234,8 +234,7 @@
 		<div id="tabstrip-addPost"
 			data-role="view"
 			data-title="Add Post"
-			data-model="app.loginService.viewModel"
-			data-show="allowPost">
+			data-model="app.loginService.viewModel">
 			
 			<div class="view-content">
 					<div id="postBox">
@@ -264,22 +263,24 @@
 		
 		<!-- -- -- -- -- -- -- -- --
 			Hospitality
+			Note - uses data-init (only fire on first load) rather than data-load (fire on each load)
 		-- -- -- -- -- -- -- -- -->
 		<div id="tabstrip-hospitality"
 			data-role="view"
 			data-title="Hospitality"
 			data-model="app.loginService.viewModel"
-			data-show="loadHospitality">
+			data-init="loadHospitality">
 			
 			<div class="view-content">
 				<h1><div id="introTitle">&nbsp;</div></h1>
 				<div id="introText" style="text-align: left">&nbsp;</div>
 				<h1><div id="visitTitle">&nbsp;</div></h1>
 				<div id="visitText" style="text-align: left">&nbsp;</div>
-				<p><center><a href="javascript:window.open(encodeURI(\'https://en.wikipedia.org/wiki/Taj_mahal\'), \'_blank\', \'location=yes\');" data-role="button">Wikipedia page</a></center></p>
+				<p><center><a onclick="window.open('https://en.wikipedia.org/wiki/Taj_mahal','_blank');" data-role="button">Wikipedia page</a></center></p>
 				<h1><div id="tripadvisorTitle">&nbsp;</div></h1>
 				<div id="tripadvisorText" style="text-align: left">&nbsp;</div>
-				<p><center><a href="javascript:window.open(encodeURI(\'http://cityguides.tripadvisor.com/\'), \'_blank\', \'location=yes\');" data-role="button">TripAdvisor New Delhi</a></center></p>
+				<p><center><a onclick="window.open('http://cityguides.tripadvisor.com','_blank');" data-role="button">TripAdvisor New Delhi</a></center></p>
+				<p style="text-align: left">In case your Apple itunes account is associated to another country than the above mentioned in the dropdown, please download the Tripadvisor City Guides app in your appstore account and install the New Delhi maps.</p>
 			</div>
 			
         </div>
@@ -321,7 +322,7 @@
 		<!-- Child tab layout for the workshop (with a back button) -->
         <div id="tabstrip-home" 
 			data-role="layout" 
-			data-id="tabstrip-layout-workshop"
+			data-id="tabstrip-layout-workshop2"
 			data-model="app.loginService.viewModel">
 
             <!--Header-->
@@ -331,23 +332,10 @@
 					<span data-role="view-title"></span>
                 </div>
             </div>
-			
-			<div id="resultBlock">&nbsp;</div>
-
-            <!--Footer-->
-            <div data-role="footer" id="footer">
-                <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="home">Agenda</a>
-                    <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
-					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
-                    <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
-					<a href="#tabstrip-logout" data-icon="delete">Log out</a>
-                </div>
-            </div>
         </div>
 
 		<!-- Child tab layout for the wall (with a post button) -->
-        <div id="tabstrip-home" 
+        <div id="tabstrip-layout-wall" 
 			data-role="layout"  
 			data-id="tabstrip-layout-wall"
 			data-model="app.loginService.viewModel">
@@ -375,9 +363,9 @@
         </div>
 
 		<!-- Child tab layout for the wallpost (with a back button) -->
-        <div id="tabstrip-home" 
+        <div id="tabstrip-layout-back" 
 			data-role="layout" 
-			data-id="tabstrip-layout-wallpost"
+			data-id="tabstrip-layout-back"
 			data-model="app.loginService.viewModel">
 
             <!--Header-->

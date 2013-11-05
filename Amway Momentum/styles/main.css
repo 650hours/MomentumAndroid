@@ -82,7 +82,6 @@ body, html {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #e0e0e0;
-	padding: 4px 5px 4px 2em;
 	margin-right: 0.5em;
 	background-image:url(../images/icons/like.svg);
 	background-repeat:no-repeat;
@@ -94,7 +93,7 @@ body, html {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #e0e0e0;
-	padding: 4px 5px 4px 2em;
+
 	margin-right: 0.5em;
 	background-image:url(../images/icons/comment.svg);
 	background-repeat:no-repeat;
@@ -102,10 +101,8 @@ body, html {
 	font-size: 0.8em;
 }
 
-.likesOrComments {
-	font-size: 0.8em;
-	float: right;
-	text-align: right;
+.likeButton a, .commentButton a {
+	padding-left: 2em; padding-right:0.5em;
 }
 
 .buttonSelected {

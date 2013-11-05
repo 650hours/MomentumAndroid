@@ -11,7 +11,8 @@
 
     app.application = new kendo.mobile.Application(document.body, {
 		layout: "tabstrip-layout",
-		statusBarStyle: statusBarStyle
+		statusBarStyle: statusBarStyle,
+		useNativeScrolling: true
 	});
 
 })(window);

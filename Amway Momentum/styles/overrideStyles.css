@@ -1,6 +1,14 @@
+/* Fix for footer appearing above keyboard - http://www.icenium.com/resources/forums/icenium-graphite-/latest-version-of-graphite-not-fit-for-purpose- */
+#tabstrip-login .km-footer {
+    position: absolute;
+}
+
+/* Appliation background colour */
 .km-ios .km-view .km-content {
     background-color: white;
 }
+
+/* Navigation bar & footer colour */
 .km-ios .km-view .km-navbar {
     background-color: #f08638;
     background-image: none;

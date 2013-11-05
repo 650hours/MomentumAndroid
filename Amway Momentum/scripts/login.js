@@ -29,9 +29,8 @@
 					$("#resultBlock").html('<h2>Sorry, an error ocurred. Please try again.</h2>');	
                 },
 				cache: false}).done(function(data) {
-					
-                	$('#postMade').show();
-					$('#postBox').hide();
+					$('#postComment').val('');
+                	navigateToWall();
 			    });  
 		},
 		
@@ -90,6 +89,9 @@
 
 						showNavigation();
 						loadAgenda();
+						
+						// Scroll to the top of the page
+						$(".km-scroll-container").css("-webkit-transform", "");
 					} else {
 						$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');
                     }
@@ -125,6 +127,12 @@
 		var app = new kendo.mobile.Application();
 		app.navigate("#tabstrip-home");
 		hideNavigation();
+	}
+	
+	// Navigate to the wall after posting a comment.
+	function navigateToWall() {
+		var app = new kendo.mobile.Application();
+		app.navigate("#tabstrip-wall");
 	}
 	
 })(window);
