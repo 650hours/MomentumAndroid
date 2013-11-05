@@ -213,8 +213,10 @@
 					<div style="text-align: left;">Your comment:</div>
 					<textarea data-bind="value: comment"
 								id="newComment" rows="6"
-								style="background-color: #FFFFFF; border-style: solid;
-								border-width: 1px; width: 98%"></textarea>
+								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%"
+								onFocus="$('.km-footer').hide();"
+								onBlur="$('.km-footer').show();">
+                    </textarea>
 					<div class="buttonArea">
 	                    <a  id="postcomment"
 							data-role="button"
@@ -243,8 +245,10 @@
 					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
 					<textarea data-bind="value: newpost"
 								id="newPost" rows="10"
-								style="background-color: #FFFFFF; border-style: solid; 
-								border-width: 1px; width: 98%"></textarea>
+								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%"
+								onFocus="$('.km-footer').hide();"
+								onBlur="$('.km-footer').show();">
+                    </textarea>
 					<div class="buttonArea">
 	                    <a  id="postcomment"
 							data-role="button"
@@ -254,10 +258,6 @@
 	                </div>
 				</div>
 			</div>
-			
-			<div id="postMade" style="display: none">
-				<p>Your post has been made.</p>
-            </div>
 		</div>
 
 		

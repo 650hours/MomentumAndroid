@@ -6,13 +6,13 @@
         statusBarStyle = os.ios && os.flatVersion >= 700 ? "black-translucent" : "black";
 
     document.addEventListener('deviceready', function () {
-        navigator.splashscreen.hide();
+		navigator.splashscreen.hide();
     }, false);
 
     app.application = new kendo.mobile.Application(document.body, {
 		layout: "tabstrip-layout",
 		statusBarStyle: statusBarStyle,
-		useNativeScrolling: true
+		//useNativeScrolling: true
 	});
 
 })(window);

@@ -132,14 +132,14 @@ function loadTopic(e) {
 }
 
 
-// Load the wall - starts with 10 posts, but supports paging
+// Load the wall - starts with 20 posts, but supports paging
 function loadWall() {
 
 	var wallPosts = '';
 	var uid = window.localStorage.getItem("userShortId");
 	
 	$.ajax({
-	url: 'http://amway.650h.co.uk/index/default/getWallposts/' + uid + '/0/10',
+	url: 'http://amway.650h.co.uk/index/default/getWallposts/' + uid + '/0/20',
 	error: handleAjaxError(), cache: false}).done(function(data) {
 		
 		// Build the lists of wall posts
@@ -153,8 +153,8 @@ function loadWall() {
 			
 			if(item.image != '') {
 				wallPosts = wallPosts + '<table width="100%"><tr>' +
-							'<td><img src="http://amway.650h.co.uk/' + item.image + '" width="100px" /></td>' +
-							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
+							'<td width="100"><img src="http://amway.650h.co.uk/' + item.image + '" width="100px" /></td>' +
+							'<td><p style="text-align: left"><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
 			} else {
 				wallPosts = wallPosts + '<table width="100%"><tr>' +
 							'<td colspan="2"><p><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
@@ -186,7 +186,6 @@ function loadWall() {
 				likeText = ' comment';
 			}
 			
-			
 			wallPosts = wallPosts + '<span class="commentButton">' +
 									'<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">'+item.numberComments+commentText+'</a></span>';
 			
@@ -201,11 +200,17 @@ function loadWall() {
 // View a specific wallpost, along with likes and comments
 function viewPost() {
 	
+	// Scroll to the top of the page
+	$(".km-scroll-container").css("-webkit-transform", "");
+	
 	// We need the postId, of course!
 	var pid = window.localStorage.getItem("pid");
 	
 	// And we need the user id to see if they made any posts
 	var uid = window.localStorage.getItem("userShortId");
+	
+	// Clear out the commentMade box, otherwise comments look duplicated
+	$('#commentMade').html('');
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getPost/' + pid,
