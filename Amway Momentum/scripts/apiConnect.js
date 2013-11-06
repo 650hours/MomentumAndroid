@@ -61,9 +61,9 @@ function loadWorkshopList() {
 			if(item.userIsAttending == 1) {
 				userWorkshopList = userWorkshopList + '<a href="#tabstrip-workshop?wid='+item.workshopId+'"><li class="topcoat-list__item rightNavArrow">' + item.workshopTitle + '</li></a>';
 			} else {
-				otherWorkshopList = otherWorkshopList + '<a href="#tabstrip-workshop?wid='+item.workshopId+'"><li class="topcoat-list__item">' + item.workshopTitle + '</li></a>';
+				otherWorkshopList = otherWorkshopList + '<a href="#tabstrip-workshop?wid='+item.workshopId+'"><li class="topcoat-list__item rightNavArrow">' + item.workshopTitle + '</li></a>';
             }
-		})
+		}) 
 		
 		otherWorkshopList = otherWorkshopList + '</ul>';
 		
@@ -90,7 +90,7 @@ function loadWorkshop(e) {
 		// Topics for this workshop
 		if(data.topics.length > 0) {
 			$.each(data.topics, function(i,item) {
-				topicList = topicList + '<a href="#tabstrip-topic?tid='+item.topicId+'"><li class="topcoat-list__item">' + item.topicTitle + '</li></a>';
+				topicList = topicList + '<a href="#tabstrip-topic?tid='+item.topicId+'"><li class="topcoat-list__item rightNavArrow">' + item.topicTitle + '</li></a>';
 			})
 		} else {
 			topicList = '<li class="topcoat-list__item">There are no topics for this workshop</li>';
@@ -99,7 +99,7 @@ function loadWorkshop(e) {
 		// Resources for this workshop
 		if(data.resources.length > 0) {
 			$.each(data.resources, function(i,item) {
-				resourceList = resourceList + '<a onclick="window.open(\'' + item.resourcePath +'\',\'_system\');"><li class="topcoat-list__item">' + item.resourceName + ' (' + item.resourceType + ')</li></a>';
+				resourceList = resourceList + '<a onclick="window.open(\'' + item.resourcePath +'\',\'_system\');"><li class="topcoat-list__item rightNavArrow">' + item.resourceName + ' (' + item.resourceType + ')</li></a>';
 			})
 		} else {
 			resourceList = '<li class="topcoat-list__item">There are no resources for this workshop</li>';
@@ -153,18 +153,19 @@ function loadWall() {
 				ptx = item.postText,
 				nck = item.nickname;
 			
-			wallPosts = wallPosts + '<div class="wallPost">';
+			wallPosts = wallPosts + '<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">' +
+									'<div class="wallPost wallPostOnWall rightNavArrow">';
 			
 			if(item.image != '') {
 				wallPosts = wallPosts + '<table width="100%"><tr>' +
 							'<td width="100"><img src="http://amway.650h.co.uk/' + item.image + '" width="100px" /></td>' +
-							'<td><p style="text-align: left"><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
+							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
 			} else {
 				wallPosts = wallPosts + '<table width="100%"><tr>' +
 							'<td colspan="2"><p><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
 			}
 			
-			wallPosts = wallPosts + '<tr><td colspan="2">';
+			wallPosts = wallPosts + '<tr><td colspan="2"><p class="likesComments">';
 			
 			// Like button
 			
@@ -176,25 +177,31 @@ function loadWall() {
 			
 			if(item.likedByThisUser) {
 				wallPosts = wallPosts + '<span class="likeButton buttonSelected" id="likeButton'+pid+'">' +
-										'<a href="javascript: void(0);">'+item.numberLikes+likeText+'</a></span>';
+										'<a href="javascript: void(0);" onClick="postUnlike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
             } else {
 				wallPosts = wallPosts + '<span class="likeButton" id="likeButton'+pid+'">' +
-										'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');" style="">'+item.numberLikes+likeText+'</a></span>';
+										'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
 			}
 			
 			// Comment button
 			
 			// 1 comment, 2 comments
-			var commentText = ' comments';
-			if(item.numberLikes == 1) {
-				likeText = ' comment';
+			// Button selected?
+			
+			var commentText = ' comments',
+				buttonSelected = '';
+			
+			if(item.numberComments > 0) {
+				buttonSelected = " buttonSelected";
+				if(item.numberComments == 1) {
+					commentText = ' comment';
+				}
 			}
 			
-			wallPosts = wallPosts + '<span class="commentButton">' +
-									'<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">'+item.numberComments+commentText+'</a></span>';
+			wallPosts = wallPosts + '<span class="commentButton'+buttonSelected+'"><a href="javascript: void(0);">'+item.numberComments+commentText+'</a></span>';
 			
 			// Likes & comments count
-			wallPosts = wallPosts + '</td></tr></table></div>';
+			wallPosts = wallPosts + '</p></td></tr></table></div></a>';
 		});
 		
 		$("#wallPosts").html(wallPosts);
@@ -281,14 +288,17 @@ function viewPost() {
 	});
 }
 
+
 // Add a new post
 function addPost() {
 	// Make sure the navigation is hidden
 	$('.km-footer').hide();
 	
-	// Focus the textarea
+	// Clear and focus the textarea
+	$('#newPost').val('');
 	$('#newPost').focus();
 }
+
 
 // Add a like to a post
 function postLike(pid, uid) {
@@ -301,12 +311,45 @@ function postLike(pid, uid) {
 		var replaceDiv = '#currentLikes' + pid;
 		var likeButton = '#likeButton' + pid;
 		
+		var likeText = data.currentLikes;
+		
+		if(data.currentLikes == 1) {
+			likeText = likeText + ' like';
+        } else {
+			likeText = likeText + ' likes';
+        }
+		
 		// Do it!
-		$(replaceDiv).html(data.currentLikes);
+		$(replaceDiv).html(likeText);
 		$(likeButton).addClass("buttonSelected");
 	});
 }
 
+
+// Remove a like from a post
+function postUnlike(pid, uid) {
+	
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/postUnlike/' + pid + '/' + uid,
+	error: handleAjaxError(), cache: false}).done(function(data) {
+		
+		// Make sure we target the correct like data
+		var replaceDiv = '#currentLikes' + pid;
+		var likeButton = '#likeButton' + pid;
+		
+		var likeText = data.currentLikes;
+
+		if(data.currentLikes == 1) {
+			likeText = likeText + ' like';
+        } else {
+			likeText = likeText + ' likes';
+        }
+		
+		// Do it!
+		$(replaceDiv).html(likeText);
+		$(likeButton).removeClass("buttonSelected");
+	});
+}
 
 // Handle error in AJAX
 function handleAjaxError() {

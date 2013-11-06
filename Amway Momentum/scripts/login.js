@@ -6,7 +6,7 @@
         isLoggedIn: false,
         username: "",
 		password: "",
-		sessionId: "",
+		nickname: "",
         userShortId: "",
 		
 		// This is nothing to do with login - it handle post submssion to the wall!
@@ -77,13 +77,13 @@
 			$.ajax({
     			url: 'http://amway.650h.co.uk/index/default/login/' + username + '/' + password,
 				error: function(){
-					$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');	
+					navigator.notification.alert('Sorry, we could not log you in due to a connection issue. Please try again.');	
                 },
 				cache: false}).done(function(data) {
 					
 					if(data.result == 1) {
 						that.set('isLoggedIn', true);
-						that.set('sessionId', data.sessionId);
+						that.set('nickname', data.nickname);
 						that.set('userShortId', data.userShortId);
 						window.localStorage.setItem("userShortId", data.userShortId);
 
@@ -93,7 +93,7 @@
 						// Scroll to the top of the page
 						$(".km-scroll-container").css("-webkit-transform", "");
 					} else {
-						$("#resultBlock").html('<h2>Sorry, we could not log you in. Please try again.</h2>');
+						navigator.notification.alert('Sorry, that appears to be the incorrect username and password. Please try again.');
                     }
 			    });           
         },
@@ -104,7 +104,7 @@
 			
             that.clearForm();
             that.set("isLoggedIn", false);
-			that.set('sessionId', '');
+			that.set('nickname', '');
 			
 			navigateToHome();
         },

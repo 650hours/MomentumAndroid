@@ -49,9 +49,9 @@ body, html {
     width:100%;
 }
 .rightNavArrow {
-	background-image:url(../images/icons/like.svg);
+	background-image:url(../images/icons/gt2.jpg);
 	background-repeat:no-repeat;
-	background-size: 20px 16px;
+	background-size: 25px 27px;
 	background-position: right;
 }
 
@@ -75,13 +75,22 @@ body, html {
 
 /* WALL POSTS */
 .wallPost {
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	background-color:#fdf3eb;
-	margin-top: 3px;
-	margin-bottom: 3px;
-	padding: 0 0.5em 0.5em 1em;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	/*background-color:#fdf3eb;*/
+	margin: 3 0 0 3;
+	padding-bottom: 0.5em;
+}
+.wallPostOnWall {
+	border-bottom: 1px dotted #c0c0c0;
+}
+.wallPost p {
+	text-align: left;
+	margin-bottom: 0;
+}
+.wallPost .likesComments {
+	margin-top: 4px;
 }
 .likeButton {
 	-webkit-border-radius: 5px;
@@ -99,7 +108,6 @@ body, html {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #e0e0e0;
-
 	margin-right: 0.5em;
 	background-image:url(../images/icons/comment.svg);
 	background-repeat:no-repeat;
