@@ -60,6 +60,7 @@
 					
 					<div>
 						<p>Need help logging in? Please visit the hospitality desk.</p>
+						<p>v1.8</p>
                     </div>
 				
 					<div class="amway"></div>
@@ -213,9 +214,7 @@
 					<div style="text-align: left;">Your comment:</div>
 					<textarea data-bind="value: comment"
 								id="newComment" rows="6"
-								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%"
-								onFocus="$('.km-footer').hide();"
-								onBlur="$('.km-footer').show();">
+								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%">
                     </textarea>
 					<div class="buttonArea">
 	                    <a  id="postcomment"
@@ -237,15 +236,14 @@
 			data-role="view"
 			data-title="Add Post"
 			data-layout="tabstrip-layout-back"
-			data-model="app.loginService.viewModel">
+			data-model="app.loginService.viewModel"
+			data-show="addPost">
 			
 			<div class="view-content">
 					<div id="postBox">
 					<textarea data-bind="value: newpost"
 								id="newPost" rows="10"
-								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%"
-								onFocus="$('.km-footer').hide();"
-								onBlur="$('.km-footer').show();">
+								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%">
                     </textarea>
 					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
 					<div class="buttonArea">
@@ -275,10 +273,10 @@
 				<div id="introText" style="text-align: left">&nbsp;</div>
 				<h1><div id="visitTitle">&nbsp;</div></h1>
 				<div id="visitText" style="text-align: left">&nbsp;</div>
-				<p><center><a onclick="window.open('https://en.wikipedia.org/wiki/Taj_mahal','_blank');" data-role="button">Wikipedia page</a></center></p>
+				<p><center><a onclick="window.open('https://en.wikipedia.org/wiki/Taj_mahal','_system');" data-role="button">Wikipedia page</a></center></p>
 				<h1><div id="tripadvisorTitle">&nbsp;</div></h1>
 				<div id="tripadvisorText" style="text-align: left">&nbsp;</div>
-				<p><center><a onclick="window.open('http://cityguides.tripadvisor.com','_blank');" data-role="button">TripAdvisor New Delhi</a></center></p>
+				<p><center><a onclick="window.open('http://cityguides.tripadvisor.com','_system');" data-role="button">TripAdvisor New Delhi</a></center></p>
 				<p style="text-align: left">In case your Apple itunes account is associated to another country than the above mentioned in the dropdown, please download the Tripadvisor City Guides app in your appstore account and install the New Delhi maps.</p>
 			</div>
 			
@@ -291,7 +289,9 @@
 		
 		------------------------------------------------------------------------------------------------->
 		
-        <!-- Parent tab Layout (no back buttons) -->
+        <!-- -- -- -- -- -- -- -- --
+			Parent tab Layout (no back buttons)
+		-- -- -- -- -- -- -- -- -->
         <div id="tabstrip-home" 
 			data-role="layout"  
 			data-id="tabstrip-layout"
@@ -307,7 +307,7 @@
             <!--Footer-->
             <div data-role="footer" id="footer">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="home">Agenda</a>
+                    <a href="#tabstrip-home" data-icon="recents">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
                     <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
@@ -317,16 +317,14 @@
         </div>
 		
 		<!-- Child tab layout for the workshop (with a back button) -->
-        <div id="tabstrip-home" 
-			data-role="layout" 
-			data-id="tabstrip-layout-workshop2"
-			data-model="app.loginService.viewModel">
+        <div id="xxx" 
+			data-role="layout2" 
+			data-id="tabstrip-fubar">
 
             <!--Header-->
             <div data-role="header" style="background-color: white" id="header">
-                <div data-role="navbar">
+                <div data-role="navbar2">
 					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
-					<span data-role="view-title"></span>
                 </div>
             </div>
         </div>
@@ -350,7 +348,7 @@
             <!--Footer-->
             <div data-role="footer" id="footer">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="home">Agenda</a>
+                    <a href="#tabstrip-home" data-icon="recents">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
                     <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
@@ -362,8 +360,7 @@
 		<!-- Child tab layout for the wallpost (with a back button) -->
         <div id="tabstrip-layout-back" 
 			data-role="layout" 
-			data-id="tabstrip-layout-back"
-			data-model="app.loginService.viewModel">
+			data-id="tabstrip-layout-back">
 
             <!--Header-->
             <div data-role="header" id="header">
@@ -372,13 +369,11 @@
 					<span data-role="view-title"></span>
                 </div>
             </div>
-			
-			<div id="resultBlock">&nbsp;</div>
 
             <!--Footer-->
             <div data-role="footer" id="footer">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="home">Agenda</a>
+                    <a href="#tabstrip-home" data-icon="recents">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
                     <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
@@ -386,6 +381,7 @@
                 </div>
             </div>
         </div>
+		
 		<script>
 			hideNavigation();
         </script>

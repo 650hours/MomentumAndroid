@@ -5,6 +5,7 @@ function hideNavigation() {
 	$("#back-button").hide();
 }
 
+
 // Show navigations
 function showNavigation() {
 	$('#header').show();
@@ -58,7 +59,7 @@ function loadWorkshopList() {
 		// Build the lists of user attended workshops and other workshops
 		$.each(data, function(i,item) {
 			if(item.userIsAttending == 1) {
-				userWorkshopList = userWorkshopList + '<li class="topcoat-list__item"><a href="#tabstrip-workshop?wid='+item.workshopId+'">' + item.workshopTitle + '</a></li>';
+				userWorkshopList = userWorkshopList + '<a href="#tabstrip-workshop?wid='+item.workshopId+'"><li class="topcoat-list__item rightNavArrow">' + item.workshopTitle + '</li></a>';
 			} else {
 				otherWorkshopList = otherWorkshopList + '<a href="#tabstrip-workshop?wid='+item.workshopId+'"><li class="topcoat-list__item">' + item.workshopTitle + '</li></a>';
             }
@@ -98,7 +99,7 @@ function loadWorkshop(e) {
 		// Resources for this workshop
 		if(data.resources.length > 0) {
 			$.each(data.resources, function(i,item) {
-				resourceList = resourceList + '<a onclick="window.open(\'' + item.resourcePath +'\',\'_blank\');"><li class="topcoat-list__item">' + item.resourceName + ' (' + item.resourceType + ')</li></a>';
+				resourceList = resourceList + '<a onclick="window.open(\'' + item.resourcePath +'\',\'_system\');"><li class="topcoat-list__item">' + item.resourceName + ' (' + item.resourceType + ')</li></a>';
 			})
 		} else {
 			resourceList = '<li class="topcoat-list__item">There are no resources for this workshop</li>';
@@ -134,6 +135,9 @@ function loadTopic(e) {
 
 // Load the wall - starts with 20 posts, but supports paging
 function loadWall() {
+	
+	// Make sure the navigation is showing
+	$('.km-footer').show();
 
 	var wallPosts = '';
 	var uid = window.localStorage.getItem("userShortId");
@@ -199,6 +203,9 @@ function loadWall() {
 
 // View a specific wallpost, along with likes and comments
 function viewPost() {
+	
+	// Make sure the navigation is hidden
+	$('.km-footer').hide();
 	
 	// Scroll to the top of the page
 	$(".km-scroll-container").css("-webkit-transform", "");
@@ -272,10 +279,16 @@ function viewPost() {
 		
 		$('#commentList').html(commentList);
 	});
-	
-	
 }
 
+// Add a new post
+function addPost() {
+	// Make sure the navigation is hidden
+	$('.km-footer').hide();
+	
+	// Focus the textarea
+	$('#newPost').focus();
+}
 
 // Add a like to a post
 function postLike(pid, uid) {
