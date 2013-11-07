@@ -257,7 +257,7 @@
 							class="login-button"
 							style="background-color: #f0f0f0; colour: green">Take a new photo</a>
 						
-					<p><img style="display:none;" id="previewImage" width="200px" src="" /></p>
+					<p><img style="display:none;" id="previewImage" width="200px" /></p>
 						
 					<h3>Make a comment</h3>
 						
@@ -369,7 +369,9 @@
             </div>
         </div>
 
-		<!-- Child tab layout for the wall (includes a post button) -->
+		<!-- -- -- -- -- -- -- -- --
+			Child tab layout for the wall (includes a post button)
+		-- -- -- -- -- -- -- -- -->
         <div id="tabstrip-layout-wall" 
 			data-role="layout"  
 			data-id="tabstrip-layout-wall"
@@ -397,7 +399,9 @@
             </div>
         </div>
 
-		<!-- Child tab layout for view post tab (with a back button and optional delete button) -->
+		<!-- -- -- -- -- -- -- -- --
+			Child tab layout for view post tab (with a back button and optional delete button)
+		-- -- -- -- -- -- -- -- -->
         <div id="tabstrip-layout-viewPost" 
 			data-role="layout" 
 			data-id="tabstrip-layout-viewPost">
@@ -405,7 +409,7 @@
             <!--Header-->
             <div data-role="header" id="header">
                 <div data-role="navbar">
-					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
+					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton" href="#tabstrip-wall">Back</a>
 					<a data-align="right" id="deletePostButton" data-icon="trash" data-role="button" href="#tabstrip-deletePost">Delete</a>
 					<span data-role="view-title"></span>
                 </div>

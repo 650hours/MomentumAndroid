@@ -54,6 +54,10 @@ body, html {
 	background-size: 25px 27px;
 	background-position: right;
 }
+textarea {
+   font-family: inherit;
+   font-size: inherit;
+}
 
 /* IMAGE STYLES*/
 .logo {

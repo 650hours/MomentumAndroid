@@ -34,11 +34,15 @@
 				cache: false}).done(function(data) {
 					$('#postComment').val('');
 					window.localStorage.setItem("imageId", 0);
-                	navigateToWall();
-			    });  
+					navigator.notification.alert('Your new post has been created and will immediately show on the wall.', function () { }, 'Sucessful Post', 'OK');
+					
+					// This 0.5 second delay prevents a click persistence resulting in us ending up on a random wall post...!
+					//setTimeout(navigateToWall, 1000);
+					navigateToWall();
+			    }); 
 		},
 		
-		// This is nothing to do with login - it handles comment submssion from an existing comment!
+		// This is nothing to do with login - it handles comment submission from an existing comment!
 		onPostComment: function () {
 			
 			var that = this,
@@ -133,7 +137,7 @@
 		hideNavigation();
 	}
 	
-	// Navigate to the wall after posting a comment.
+	// Navigate to the wallpost after creation.
 	function navigateToWall() {
 		var app = new kendo.mobile.Application();
 		app.navigate("#tabstrip-wall");

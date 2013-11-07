@@ -393,11 +393,6 @@ function deletePostDo() {
 	
 }
 
-// Handle error in AJAX
-function handleAjaxError() {
-	navigator.notification.alert('Sorry, a connection problem occured resulting in your request failing, please try again.', function () { }, 'Network failure', 'OK');
-}
-
 
 // Camera handling
 function getImageFromLibrary() {
@@ -413,7 +408,6 @@ function getImageFromLibrary() {
         }
     );
 }
-
 function getImageFromCamera() {
     navigator.camera.getPicture(
         uploadPhoto,
@@ -428,8 +422,6 @@ function getImageFromCamera() {
         }
     );
 }
-
-
 function uploadPhoto(imageURI) {
 	var options = new FileUploadOptions();
 	options.fileKey="file";
@@ -444,15 +436,14 @@ function uploadPhoto(imageURI) {
 	options.chunkedMode = false;
 
 	var ft = new FileTransfer();
-	ft.upload(imageURI, encodeURI("http://amway.650h.co.uk/index/default/postImage"), win, fail, options);
+	ft.upload(imageURI, encodeURI("http://amway.650h.co.uk/index/default/postImage"), photoUploadedSucessfully, handleAjaxError, options);
 }
-
-function win(r) {
+function photoUploadedSucessfully(r) {
 	
 	//var code = r.responseCode;
 	//var ret = r.response;
 	//var bytes = r.bytesSent;
-	// alert(code+':'+ret+':'+bytes);
+	//alert(code+':'+ret+':'+bytes);
 	
 	// Parse the JSON text into a JSON object so we can use it
 	jsonRet = $.parseJSON(r.response);
@@ -460,16 +451,14 @@ function win(r) {
 	// Show a preview of the image
 	$('#previewImage').show();
 	jQuery("#previewImage").attr('src',jsonRet.imgSrc);
-	//var previewImage = document.getElementById('previewImage');
-	//previewImage.style.display = 'block';
-	//previewImage.src = jsonRet.imgSrc;
 	
 	// Set the hidden field of the imageId
 	window.localStorage.setItem("imageId", jsonRet.imgId);
 }
 
-function fail(error) {
-	alert("An error has occurred: Code = " + error.code);
-	console.log("upload error source " + error.source);
-	console.log("upload error target " + error.target);
-	}
+
+// Handle error in AJAX
+function handleAjaxError() {
+	navigator.notification.alert('Sorry, a connection problem occured resulting in your request failing, please try again.', function () { }, 'Network failure', 'OK');
+}
+
