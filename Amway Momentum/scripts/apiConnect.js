@@ -158,7 +158,7 @@ function loadWall() {
 			
 			if(item.image != '') {
 				wallPosts = wallPosts + '<table width="100%"><tr>' +
-							'<td width="100"><img src="http://amway.650h.co.uk/' + item.image + '" width="100px" /></td>' +
+							'<td width="100"><img src="http://amway.650h.co.uk' + item.image + '" width="100px" /></td>' +
 							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
 			} else {
 				wallPosts = wallPosts + '<table width="100%"><tr>' +
@@ -267,7 +267,7 @@ function viewPost() {
 		// Make original post
 		if(img != '') {
 			originalPost = originalPost + '<div class="wallPost"><table width="100%"><tr>' +
-							'<td><img src="http://amway.650h.co.uk/' + img + '" width="100px" /></td>' +
+							'<td><img src="http://amway.650h.co.uk' + img + '" width="100px" /></td>' +
 							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr></table><p>'+likesList+'</p></div>';
 		} else {
 			originalPost = originalPost + '<div class="wallPost"><p style="font-weight: bold">' + nck + ' said:</p>' +
@@ -301,9 +301,15 @@ function addPost() {
 	// Make sure the navigation is hidden
 	$('.km-footer').hide();
 	
-	// Clear and focus the textarea
+	// Clear the textarea
 	$('#newPost').val('');
-	$('#newPost').focus();
+	
+	// Make sure that we have no imageId in cache (in case they bailed mid way through a post)
+	window.localStorage.setItem("imageId", 0);
+	
+	// And ensure that the preview field is hidden and empty
+	$('#previewImage').hide();
+	jQuery("#previewImage").attr('src','');
 }
 
 
@@ -391,3 +397,79 @@ function deletePostDo() {
 function handleAjaxError() {
 	navigator.notification.alert('Sorry, a connection problem occured resulting in your request failing, please try again.', function () { }, 'Network failure', 'OK');
 }
+
+
+// Camera handling
+function getImageFromLibrary() {
+    navigator.camera.getPicture(
+        uploadPhoto,
+        function(message) { },
+        {
+			quality         : 50,
+			targetWidth	 : 300,
+			targetHeight	: 300,
+			destinationType : navigator.camera.DestinationType.FILE_URI,
+			sourceType      : navigator.camera.PictureSourceType.PHOTOLIBRARY
+        }
+    );
+}
+
+function getImageFromCamera() {
+    navigator.camera.getPicture(
+        uploadPhoto,
+        function(message) { },
+        {
+			quality         : 50,
+			targetWidth	 : 300,
+			targetHeight	: 300,
+			saveToPhotoAlbum: true,
+			destinationType : navigator.camera.DestinationType.FILE_URI,
+			sourceType      : navigator.camera.PictureSourceType.CAMERA
+        }
+    );
+}
+
+
+function uploadPhoto(imageURI) {
+	var options = new FileUploadOptions();
+	options.fileKey="file";
+	options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+	options.mimeType="image/jpeg";
+
+	var params = {};
+	params.value1 = "test";
+	params.value2 = "param";
+
+	options.params = params;
+	options.chunkedMode = false;
+
+	var ft = new FileTransfer();
+	ft.upload(imageURI, encodeURI("http://amway.650h.co.uk/index/default/postImage"), win, fail, options);
+}
+
+function win(r) {
+	
+	//var code = r.responseCode;
+	//var ret = r.response;
+	//var bytes = r.bytesSent;
+	// alert(code+':'+ret+':'+bytes);
+	
+	// Parse the JSON text into a JSON object so we can use it
+	jsonRet = $.parseJSON(r.response);
+	
+	// Show a preview of the image
+	$('#previewImage').show();
+	jQuery("#previewImage").attr('src',jsonRet.imgSrc);
+	//var previewImage = document.getElementById('previewImage');
+	//previewImage.style.display = 'block';
+	//previewImage.src = jsonRet.imgSrc;
+	
+	// Set the hidden field of the imageId
+	window.localStorage.setItem("imageId", jsonRet.imgId);
+}
+
+function fail(error) {
+	alert("An error has occurred: Code = " + error.code);
+	console.log("upload error source " + error.source);
+	console.log("upload error target " + error.target);
+	}

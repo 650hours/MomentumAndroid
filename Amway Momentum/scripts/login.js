@@ -9,32 +9,36 @@
 		nickname: "",
         userShortId: "",
 		
-		// This is nothing to do with login - it handle post submssion to the wall!
+		// This is nothing to do with login - it handles post submssion to the wall!
 		onNewPost: function () {
 			
 			var that = this,
 				newpost = that.get('newpost').trim();
 	
-			if(newpost == '') {
+			if(typeof newpost === undefined) {
                 navigator.notification.alert('Please enter a post!', function () { }, 'Post failed', 'OK');
                 return;
             }
+			
+			// Get the imageId if one is set
+			var imageId = window.localStorage.getItem("imageId");
 			
 			// We need the userId to attribute the post to
 			var uid = window.localStorage.getItem("userShortId");
 			
 			$.ajax({
-    			url: 'http://amway.650h.co.uk/index/default/newPost/' + uid + '/' + encodeURI(newpost),
+    			url: 'http://amway.650h.co.uk/index/default/newPost/' + uid + '/' + encodeURI(newpost) + '/' + imageId,
 				error: function() {
 					$("#resultBlock").html('<h2>Sorry, an error ocurred. Please try again.</h2>');	
                 },
 				cache: false}).done(function(data) {
 					$('#postComment').val('');
+					window.localStorage.setItem("imageId", 0);
                 	navigateToWall();
 			    });  
 		},
 		
-		// This is nothing to do with login - it handle comment submssion from the wall!
+		// This is nothing to do with login - it handles comment submssion from an existing comment!
 		onPostComment: function () {
 			
 			var that = this,

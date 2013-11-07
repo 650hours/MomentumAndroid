@@ -61,7 +61,7 @@
 					
 					<div>
 						<p>Need help logging in? Please visit the hospitality desk.</p>
-						<p>v1.9</p>
+						<p>v1.11</p>
                     </div>
 				
 					<div class="amway"></div>
@@ -242,13 +242,32 @@
 			
 			<div class="view-content">
 					<div id="postBox">
+
+						<h3>Select a photo (optional)</h3>
+						
+						<a  id="photoLibrary"
+							data-role="button"
+							onclick="getImageFromLibrary();"
+							class="login-button"
+							style="background-color: #f0f0f0; colour: green">Existing photo</a>
+
+						<a  id="photoCamera"
+							data-role="button"
+							onclick="getImageFromCamera();"
+							class="login-button"
+							style="background-color: #f0f0f0; colour: green">Take a new photo</a>
+						
+					<p><img style="display:none;" id="previewImage" width="200px" src="" /></p>
+						
+					<h3>Make a comment</h3>
+						
 					<textarea data-bind="value: newpost"
 								id="newPost" rows="10"
 								style="background-color: white; border-style: solid; border-width: 1px; width: 98%">
                     </textarea>
-					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
+						
 					<div class="buttonArea">
-	                    <a  id="postcomment"
+	                    <a  id="postnewpost"
 							data-role="button"
 							data-bind="click: onNewPost"
 							class="login-button"
