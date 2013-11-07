@@ -19,7 +19,7 @@ function loadAgenda() {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getAgenda',
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Put content in place on the page
 		$("#agendaTitle").html(data.agendaTitle);
@@ -33,7 +33,7 @@ function loadHospitality() {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getHospitality',
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 
 		// Put content in place on the page
 		$("#introTitle").html(data.introTitle);
@@ -54,7 +54,7 @@ function loadWorkshopList() {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWorkshopsList',
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Build the lists of user attended workshops and other workshops
 		$.each(data, function(i,item) {
@@ -85,7 +85,7 @@ function loadWorkshop(e) {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWorkshop/' + workshopId,
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 				
 		// Topics for this workshop
 		if(data.topics.length > 0) {
@@ -124,7 +124,7 @@ function loadTopic(e) {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getTopic/' + topicId,
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Put content in place on the page
 		$("#topicTitle").html(data.topicTitle);
@@ -144,7 +144,7 @@ function loadWall() {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWallposts/' + uid + '/0/20',
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Build the lists of wall posts
 		$.each(data, function(i,item) {
@@ -228,7 +228,7 @@ function viewPost() {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getPost/' + pid,
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		var post = data.post,
 			comments = data.comments,
@@ -241,6 +241,13 @@ function viewPost() {
 		var nck = post[0].nickname,
 			ptx = post[0].postText,
 			img = post[0].image;
+		
+		// Do we show the delete button (only if this user is the original poster)?
+		if(post[0].userShortId != uid) {
+			$('#deletePostButton').hide();
+        } else {
+			$('#deletePostButton').show();
+        }
 			
 		// Make likes list
 		if(likes.length > 0) {
@@ -305,7 +312,7 @@ function postLike(pid, uid) {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/postLike/' + pid + '/' + uid,
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Make sure we target the correct like data
 		var replaceDiv = '#currentLikes' + pid;
@@ -331,7 +338,7 @@ function postUnlike(pid, uid) {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/postUnlike/' + pid + '/' + uid,
-	error: handleAjaxError(), cache: false}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Make sure we target the correct like data
 		var replaceDiv = '#currentLikes' + pid;
@@ -351,8 +358,36 @@ function postUnlike(pid, uid) {
 	});
 }
 
+
+function deletePostConfirm() {
+	// Make sure the navigation is hidden
+	$('.km-footer').hide();
+}
+
+
+function deletePostDo() {
+	
+	// Make sure the navigation is hidden
+	$('.km-footer').hide();
+
+	// We need the postId, of course!
+	var pid = window.localStorage.getItem("pid");
+	
+	$.ajax({
+	url: 'http://amway.650h.co.uk/index/default/deletePost/' + pid,
+	error: handleAjaxError, cache: false}).done(function(data) {
+		
+		// Confirm deletion
+		navigator.notification.alert('Your post, along with all comments and likes, has been deleted.', function () { }, 'Deletion sucessful', 'OK');
+		
+		// Navigate back to the wall
+		var app = new kendo.mobile.Application();
+		app.navigate("#tabstrip-wall");
+	});
+	
+}
+
 // Handle error in AJAX
 function handleAjaxError() {
-	//alert(1);
-	//navigator.notification.alert('Sorry, a connection problem occured resulting in your request failing, please try again.');
+	navigator.notification.alert('Sorry, a connection problem occured resulting in your request failing, please try again.', function () { }, 'Network failure', 'OK');
 }

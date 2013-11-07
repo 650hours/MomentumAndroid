@@ -3,6 +3,7 @@
     <head>
         <title></title>
         <meta charset="utf-8" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height" />
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="styles/main.css" rel="stylesheet" />
 		<link href="styles/topcoat-mobile-light.css" rel="stylesheet" />
@@ -37,14 +38,14 @@
 	                <ul data-role="listview" data-style="inset">
 	                    <li>
 	                        <label>
-	                            <div style="text-align: left;">user name:</div>
-	                            <input type="text" data-bind="value: username" style="width: 66%" />
+	                            <div style="text-align: right; width: 33%">user name:</div>
+	                            <input type="text" data-bind="value: username" style="width: 62%" />
 	                        </label>
 	                    </li>
 	                    <li>
 	                        <label>
-	                            <div style="text-align: left;">password:</div>
-	                            <input type="password" data-bind="value: password" style="width: 66%" />
+	                            <div style="text-align: right; width: 33%">password:</div>
+	                            <input type="password" data-bind="value: password" style="width: 62%" />
 	                        </label>
 	                    </li>
 	                </ul>
@@ -60,7 +61,7 @@
 					
 					<div>
 						<p>Need help logging in? Please visit the hospitality desk.</p>
-						<p>v1.8</p>
+						<p>v1.9</p>
                     </div>
 				
 					<div class="amway"></div>
@@ -139,7 +140,7 @@
 		<div id="tabstrip-workshop"
 			data-role="view"
 			data-title="Workshop"
-			data-layout="tabstrip-layout-back"
+			data-layout="tabstrip-layout-workshop"
 			data-model="app.loginService.viewModel"
 			data-show="loadWorkshop">
 			
@@ -165,7 +166,7 @@
 		<div id="tabstrip-topic"
 			data-role="view"
 			data-title="Workshop"
-			data-layout="tabstrip-layout-back"
+			data-layout="tabstrip-layout-workshop"
 			data-model="app.loginService.viewModel"
 			data-show="loadTopic">
 			
@@ -200,7 +201,7 @@
 		<div id="tabstrip-viewPost"
 			data-role="view"
 			data-title="View Post"
-			data-layout="tabstrip-layout-back"
+			data-layout="tabstrip-layout-viewPost"
 			data-model="app.loginService.viewModel"
 			data-show="viewPost">
 			
@@ -235,7 +236,7 @@
 		<div id="tabstrip-addPost"
 			data-role="view"
 			data-title="Add Post"
-			data-layout="tabstrip-layout-back"
+			data-layout="tabstrip-layout-addPost"
 			data-model="app.loginService.viewModel"
 			data-show="addPost">
 			
@@ -243,7 +244,7 @@
 					<div id="postBox">
 					<textarea data-bind="value: newpost"
 								id="newPost" rows="10"
-								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%">
+								style="background-color: white; border-style: solid; border-width: 1px; width: 98%">
                     </textarea>
 					<input type="file" data-bind="value: photo" accept="image/*" capture="camera">
 					<div class="buttonArea">
@@ -257,6 +258,28 @@
 			</div>
 		</div>
 
+		
+		<!-- -- -- -- -- -- -- -- --
+			Requesting confirmation that we should delete a post
+		-- -- -- -- -- -- -- -- -->
+		<div id="tabstrip-deletePost"
+			data-role="view"
+			data-title="Delete Post"
+			data-layout="tabstrip-layout-workshop"
+			data-show="deletePostConfirm">
+			
+			<div class="view-content">
+				<h2>Are you sure?</h2>
+				<p>By deleting this post, you will also remove all comments and likes. This change is permanent and non-revocable.</p>
+				<div class="buttonArea">
+                    <a  id="deleteConfirmation"
+						data-role="button"
+						onClick="deletePostDo();"
+						class="login-button"
+						style="background-color: #f0f0f0; colour: green">I am sure</a>
+                </div>
+			</div>
+		</div>
 		
 		<!-- -- -- -- -- -- -- -- --
 			Hospitality
@@ -276,7 +299,7 @@
 				<p><center><a onclick="window.open('https://en.wikipedia.org/wiki/Taj_mahal','_system');" data-role="button">Wikipedia page</a></center></p>
 				<h1><div id="tripadvisorTitle">&nbsp;</div></h1>
 				<div id="tripadvisorText" style="text-align: left">&nbsp;</div>
-				<p><center><a onclick="window.open('http://cityguides.tripadvisor.com','_system');" data-role="button">TripAdvisor New Delhi</a></center></p>
+				<p><center><a onclick="window.open('http://cityguides.tripadvisor.com','_blank');" data-role="button">TripAdvisor New Delhi</a></center></p>
 				<p style="text-align: left">In case your Apple itunes account is associated to another country than the above mentioned in the dropdown, please download the Tripadvisor City Guides app in your appstore account and install the New Delhi maps.</p>
 			</div>
 			
@@ -317,19 +340,17 @@
         </div>
 		
 		<!-- Child tab layout for the workshop (with a back button) -->
-        <div id="xxx" 
-			data-role="layout2" 
-			data-id="tabstrip-fubar">
-
-            <!--Header-->
+		<!-- I have no idea why this has to stay here, but if I remove it, none of the other child
+			 layouts work anymore! -->
+        <div id="xxx">
             <div data-role="header" style="background-color: white" id="header">
                 <div data-role="navbar2">
-					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
+					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton"></a>
                 </div>
             </div>
         </div>
 
-		<!-- Child tab layout for the wall (with a post button) -->
+		<!-- Child tab layout for the wall (includes a post button) -->
         <div id="tabstrip-layout-wall" 
 			data-role="layout"  
 			data-id="tabstrip-layout-wall"
@@ -357,10 +378,61 @@
             </div>
         </div>
 
-		<!-- Child tab layout for the wallpost (with a back button) -->
-        <div id="tabstrip-layout-back" 
+		<!-- Child tab layout for view post tab (with a back button and optional delete button) -->
+        <div id="tabstrip-layout-viewPost" 
 			data-role="layout" 
-			data-id="tabstrip-layout-back">
+			data-id="tabstrip-layout-viewPost">
+
+            <!--Header-->
+            <div data-role="header" id="header">
+                <div data-role="navbar">
+					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
+					<a data-align="right" id="deletePostButton" data-icon="trash" data-role="button" href="#tabstrip-deletePost">Delete</a>
+					<span data-role="view-title"></span>
+                </div>
+            </div>
+
+            <!--Footer-->
+            <div data-role="footer" id="footer">
+                <div data-role="tabstrip">
+                    <a href="#tabstrip-home" data-icon="recents">Agenda</a>
+                    <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
+					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
+                    <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
+					<a href="#tabstrip-logout" data-icon="delete">Log out</a>
+                </div>
+            </div>
+        </div>
+		
+		<!-- Child tab layout for add post tab (with a cancel button) -->
+        <div id="tabstrip-layout-addPost" 
+			data-role="layout" 
+			data-id="tabstrip-layout-addPost">
+
+            <!--Header-->
+            <div data-role="header" id="header">
+                <div data-role="navbar">
+					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Cancel</a>
+					<span data-role="view-title"></span>
+                </div>
+            </div>
+
+            <!--Footer-->
+            <div data-role="footer" id="footer">
+                <div data-role="tabstrip">
+                    <a href="#tabstrip-home" data-icon="recents">Agenda</a>
+                    <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
+					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
+                    <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
+					<a href="#tabstrip-logout" data-icon="delete">Log out</a>
+                </div>
+            </div>
+        </div>
+		
+		<!-- Child tab layout for workshop (with a back button) -->
+        <div id="tabstrip-layout-workshop" 
+			data-role="layout" 
+			data-id="tabstrip-layout-workshop">
 
             <!--Header-->
             <div data-role="header" id="header">

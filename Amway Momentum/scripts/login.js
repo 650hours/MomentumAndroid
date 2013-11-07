@@ -15,8 +15,8 @@
 			var that = this,
 				newpost = that.get('newpost').trim();
 	
-			if(newpost === '') {
-                navigator.notification.alert('Please enter a post!', function () { }, 'Login failed', 'OK');
+			if(newpost == '') {
+                navigator.notification.alert('Please enter a post!', function () { }, 'Post failed', 'OK');
                 return;
             }
 			
@@ -40,8 +40,8 @@
 			var that = this,
 				comment = that.get('comment').trim();
 			
-			if(comment === '') {
-                navigator.notification.alert('Please enter a comment!', function () { }, 'Login failed', 'OK');
+			if(comment == '') {
+                navigator.notification.alert('Please enter a comment!', function () { }, 'Comment failed', 'OK');
                 return;
             }
 			
@@ -70,14 +70,14 @@
 				password = that.get('password').trim();
 
             if (username === '' || password === '') {
-                navigator.notification.alert('Both fields are required!', function () { }, 'Login failed', 'OK');
+                navigator.notification.alert('Both fields are required!', function () { }, 'Missing credentials', 'OK');
                 return;
             }
 
 			$.ajax({
     			url: 'http://amway.650h.co.uk/index/default/login/' + username + '/' + password,
-				error: function(){
-					navigator.notification.alert('Sorry, we could not log you in due to a connection issue. Please try again.');	
+				error: function() {
+					navigator.notification.alert('Sorry, we could not log you in due to a connection issue. Please try again.', function () { }, 'Network failure', 'OK');	
                 },
 				cache: false}).done(function(data) {
 					
@@ -93,7 +93,7 @@
 						// Scroll to the top of the page
 						$(".km-scroll-container").css("-webkit-transform", "");
 					} else {
-						navigator.notification.alert('Sorry, that appears to be the incorrect username and password. Please try again.');
+						navigator.notification.alert('Sorry, that appears to be the incorrect username and password. Please try again.', function () { }, 'Incorrect credentials', 'OK');
                     }
 			    });           
         },
