@@ -93,8 +93,17 @@ textarea {
 	text-align: left;
 	margin-bottom: 0;
 }
+.wallPost .lastUpdated {
+	margin-top: 4px;
+	font-size: 0.7em;
+}
+.wallPost .postText {
+	padding-right: 0.5em;
+}
 .wallPost .likesComments {
 	margin-top: 4px;
+	padding-right: 0.5em;
+	text-align: right;
 }
 .likeButton {
 	-webkit-border-radius: 5px;

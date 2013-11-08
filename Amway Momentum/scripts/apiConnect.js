@@ -46,6 +46,33 @@ function loadHospitality() {
 }
 
 
+// Handle tripadvisor request
+function tripAdvisor() {
+	
+	var country = $("#taCountry").val();
+	var taButtonLink = taButtonText = '';
+	
+	if(country == 1) {
+		taButtonLink = "https://itunes.apple.com/in/app/tripadvisor-offline-city-guides/id480066121";
+		taButtonText = "India";
+    } else if(country == 2) {
+		taButtonLink = "https://itunes.apple.com/de/app/tripadvisor-offline-city-guides/id480066121";
+		taButtonText = "Germany";
+    } else if(country == 3) {
+		taButtonLink = "https://itunes.apple.com/de/app/tripadvisor-offline-city-guides/id480066121";
+		taButtonText = "the UK";
+    } else if(country == 4) {
+		taButtonLink = "https://itunes.apple.com/de/app/tripadvisor-offline-city-guides/id480066121";
+		taButtonText = "Russia";
+    } else {
+		taButtonLink = "https://itunes.apple.com/de/app/tripadvisor-offline-city-guides/id480066121";
+		taButtonText = "the USA";
+    }
+	
+	// Add in the button!
+	$("#taLinkButton").html("<p><center><a onclick=\"window.open('" + taButtonLink + "','_blank');\" style='text-decoration: underline'>TripAdvisor App for " + taButtonText + "</a></center></p>");
+}
+
 // Load workshop list
 function loadWorkshopList() {
 	
@@ -139,74 +166,87 @@ function loadWall() {
 	// Make sure the navigation is showing
 	$('.km-footer').show();
 
-	var wallPosts = '';
-	var uid = window.localStorage.getItem("userShortId");
-	
 	$.ajax({
-	url: 'http://amway.650h.co.uk/index/default/getWallposts/' + uid + '/0/20',
+	url: 'http://amway.650h.co.uk/index/default/getWallposts/0/20',
 	error: handleAjaxError, cache: false}).done(function(data) {
 		
-		// Build the lists of wall posts
-		$.each(data, function(i,item) {
-			
-			var pid = item.wallpostId,
-				ptx = item.postText,
-				nck = item.nickname;
-			
-			wallPosts = wallPosts + '<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">' +
-									'<div class="wallPost wallPostOnWall rightNavArrow">';
-			
-			if(item.image != '') {
-				wallPosts = wallPosts + '<table width="100%"><tr>' +
-							'<td width="100"><img src="http://amway.650h.co.uk' + item.image + '" width="100px" /></td>' +
-							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
-			} else {
-				wallPosts = wallPosts + '<table width="100%"><tr>' +
-							'<td colspan="2"><p><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
-			}
-			
-			wallPosts = wallPosts + '<tr><td colspan="2"><p class="likesComments">';
-			
-			// Like button
-			
-			// 1 like, 2 likes
-			var likeText = ' likes';
-			if(item.numberLikes == 1) {
-				likeText = ' like';
-			}
-			
-			if(item.likedByThisUser) {
-				wallPosts = wallPosts + '<span class="likeButton buttonSelected" id="likeButton'+pid+'">' +
-										'<a href="javascript: void(0);" onClick="postUnlike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
-            } else {
-				wallPosts = wallPosts + '<span class="likeButton" id="likeButton'+pid+'">' +
-										'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
-			}
-			
-			// Comment button
-			
-			// 1 comment, 2 comments
-			// Button selected?
-			
-			var commentText = ' comments',
-				buttonSelected = '';
-			
-			if(item.numberComments > 0) {
-				buttonSelected = " buttonSelected";
-				if(item.numberComments == 1) {
-					commentText = ' comment';
-				}
-			}
-			
-			wallPosts = wallPosts + '<span class="commentButton'+buttonSelected+'"><a href="javascript: void(0);">'+item.numberComments+commentText+'</a></span>';
-			
-			// Likes & comments count
-			wallPosts = wallPosts + '</p></td></tr></table></div></a>';
-		});
+		var wallPosts = '';
+		var data = eval(data);
+		
+		wallPosts = buildWallView(data.posts);
 		
 		$("#wallPosts").html(wallPosts);
 	});
 }
+
+
+// Build a wall post view (for paging)
+function buildWallView(posts) {
+	
+	var wallPosts = '';
+	var uid = window.localStorage.getItem("userShortId");
+	
+	// Build the lists of wall posts
+	$.each(posts, function(i,item) {
+		
+		var pid = item.wallpostId,
+			ptx = item.postText,
+			nck = item.nickname;
+		
+		wallPosts = wallPosts + '<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">' +
+								'<div class="wallPost wallPostOnWall rightNavArrow">';
+		
+		if(item.image != '') {
+			wallPosts = wallPosts + '<table width="100%"><tr>' +
+						'<td width="100"><img src="http://amway.650h.co.uk' + item.image + '" width="100px" /></td>' +
+						'<td valign="top"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
+		} else {
+			wallPosts = wallPosts + '<table width="100%"><tr>' +
+						'<td width="100">&nbsp;</td><td><p class="postText"><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
+		}
+		
+		wallPosts = wallPosts + '<tr><td><p class="lastUpdated"><nobr>' + item.lastUpdated + '</nobr></p><td><p class="likesComments">';
+		
+		// Like button
+		
+		// 1 like, 2 likes
+		var likeText = ' likes';
+		if(item.numberLikes == 1) {
+			likeText = ' like';
+		}
+		
+		if(item.likedByThisUser) {
+			wallPosts = wallPosts + '<span class="likeButton buttonSelected" id="likeButton'+pid+'">' +
+									'<a href="javascript: void(0);" onClick="postUnlike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
+        } else {
+			wallPosts = wallPosts + '<span class="likeButton" id="likeButton'+pid+'">' +
+									'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
+		}
+		
+		// Comment button
+		
+		// 1 comment, 2 comments
+		// Button selected?
+		
+		var commentText = ' comments',
+			buttonSelected = '';
+		
+		if(item.numberComments > 0) {
+			buttonSelected = " buttonSelected";
+			if(item.numberComments == 1) {
+				commentText = ' comment';
+			}
+		}
+		
+		wallPosts = wallPosts + '<span class="commentButton'+buttonSelected+'"><a href="javascript: void(0);">'+item.numberComments+commentText+'</a></span>';
+		
+		// Likes & comments count
+		wallPosts = wallPosts + '</p></td></tr></table></div></a>';
+	});
+	
+	return wallPosts;
+}
+
 
 // View a specific wallpost, along with likes and comments
 function viewPost() {
@@ -387,8 +427,7 @@ function deletePostDo() {
 		navigator.notification.alert('Your post, along with all comments and likes, has been deleted.', function () { }, 'Deletion sucessful', 'OK');
 		
 		// Navigate back to the wall
-		var app = new kendo.mobile.Application();
-		app.navigate("#tabstrip-wall");
+		app.application.navigate("#tabstrip-wall");
 	});
 	
 }

@@ -132,15 +132,13 @@
 	
 	// Navigate to home after logging out.
 	function navigateToHome() {
-		var app = new kendo.mobile.Application();
-		app.navigate("#tabstrip-home");
+		app.application.navigate("#tabstrip-home");
 		hideNavigation();
 	}
 	
 	// Navigate to the wallpost after creation.
 	function navigateToWall() {
-		var app = new kendo.mobile.Application();
-		app.navigate("#tabstrip-wall");
+		app.application.navigate("#tabstrip-wall");
 	}
 	
 })(window);

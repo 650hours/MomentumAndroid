@@ -61,7 +61,7 @@
 					
 					<div>
 						<p>Need help logging in? Please visit the hospitality desk.</p>
-						<p>v1.11</p>
+						<p>v1.12</p>
                     </div>
 				
 					<div class="amway"></div>
@@ -315,10 +315,19 @@
 				<div id="introText" style="text-align: left">&nbsp;</div>
 				<h1><div id="visitTitle">&nbsp;</div></h1>
 				<div id="visitText" style="text-align: left">&nbsp;</div>
-				<p><center><a onclick="window.open('https://en.wikipedia.org/wiki/Taj_mahal','_system');" data-role="button">Wikipedia page</a></center></p>
+				<p><center><a onclick="window.open('https://en.wikipedia.org/wiki/Taj_mahal','_blank');" data-role="button">Wikipedia page</a></center></p>
 				<h1><div id="tripadvisorTitle">&nbsp;</div></h1>
 				<div id="tripadvisorText" style="text-align: left">&nbsp;</div>
-				<p><center><a onclick="window.open('http://cityguides.tripadvisor.com','_blank');" data-role="button">TripAdvisor New Delhi</a></center></p>
+				<h4>Please select your country to download your TripAdvisor guide to New Delhi</h4>
+				<select name="taCountry" id="taCountry">
+					<option value="1">India</option>
+					<option value="2">Germany</option>
+					<option value="3">UK</option>
+					<option value="4">Russia</option>
+					<option value="5">USA</option>
+                </select>
+				<input type="submit" value="go" onclick="javascript: tripAdvisor(); return false;" />
+				<div id="taLinkButton" style="text-align: left">&nbsp;</div>
 				<p style="text-align: left">In case your Apple itunes account is associated to another country than the above mentioned in the dropdown, please download the Tripadvisor City Guides app in your appstore account and install the New Delhi maps.</p>
 			</div>
 			

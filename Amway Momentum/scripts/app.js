@@ -9,12 +9,11 @@
 		navigator.splashscreen.hide();
     }, false);
 
-    var app = new kendo.mobile.Application(document.body, {
+    app.application = new kendo.mobile.Application(document.body, {
 		layout: "tabstrip-layout",
 		statusBarStyle: statusBarStyle,
+		plaform: "ios"
 		//useNativeScrolling: true
 	});
-	
-	app.navigate('#tabstrip-workshops');
 
 })(window);
