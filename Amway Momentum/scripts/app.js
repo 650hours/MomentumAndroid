@@ -12,7 +12,7 @@
     app.application = new kendo.mobile.Application(document.body, {
 		layout: "tabstrip-layout",
 		statusBarStyle: statusBarStyle,
-		plaform: "ios"
+		//platform: "ios"
 		//useNativeScrolling: true
 	});
 

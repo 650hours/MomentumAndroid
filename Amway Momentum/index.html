@@ -37,8 +37,8 @@
 
 	                <ul data-role="listview" data-style="inset">
 	                    <li>
-	                        <label>
-	                            <div style="text-align: right; width: 33%">user name:</div>
+	                        <label style="border: 0">
+	                            <div style="text-align: right; width: 33%; ">user name:</div>
 	                            <input type="text" data-bind="value: username" style="width: 62%" />
 	                        </label>
 	                    </li>
@@ -61,10 +61,10 @@
 					
 					<div>
 						<p>Need help logging in? Please visit the hospitality desk.</p>
-						<p>v1.12</p>
                     </div>
 				
 					<div class="amway"></div>
+					<p>v1.13</p>
 				</div>
 				
 				<!--// Show when logged in - this is the "Agenda" //-->
@@ -271,7 +271,7 @@
 							data-role="button"
 							data-bind="click: onNewPost"
 							class="login-button"
-							style="background-color: #f0f0f0; colour: green">Post</a>
+							style="background-color: #f0f0f0; colour: green">Post Comment</a>
 	                </div>
 				</div>
 			</div>
@@ -295,7 +295,7 @@
 						data-role="button"
 						onClick="deletePostDo();"
 						class="login-button"
-						style="background-color: #f0f0f0; colour: green">I am sure</a>
+						style=""><span style="color:red">Delete post</span></a>
                 </div>
 			</div>
 		</div>
@@ -326,7 +326,7 @@
 					<option value="4">Russia</option>
 					<option value="5">USA</option>
                 </select>
-				<input type="submit" value="go" onclick="javascript: tripAdvisor(); return false;" />
+				<a onclick="javascript: tripAdvisor(); return false;" data-role="button">Select</a>
 				<div id="taLinkButton" style="text-align: left">&nbsp;</div>
 				<p style="text-align: left">In case your Apple itunes account is associated to another country than the above mentioned in the dropdown, please download the Tripadvisor City Guides app in your appstore account and install the New Delhi maps.</p>
 			</div>
@@ -418,7 +418,7 @@
             <!--Header-->
             <div data-role="header" id="header">
                 <div data-role="navbar">
-					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton" href="#tabstrip-wall">Back</a>
+					<a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
 					<a data-align="right" id="deletePostButton" data-icon="trash" data-role="button" href="#tabstrip-deletePost">Delete</a>
 					<span data-role="view-title"></span>
                 </div>

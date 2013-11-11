@@ -19,7 +19,7 @@ function loadAgenda() {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getAgenda',
-	error: handleAjaxError, cache: false}).done(function(data) {
+	error: handleAjaxError, cache: true}).done(function(data) {
 		
 		// Put content in place on the page
 		$("#agendaTitle").html(data.agendaTitle);
@@ -33,7 +33,7 @@ function loadHospitality() {
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getHospitality',
-	error: handleAjaxError, cache: false}).done(function(data) {
+	error: handleAjaxError, cache: true}).done(function(data) {
 
 		// Put content in place on the page
 		$("#introTitle").html(data.introTitle);
@@ -77,11 +77,13 @@ function tripAdvisor() {
 function loadWorkshopList() {
 	
 	var userWorkshopList = '';
-	var otherWorkshopList = '<ul class="topcoat-list__container">';
+	var otherWorkshopList = '';
+	
+	var uid = window.localStorage.getItem("userShortId");
 
 	$.ajax({
-	url: 'http://amway.650h.co.uk/index/default/getWorkshopsList',
-	error: handleAjaxError, cache: false}).done(function(data) {
+	url: 'http://amway.650h.co.uk/index/default/getWorkshopsList/' + uid,
+	error: handleAjaxError, cache: true}).done(function(data) {
 		
 		// Build the lists of user attended workshops and other workshops
 		$.each(data, function(i,item) {
@@ -92,7 +94,9 @@ function loadWorkshopList() {
             }
 		}) 
 		
-		otherWorkshopList = otherWorkshopList + '</ul>';
+		if(userWorkshopList === '') {
+			userWorkshopList = userWorkshopList + '<a href="javascript: void(0); return false;"><li class="topcoat-list__item">You have no workshops</li></a>';
+        }
 		
 		// Put content in place on the page
 		$("#userWorkshopList").html(userWorkshopList);
@@ -198,7 +202,7 @@ function buildWallView(posts) {
 		
 		if(item.image != '') {
 			wallPosts = wallPosts + '<table width="100%"><tr>' +
-						'<td width="100"><img src="http://amway.650h.co.uk' + item.image + '" width="100px" /></td>' +
+						'<td width="100"><img src="http://amway.650h.co.uk' + item.image + '" width="100px" height="100px" /></td>' +
 						'<td valign="top"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
 		} else {
 			wallPosts = wallPosts + '<table width="100%"><tr>' +
@@ -216,11 +220,13 @@ function buildWallView(posts) {
 		}
 		
 		if(item.likedByThisUser) {
-			wallPosts = wallPosts + '<span class="likeButton buttonSelected" id="likeButton'+pid+'">' +
-									'<a href="javascript: void(0);" onClick="postUnlike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
+			wallPosts = wallPosts + '<nobr><span class="likeButton buttonSelected" id="likeButton'+pid+'">' +
+									'<a href="javascript: void(0);" onClick="postUnlike('+pid+','+uid+');">' +
+									'<span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span></nobr>';
         } else {
-			wallPosts = wallPosts + '<span class="likeButton" id="likeButton'+pid+'">' +
-									'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');"><span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span>';
+			wallPosts = wallPosts + '<nobr><span class="likeButton" id="likeButton'+pid+'">' +
+									'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');">' +
+									'<span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span></nobr>';
 		}
 		
 		// Comment button
@@ -238,7 +244,8 @@ function buildWallView(posts) {
 			}
 		}
 		
-		wallPosts = wallPosts + '<span class="commentButton'+buttonSelected+'"><a href="javascript: void(0);">'+item.numberComments+commentText+'</a></span>';
+		wallPosts = wallPosts + '<nobr><span class="commentButton'+buttonSelected+'">' +
+								'<a href="javascript: void(0);">'+item.numberComments+commentText+'</a></span></nobr>';
 		
 		// Likes & comments count
 		wallPosts = wallPosts + '</p></td></tr></table></div></a>';
@@ -265,6 +272,7 @@ function viewPost() {
 	
 	// Clear out the commentMade box, otherwise comments look duplicated
 	$('#commentMade').html('');
+	$('#newComment').val('');
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getPost/' + pid,
@@ -307,7 +315,7 @@ function viewPost() {
 		// Make original post
 		if(img != '') {
 			originalPost = originalPost + '<div class="wallPost"><table width="100%"><tr>' +
-							'<td><img src="http://amway.650h.co.uk' + img + '" width="100px" /></td>' +
+							'<td><img src="http://amway.650h.co.uk' + img + '" width="100px" height="100px" /></td>' +
 							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr></table><p>'+likesList+'</p></div>';
 		} else {
 			originalPost = originalPost + '<div class="wallPost"><p style="font-weight: bold">' + nck + ' said:</p>' +
