@@ -201,12 +201,12 @@ function buildWallView(posts) {
 								'<div class="wallPost wallPostOnWall rightNavArrow">';
 		
 		if(item.image != '') {
-			wallPosts = wallPosts + '<table width="100%"><tr>' +
-						'<td width="100"><img src="http://amway.650h.co.uk' + item.image + '" width="100px" height="100px" /></td>' +
-						'<td valign="top"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
+			wallPosts = wallPosts + '<table style="width: 100%; table-layout:fixed"><tr>' +
+						'<td width="35px"><img src="http://amway.650h.co.uk' + item.image + '" width="60px" height="60px" /></td>' +
+						'<td valign="top" width="150"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
 		} else {
-			wallPosts = wallPosts + '<table width="100%"><tr>' +
-						'<td width="100">&nbsp;</td><td><p class="postText"><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
+			wallPosts = wallPosts + '<table style="width: 100%"><tr>' +
+						'<td>&nbsp;</td><td><p class="postText"><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
 		}
 		
 		wallPosts = wallPosts + '<tr><td><p class="lastUpdated"><nobr>' + item.lastUpdated + '</nobr></p><td><p class="likesComments">';
@@ -316,7 +316,7 @@ function viewPost() {
 		if(img != '') {
 			originalPost = originalPost + '<div class="wallPost"><table width="100%"><tr>' +
 							'<td><img src="http://amway.650h.co.uk' + img + '" width="100px" height="100px" /></td>' +
-							'<td><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr></table><p>'+likesList+'</p></div>';
+							'<td valign="top"><p><b>' + nck + ':</b> ' + ptx + '</p></td></tr></table><p>'+likesList+'</p></div>';
 		} else {
 			originalPost = originalPost + '<div class="wallPost"><p style="font-weight: bold">' + nck + ' said:</p>' +
 							'<p>' + ptx + '</p><p style="font-size: 0.8em">'+likesList+'</p></div>';
