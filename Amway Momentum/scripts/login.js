@@ -45,10 +45,14 @@
 		// This is nothing to do with login - it handles comment submission from an existing comment!
 		onPostComment: function () {
 			
+			alert(comment);
+			
 			var that = this,
 				comment = that.get('comment').trim();
 			
-			if(comment == '') {
+				alert(comment);
+			
+			if(comment === '') {
                 navigator.notification.alert('Please enter a comment!', function () { }, 'Comment failed', 'OK');
                 return;
             }
@@ -69,7 +73,11 @@
 					
                 	$('#commentMade').html(newComment);
 					$('#newComment').val('');
-			    });  
+			    });
+			
+			alert(comment);
+			comment = false;
+			alert(comment);
 		},
 		
         onLogin: function () {
@@ -133,6 +141,8 @@
 	// Navigate to home after logging out.
 	function navigateToHome() {
 		app.application.navigate("#tabstrip-home");
+		var tabstrip = app.application.view().footer.find(".km-tabstrip").data("kendoMobileTabStrip");
+		tabstrip.switchTo("#tabstrip-home");
 		hideNavigation();
 	}
 	

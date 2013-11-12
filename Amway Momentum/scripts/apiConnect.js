@@ -1,39 +1,40 @@
-// Hide everything on the first screen or when logging out
-function hideNavigation() {
-	$('#header').hide();
-	$('#footer').hide();
-	$("#back-button").hide();
-}
-
-
-// Show navigations
-function showNavigation() {
-	$('#header').show();
-	$('#footer').show();
-	$("#back-button").show();
-}
-
+/**
+	Copyright notice.
+	Developed by 650hours for Gower for Amway Momentum 2013.
+	stew@650hours.com
+*/
 
 // Load the agenda
 function loadAgenda() {
+	
+	// Show the loading screen
+	app.application.showLoading();
+	
+	// Have to do this here rather than on the page on init as if we do it there, the styling is messed up
+	hideBackButton();
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getAgenda',
-	error: handleAjaxError, cache: true}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Put content in place on the page
 		$("#agendaTitle").html(data.agendaTitle);
 		$("#agendaWelcome").html(data.agendaText);
 	})
+	
+	app.application.hideLoading();
 }
 
 
 // Load hospitality desk
 function loadHospitality() {
 	
+	// Show the loading screen
+	app.application.showLoading();
+	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getHospitality',
-	error: handleAjaxError, cache: true}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 
 		// Put content in place on the page
 		$("#introTitle").html(data.introTitle);
@@ -43,6 +44,8 @@ function loadHospitality() {
 		$("#tripadvisorTitle").html(data.tripadvisorTitle);
 		$("#tripadvisorText").html(data.tripadvisorText);
 	})
+	
+	app.application.hideLoading();
 }
 
 
@@ -76,6 +79,9 @@ function tripAdvisor() {
 // Load workshop list
 function loadWorkshopList() {
 	
+	// Show the loading screen
+	app.application.showLoading();
+	
 	var userWorkshopList = '';
 	var otherWorkshopList = '';
 	
@@ -83,7 +89,7 @@ function loadWorkshopList() {
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWorkshopsList/' + uid,
-	error: handleAjaxError, cache: true}).done(function(data) {
+	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		// Build the lists of user attended workshops and other workshops
 		$.each(data, function(i,item) {
@@ -102,14 +108,25 @@ function loadWorkshopList() {
 		$("#userWorkshopList").html(userWorkshopList);
 		$("#otherWorkshopList").html(otherWorkshopList);
 	});
+	
+	app.application.hideLoading();
 }
 
 
 // Load an individual workshop
 function loadWorkshop(e) {
 	
+	// Show the loading screen
+	app.application.showLoading();
+	
+	// Show the back button
+	showBackButton();
+	
 	// Scroll to the top of the page
 	$(".km-scroll-container").css("-webkit-transform", "");
+	
+	var tabstrip = app.application.view().footer.find(".km-tabstrip").data("kendoMobileTabStrip");
+	tabstrip.switchTo("#tabstrip-workshops");
 	
 	var workshopId = e.view.params.wid;	
 	var topicList = resourceList = '';
@@ -142,11 +159,19 @@ function loadWorkshop(e) {
 		$("#topicList").html(topicList);
 		$("#resourceList").html(resourceList);
 	});
+	
+	app.application.hideLoading();
 }
 
 
 // Load a topic
 function loadTopic(e) {
+	
+	// Show the loading screen
+	app.application.showLoading();
+
+	// Show the back button - doesn't work!!!!
+	showBackButton();
 	
 	// Scroll to the top of the page
 	$(".km-scroll-container").css("-webkit-transform", "");
@@ -160,15 +185,23 @@ function loadTopic(e) {
 		// Put content in place on the page
 		$("#topicTitle").html(data.topicTitle);
 		$("#topicDescription").html(data.topicDescription);
-	})
+	});
+	
+	app.application.hideLoading();
 }
 
 
 // Load the wall - starts with 20 posts, but supports paging
 function loadWall() {
 	
+	// Show the loading screen
+	app.application.showLoading();
+	
 	// Make sure the navigation is showing
 	$('.km-footer').show();
+	
+	// Show the add post button
+	showAddPostButton();
 
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/getWallposts/0/20',
@@ -181,6 +214,8 @@ function loadWall() {
 		
 		$("#wallPosts").html(wallPosts);
 	});
+	
+	app.application.hideLoading();
 }
 
 
@@ -258,6 +293,12 @@ function buildWallView(posts) {
 // View a specific wallpost, along with likes and comments
 function viewPost() {
 	
+	// Show the loading screen
+	app.application.showLoading();
+	
+	// Show the back button
+	showBackButton();
+	
 	// Make sure the navigation is hidden
 	$('.km-footer').hide();
 	
@@ -291,10 +332,8 @@ function viewPost() {
 			img = post[0].image;
 		
 		// Do we show the delete button (only if this user is the original poster)?
-		if(post[0].userShortId != uid) {
-			$('#deletePostButton').hide();
-        } else {
-			$('#deletePostButton').show();
+		if(post[0].userShortId === uid) {
+			showDeletePostButton();
         }
 			
 		// Make likes list
@@ -341,16 +380,23 @@ function viewPost() {
 		
 		$('#commentList').html(commentList);
 	});
+	
+	app.application.hideLoading();
 }
 
 
 // Add a new post
 function addPost() {
+	
+	// Show the back button
+	showBackButton();
+	
 	// Make sure the navigation is hidden
 	$('.km-footer').hide();
 	
 	// Clear the textarea
-	$('#newPost').val('');
+	$('.newPost').val('');
+	$('.newPost').text('');
 	
 	// Make sure that we have no imageId in cache (in case they bailed mid way through a post)
 	window.localStorage.setItem("imageId", 0);
@@ -363,6 +409,9 @@ function addPost() {
 
 // Add a like to a post
 function postLike(pid, uid) {
+	
+	// Show the loading screen
+	app.application.showLoading();
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/postLike/' + pid + '/' + uid,
@@ -384,11 +433,16 @@ function postLike(pid, uid) {
 		$(replaceDiv).html(likeText);
 		$(likeButton).addClass("buttonSelected");
 	});
+	
+	app.application.hideLoading();
 }
 
 
 // Remove a like from a post
 function postUnlike(pid, uid) {
+	
+	// Show the loading screen
+	app.application.showLoading();
 	
 	$.ajax({
 	url: 'http://amway.650h.co.uk/index/default/postUnlike/' + pid + '/' + uid,
@@ -410,19 +464,30 @@ function postUnlike(pid, uid) {
 		$(replaceDiv).html(likeText);
 		$(likeButton).removeClass("buttonSelected");
 	});
+	
+	app.application.hideLoading();
 }
 
 
 function deletePostConfirm() {
 	// Make sure the navigation is hidden
 	$('.km-footer').hide();
+	
+	// Show the back button
+	showBackButton();
 }
 
 
 function deletePostDo() {
 	
+	// Show the loading screen
+	app.application.showLoading();
+	
 	// Make sure the navigation is hidden
 	$('.km-footer').hide();
+	
+	// Show the back button
+	showBackButton();
 
 	// We need the postId, of course!
 	var pid = window.localStorage.getItem("pid");
@@ -434,9 +499,13 @@ function deletePostDo() {
 		// Confirm deletion
 		navigator.notification.alert('Your post, along with all comments and likes, has been deleted.', function () { }, 'Deletion sucessful', 'OK');
 		
+		app.application.hideLoading();
+		
 		// Navigate back to the wall
 		app.application.navigate("#tabstrip-wall");
 	});
+	
+	app.application.hideLoading();
 	
 }
 
@@ -470,6 +539,7 @@ function getImageFromCamera() {
     );
 }
 function uploadPhoto(imageURI) {
+	
 	var options = new FileUploadOptions();
 	options.fileKey="file";
 	options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -504,8 +574,62 @@ function photoUploadedSucessfully(r) {
 }
 
 
+
+/** --------------------------------------------------------------------------------
+	HELPER FUNCTIONS.
+    -------------------------------------------------------------------------------- */
+
+// Hide everything on the first screen or when logging out
+function hideNavigation() {
+	$('#header').hide();
+	$('#footer').hide();
+}
+
+// Show navigation
+function showNavigation() {
+	$('#header').show();
+	$('#footer').show();
+}
+
+// Hide the back button
+function hideBackButton() {
+	$(".backButton").hide();
+}
+
+// Show the back button
+function showBackButton() {
+	$(".backButton").show();
+}
+
+// Hide the add post button
+function hideAddPostButton() {
+	$(".addPostButton").hide();
+}
+
+// Show the add post button
+function showAddPostButton() {
+	$(".addPostButton").show();
+}
+
+// Hide the delete post button
+function hideDeletePostButton() {
+	$(".deletePostButton").hide();
+}
+
+// Show the delete post button
+function showDeletePostButton() {
+	$(".deletePostButton").show();
+}
+
+// Hide both the delete post and back buttons (used by delete post only)
+function hideBackButtonAndDeletePostButton() {
+	hideBackButton();
+	hideDeletePostButton();
+}
+
 // Handle error in AJAX
 function handleAjaxError() {
+	app.application.hideLoading();
 	navigator.notification.alert('Sorry, a connection problem occured resulting in your request failing, please try again.', function () { }, 'Network failure', 'OK');
 }
 
