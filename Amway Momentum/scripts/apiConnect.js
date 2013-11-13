@@ -10,6 +10,13 @@ function loadAgenda() {
 	// Show the loading screen
 	app.application.showLoading();
 	
+	// Make sure the navigation is showing
+	$('.km-header').show();
+	$('.km-footer').show();
+	
+	// Scroll to the top of the page
+	$(".km-scroll-container").css("-webkit-transform", "");
+	
 	// Have to do this here rather than on the page on init as if we do it there, the styling is messed up
 	hideBackButton();
 
@@ -170,7 +177,7 @@ function loadTopic(e) {
 	// Show the loading screen
 	app.application.showLoading();
 
-	// Show the back button - doesn't work!!!!
+	// Show the back button
 	showBackButton();
 	
 	// Scroll to the top of the page
@@ -202,9 +209,11 @@ function loadWall() {
 	
 	// Show the add post button
 	showAddPostButton();
+	
+	var uid = window.localStorage.getItem("userShortId");
 
 	$.ajax({
-	url: 'http://amway.650h.co.uk/index/default/getWallposts/0/20',
+	url: 'http://amway.650h.co.uk/index/default/getWallposts/0/20/'+uid,
 	error: handleAjaxError, cache: false}).done(function(data) {
 		
 		var wallPosts = '';
@@ -233,18 +242,24 @@ function buildWallView(posts) {
 			nck = item.nickname;
 		
 		wallPosts = wallPosts + '<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">' +
-								'<div class="wallPost wallPostOnWall rightNavArrow">';
+								'<div class="wallPost rightNavArrow" style="width: 100%; min-height: 30px;">';
 		
 		if(item.image != '') {
-			wallPosts = wallPosts + '<table style="width: 100%; table-layout:fixed"><tr>' +
-						'<td width="35px"><img src="http://amway.650h.co.uk' + item.image + '" width="60px" height="60px" /></td>' +
-						'<td valign="top" width="150"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></td></tr>';
+			wallPosts = wallPosts + 
+			'<div style="float: left; width: 62px"><img src="http://amway.650h.co.uk' + item.image + '" width="60px" height="60px" /></div>' +
+			'<div style="margin-left: 62px; padding-right: 1em;"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></div>';
 		} else {
-			wallPosts = wallPosts + '<table style="width: 100%"><tr>' +
-						'<td>&nbsp;</td><td><p class="postText"><strong>' + nck + ':</strong> ' + ptx + '</p></td></tr>';
+			wallPosts = wallPosts + 
+			'<div style="float: left; width: 62px">&nbsp;</div>' +
+			'<div style="margin-left: 62px; padding-right: 1em;"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></div>';
 		}
 		
-		wallPosts = wallPosts + '<tr><td><p class="lastUpdated"><nobr>' + item.lastUpdated + '</nobr></p><td><p class="likesComments">';
+		wallPosts = wallPosts + '</div></a>' +
+								'<div style="clear: both; margin: 0">' +
+								'<div style="float: left; width: 120px"><p class="lastUpdated"><nobr>' + item.lastUpdated + '</nobr></p></div>' +
+								'<div style="margin-left: 122px;text-align: right">';
+		
+		//wallPosts = wallPosts + '<tr><td><td><p class="likesComments">';
 		
 		// Like button
 		
@@ -257,11 +272,11 @@ function buildWallView(posts) {
 		if(item.likedByThisUser) {
 			wallPosts = wallPosts + '<nobr><span class="likeButton buttonSelected" id="likeButton'+pid+'">' +
 									'<a href="javascript: void(0);" onClick="postUnlike('+pid+','+uid+');">' +
-									'<span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span></nobr>';
+									'<span id="currentLikes'+pid+'">'+item.numberLikes+'</span></a></span></nobr>';
         } else {
 			wallPosts = wallPosts + '<nobr><span class="likeButton" id="likeButton'+pid+'">' +
 									'<a href="javascript: void(0);" onClick="postLike('+pid+','+uid+');">' +
-									'<span id="currentLikes'+pid+'">'+item.numberLikes+likeText+'</span></a></span></nobr>';
+									'<span id="currentLikes'+pid+'">'+item.numberLikes+'</span></a></span></nobr>';
 		}
 		
 		// Comment button
@@ -280,10 +295,8 @@ function buildWallView(posts) {
 		}
 		
 		wallPosts = wallPosts + '<nobr><span class="commentButton'+buttonSelected+'">' +
-								'<a href="javascript: void(0);">'+item.numberComments+commentText+'</a></span></nobr>';
-		
-		// Likes & comments count
-		wallPosts = wallPosts + '</p></td></tr></table></div></a>';
+								'<a href="javascript: void(0);">'+item.numberComments+'</a></span></nobr>';		
+		wallPosts = wallPosts + '</div><div style="clear: both" class="wallPostOnWall"></div>'
 	});
 	
 	return wallPosts;
@@ -423,11 +436,11 @@ function postLike(pid, uid) {
 		
 		var likeText = data.currentLikes;
 		
-		if(data.currentLikes == 1) {
+		/*if(data.currentLikes == 1) {
 			likeText = likeText + ' like';
         } else {
 			likeText = likeText + ' likes';
-        }
+        }*/
 		
 		// Do it!
 		$(replaceDiv).html(likeText);
@@ -454,11 +467,11 @@ function postUnlike(pid, uid) {
 		
 		var likeText = data.currentLikes;
 
-		if(data.currentLikes == 1) {
+		/*if(data.currentLikes == 1) {
 			likeText = likeText + ' like';
         } else {
 			likeText = likeText + ' likes';
-        }
+        }*/
 		
 		// Do it!
 		$(replaceDiv).html(likeText);

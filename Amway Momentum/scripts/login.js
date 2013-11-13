@@ -45,12 +45,12 @@
 		// This is nothing to do with login - it handles comment submission from an existing comment!
 		onPostComment: function () {
 			
-			alert(comment);
+			//alert(comment);
 			
 			var that = this,
 				comment = that.get('comment').trim();
 			
-				alert(comment);
+				//alert(comment);
 			
 			if(comment === '') {
                 navigator.notification.alert('Please enter a comment!', function () { }, 'Comment failed', 'OK');
@@ -74,10 +74,6 @@
                 	$('#commentMade').html(newComment);
 					$('#newComment').val('');
 			    });
-			
-			alert(comment);
-			comment = false;
-			alert(comment);
 		},
 		
         onLogin: function () {
@@ -102,12 +98,14 @@
 						that.set('nickname', data.nickname);
 						that.set('userShortId', data.userShortId);
 						window.localStorage.setItem("userShortId", data.userShortId);
-
-						showNavigation();
-						loadAgenda();
 						
 						// Scroll to the top of the page
 						$(".km-scroll-container").css("-webkit-transform", "");
+						
+						navigateToAgenda();
+
+						//showNavigation();
+						//loadAgenda();
 					} else {
 						navigator.notification.alert('Sorry, that appears to be the incorrect username and password. Please try again.', function () { }, 'Incorrect credentials', 'OK');
                     }
@@ -137,6 +135,12 @@
     app.loginService = {
         viewModel: new LoginViewModel()
     };
+	
+	// Navigate to agenda after logging in.
+	function navigateToAgenda() {
+		app.application.navigate("#tabstrip-agenda");
+		showNavigation();
+	}
 	
 	// Navigate to home after logging out.
 	function navigateToHome() {

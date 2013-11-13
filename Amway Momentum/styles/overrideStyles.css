@@ -33,6 +33,9 @@
 .km-android .km-view .km-content {
     background-color: rgb(255, 255, 255);
 }
+.km-root a {
+	color: Black;
+}
 .km_footer {
 	background: #f08638;
 }

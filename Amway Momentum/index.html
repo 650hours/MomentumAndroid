@@ -25,7 +25,7 @@
 		-- -- -- -- -- -- -- -- -->
         <div id="tabstrip-home"
 			data-role="view"
-			data-title="Agenda"
+			data-title="Login"
 			data-model="app.loginService.viewModel">
 
             <div class="view-content" style="max-width:450px;">
@@ -67,14 +67,6 @@
 					<p>v1.15</p>
 				</div>
 				
-				<!--// Show when logged in - this is the "Agenda" //-->
-				<div data-bind="visible: isLoggedIn" data-show="loadAgenda">
-					<div class="view-content">
-						<h1><div id="agendaTitle">&nbsp;</div></h1>
-						<div id="agendaWelcome" style="text-align: left">&nbsp;</div>
-					</div>
-                </div>
-				
             </div>
         </div>
 
@@ -106,7 +98,23 @@
 			</div>
 		</div>
 
+		
+		<!-- -- -- -- -- -- -- -- --
+			Agenda
+		-- -- -- -- -- -- -- -- -->
+		<div id="tabstrip-agenda"
+			data-role="view"
+			data-title="Agenda"
+			data-show="loadAgenda">
 
+			<div class="view-content">
+				<h1><div id="agendaTitle">&nbsp;</div></h1>
+				<div id="agendaWelcome" style="text-align: left">&nbsp;</div>
+			</div>
+			
+		</div>
+		
+		
 		<!-- -- -- -- -- -- -- -- --
 			Workshops list
 		-- -- -- -- -- -- -- -- -->
@@ -359,7 +367,7 @@
             <!--Footer-->
             <div data-role="footer" id="footer">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="recents">Agenda</a>
+                    <a href="#tabstrip-agenda" data-icon="recents">Agenda</a>
                     <a href="#tabstrip-workshops" data-icon="organize">Workshops</a>
 					<a href="#tabstrip-wall" data-icon="contacts">Wall</a>
                     <a href="#tabstrip-hospitality" data-icon="about">Hospitality</a>
