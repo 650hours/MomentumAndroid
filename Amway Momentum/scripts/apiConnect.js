@@ -241,23 +241,30 @@ function buildWallView(posts) {
 			ptx = item.postText,
 			nck = item.nickname;
 		
-		wallPosts = wallPosts + '<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">' +
-								'<div class="wallPost rightNavArrow" style="width: 100%; min-height: 30px;">';
+		wallPosts = wallPosts +
+			'<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">' +
+			'<div class="wallPost rightNavArrow" style="width: 100%; min-height: 30px;">';
 		
 		if(item.image != '') {
 			wallPosts = wallPosts + 
-			'<div style="float: left; width: 62px"><img src="http://amway.650h.co.uk' + item.image + '" width="60px" height="60px" /></div>' +
-			'<div style="margin-left: 62px; padding-right: 1em;"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></div>';
+			'<div style="float: left; width: 62px">' +
+			'<img src="http://amway.650h.co.uk' + item.image + '" width="60px" height="60px" />' +
+			'</div>' +
+			'<div style="margin-left: 62px; padding-right: 1em;">' +
+			'<p class="postText"><b>' + nck + ':</b> ' + ptx + '<br />' +
+			'<span class="lastUpdated"><nobr>' + item.lastUpdated + '</nobr></span>' +
+			'</p></div>';
 		} else {
 			wallPosts = wallPosts + 
-			'<div style="float: left; width: 62px">&nbsp;</div>' +
-			'<div style="margin-left: 62px; padding-right: 1em;"><p class="postText"><b>' + nck + ':</b> ' + ptx + '</p></div>';
+			'<div style="padding-right: 1em; padding-bottom: 0.5em"><p class="postText">' +
+			'<b>' + nck + ':</b> ' + ptx + '<br />' +
+			'<span class="lastUpdated"><nobr>' + item.lastUpdated + '</nobr></span>' +
+			'</p></div>';
 		}
 		
 		wallPosts = wallPosts + '</div></a>' +
 								'<div style="clear: both; margin: 0">' +
-								'<div style="float: left; width: 120px"><p class="lastUpdated"><nobr>' + item.lastUpdated + '</nobr></p></div>' +
-								'<div style="margin-left: 122px;text-align: right">';
+								'<div style="margin-top: 0.5em;text-align: right">';
 		
 		//wallPosts = wallPosts + '<tr><td><td><p class="likesComments">';
 		
@@ -295,7 +302,7 @@ function buildWallView(posts) {
 		}
 		
 		wallPosts = wallPosts + '<nobr><span class="commentButton'+buttonSelected+'">' +
-								'<a href="javascript: void(0);">'+item.numberComments+'</a></span></nobr>';		
+								'<a href="#tabstrip-viewPost" onClick="window.localStorage.setItem(\'pid\', ' + pid + ');">'+item.numberComments+'</a></span></nobr>';		
 		wallPosts = wallPosts + '</div><div style="clear: both" class="wallPostOnWall"></div>'
 	});
 	

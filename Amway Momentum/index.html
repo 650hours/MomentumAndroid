@@ -21,7 +21,7 @@
     <body>
 	
         <!-- -- -- -- -- -- -- -- --
-			Home *and agenda*
+			Home
 		-- -- -- -- -- -- -- -- -->
         <div id="tabstrip-home"
 			data-role="view"
@@ -64,7 +64,7 @@
                     </div>
 				
 					<div class="amway"></div>
-					<p>v1.15</p>
+					<p>v1.17</p>
 				</div>
 				
             </div>
@@ -378,16 +378,14 @@
 		
 		<script>
 			hideNavigation();
-			
-			function onLoad() {
-				document.addEventListener("deviceready", onDeviceReady, false);
-			}
-			
-			function onDeviceReady() {
-				$(document.body).height(window.innerHeight);
-				alert(1);
-			}
         </script>
+
+		<script type="text/javascript">
+		        document.addEventListener('deviceready', function () {
+		            $(document.body).height(window.innerHeight);
+		        }, false);
+		</script>
+
 		
     </body>
 </html>

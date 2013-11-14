@@ -28,11 +28,7 @@
 .km-ios .km-view .km-navbar .km-view-title > * {
     color: white;
 }
-.km-android .km-view .km-content .km-listgroupinset .km-group-title {
-}
-.km-android .km-view .km-content {
-    background-color: rgb(255, 255, 255);
-}
+
 .km-root a {
 	color: Black;
 }
@@ -100,5 +96,15 @@
 .topcoat-list__item {
 	background-clip: padding-box;
 	-webkit-background-clip: padding-box;
+}
+
+
+.km-android input {
+	color: rgb(0,0,0);
+}
+.km-android .km-view .km-content .km-listgroupinset .km-group-title {
+}
+.km-android .km-view .km-content {
+    background-color: rgb(255, 255, 255);
 }
 
