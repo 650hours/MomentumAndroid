@@ -45,8 +45,6 @@
 		// This is nothing to do with login - it handles comment submission from an existing comment!
 		onPostComment: function () {
 			
-			//alert(comment);
-			
 			var that = this,
 				comment = that.get('comment').trim();
 			
