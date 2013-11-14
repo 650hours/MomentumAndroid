@@ -38,14 +38,14 @@
 	                <ul data-role="listview" data-style="inset">
 	                    <li>
 	                        <label style="border: 0">
-	                            <div style="text-align: right; width: 33%; ">user name:</div>
-	                            <input type="text" data-bind="value: username" style="width: 62%" />
+	                            <div style="text-align: right; width: 33%; color: black">user name:</div>
+	                            <input type="text" data-bind="value: username" style="width: 62%; color: black" />
 	                        </label>
 	                    </li>
 	                    <li>
 	                        <label>
-	                            <div style="text-align: right; width: 33%">password:</div>
-	                            <input type="password" data-bind="value: password" style="width: 62%" />
+	                            <div style="text-align: right; width: 33%; color: black">password:</div>
+	                            <input type="password" data-bind="value: password" style="width: 62%; color: black" />
 	                        </label>
 	                    </li>
 	                </ul>
@@ -55,7 +55,7 @@
 							data-role="button"
 							data-bind="click: onLogin, invisible: isLoggedIn"
 							class="login-button"
-							style="background-color: #f0f0f0; colour: green">Login</a>
+							style="background-color: #f0f0f0; color: green">Login</a>
 	                </div>
 					<br clear="all" />
 					
@@ -222,14 +222,14 @@
 					<div style="text-align: left;">Your comment:</div>
 					<textarea data-bind="value: comment"
 								id="newComment" rows="3"
-								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%">
+								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%; color: black">
 					</textarea>
 					<div class="buttonArea">
 						<a  id="postcomment"
 						data-role="button"
 						data-bind="click: onPostComment"
 						class="login-button"
-						style="background-color: #f0f0f0; colour: green">Post</a>
+						style="background-color: #f0f0f0; color: green">Post</a>
 					</div>
 				</div>
 			</div>
@@ -256,13 +256,13 @@
 							data-role="button"
 							onclick="getImageFromLibrary();"
 							class="login-button"
-							style="background-color: #f0f0f0; colour: green">Existing photo</a>
+							style="background-color: #f0f0f0; color: green">Existing photo</a>
 
 						<a  id="photoCamera"
 							data-role="button"
 							onclick="getImageFromCamera();"
 							class="login-button"
-							style="background-color: #f0f0f0; colour: green">Take a new photo</a>
+							style="background-color: #f0f0f0; color: green">Take a new photo</a>
 						
 					<p><img style="display:none;" id="previewImage" width="200px" /></p>
 						
@@ -270,7 +270,7 @@
 						
 					<textarea data-bind="value: newpost"
 								class="newPost" rows="10"
-								style="background-color: white; border-style: solid; border-width: 1px; width: 98%">
+								style="background-color: white; border-style: solid; border-width: 1px; width: 98%; color: black">
                     </textarea>
 						
 					<div class="buttonArea">
@@ -278,7 +278,7 @@
 							data-role="button"
 							data-bind="click: onNewPost"
 							class="login-button"
-							style="background-color: #f0f0f0; colour: green">Post Comment</a>
+							style="background-color: #f0f0f0; color: green">Post Comment</a>
 	                </div>
 				</div>
 			</div>
