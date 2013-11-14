@@ -64,7 +64,7 @@
                     </div>
 				
 					<div class="amway"></div>
-					<p>v1.17</p>
+					<p>v1.18</p>
 				</div>
 				
             </div>
@@ -110,6 +110,16 @@
 			<div class="view-content">
 				<h1><div id="agendaTitle">&nbsp;</div></h1>
 				<div id="agendaWelcome" style="text-align: left">&nbsp;</div>
+				<h1><div id="outlineAgendaTitle">&nbsp;</div></h1>
+				<div id="outlineAgendaText" style="text-align: left">&nbsp;</div>
+				<h1><div id="detailedAgendaTitle">&nbsp;</div></h1>
+				<div id="detailedAgendaText" style="text-align: left">&nbsp;</div>
+				<h1><div id="venueTitle">&nbsp;</div></h1>
+				<div id="venueText" style="text-align: left">&nbsp;</div>
+				<h1><div id="dressTitle">&nbsp;</div></h1>
+				<div id="dressText" style="text-align: left">&nbsp;</div>
+				<h1><div id="assistanceTitle">&nbsp;</div></h1>
+				<div id="assistanceText" style="text-align: left">&nbsp;</div>
 			</div>
 			
 		</div>
@@ -211,17 +221,32 @@
 			data-title="View Post"
 			data-model="app.loginService.viewModel"
 			data-show="viewPost"
-			data-before-hide="hideBackButtonAndDeletePostButton">
+			data-before-hide="hideAndResetBackButtonAndDeletePostButton">
 			
 			<div class="view-content">
 				<div id="originalPost" class="op_post">&nbsp;</div>
 				<div id="commentList" class="op_comments">&nbsp;</div>
 				<div id="commentMade">&nbsp;</div>
+				
+				<p><center><a href="#tabstrip-addComment" data-role="button">Make a comment</a></center></p>
+			</div>
+		
+		</div>
 
-				<div id="commentBox">
-					<div style="text-align: left;">Your comment:</div>
+		<!-- -- -- -- -- -- -- -- --
+			Making a comment
+		-- -- -- -- -- -- -- -- -->
+		<div id="tabstrip-addComment"
+			data-role="view"
+			data-title="Add Comment"
+			data-model="app.loginService.viewModel"
+			data-show="addComment"
+			data-before-hide="hideBackButton">
+			
+			<div id="commentBox">
+				<div class="view-content">
 					<textarea data-bind="value: comment"
-								id="newComment" rows="3"
+								id="newComment" class="newComment" rows="3"
 								style="background-color: #FFFFFF; border-style: solid; border-width: 1px; width: 98%; color: black">
 					</textarea>
 					<div class="buttonArea">
@@ -233,10 +258,8 @@
 					</div>
 				</div>
 			</div>
-		
 		</div>
-
-		
+			
 		<!-- -- -- -- -- -- -- -- --
 			Adding a post
 		-- -- -- -- -- -- -- -- -->
@@ -381,9 +404,9 @@
         </script>
 
 		<script type="text/javascript">
-		        document.addEventListener('deviceready', function () {
+		        /*document.addEventListener('deviceready', function () {
 		            $(document.body).height(window.innerHeight);
-		        }, false);
+		        }, false);*/
 		</script>
 
 		

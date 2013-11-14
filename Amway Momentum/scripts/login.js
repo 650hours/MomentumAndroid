@@ -50,8 +50,6 @@
 			var that = this,
 				comment = that.get('comment').trim();
 			
-				//alert(comment);
-			
 			if(comment === '') {
                 navigator.notification.alert('Please enter a comment!', function () { }, 'Comment failed', 'OK');
                 return;
@@ -67,12 +65,7 @@
 					$("#resultBlock").html('<h2>Sorry, an error ocurred. Please try again.</h2>');	
                 },
 				cache: false}).done(function(data) {
-					
-					var newComment = '<div id="commentList" class="op_comments"><div class="op_commentBox">' +
-									'<p><span style="font-weight: bold">You</span> replied:</p><p> ' + comment + '</p></div></div>';
-					
-                	$('#commentMade').html(newComment);
-					$('#newComment').val('');
+					navigateToPost();
 			    });
 		},
 		
@@ -154,5 +147,10 @@
 	function navigateToWall() {
 		app.application.navigate("#tabstrip-wall");
 	}
+	
+	// Navigate to a specific post.
+	function navigateToPost() {
+		app.application.navigate("#tabstrip-viewPost");
+    }
 	
 })(window);

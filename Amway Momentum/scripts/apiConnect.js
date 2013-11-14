@@ -27,6 +27,16 @@ function loadAgenda() {
 		// Put content in place on the page
 		$("#agendaTitle").html(data.agendaTitle);
 		$("#agendaWelcome").html(data.agendaText);
+		$("#outlineAgendaTitle").html(data.outlineAgendaTitle);
+		$("#outlineAgendaText").html(data.outlineAgendaText);
+		$("#detailedAgendaTitle").html(data.detailedAgendaTitle);
+		$("#detailedAgendaText").html(data.detailedAgendaText);
+		$("#venueTitle").html(data.venueTitle);
+		$("#venueText").html(data.venueText);
+		$("#dressTitle").html(data.dressTitle);
+		$("#dressText").html(data.dressText);
+		$("#assistanceTitle").html(data.assistanceTitle);
+		$("#assistanceText").html(data.assistanceText);
 	})
 	
 	app.application.hideLoading();
@@ -316,8 +326,8 @@ function viewPost() {
 	// Show the loading screen
 	app.application.showLoading();
 	
-	// Show the back button
-	showBackButton();
+	// Show the back button and ensure the destination is the wall
+	showBackButtonAndChangeDestinationToWall();
 	
 	// Make sure the navigation is hidden
 	$('.km-footer').hide();
@@ -405,6 +415,22 @@ function viewPost() {
 }
 
 
+// Add a new comment
+function addComment() {
+	
+	// Show the back button
+	showBackButton();
+	
+	// Make sure the navigation is hidden
+	$('.km-footer').hide();
+	
+	// Clear the textarea
+	$('.newComment').val('');
+	$('.newComment').text('');
+	
+
+}
+
 // Add a new post
 function addPost() {
 	
@@ -423,7 +449,7 @@ function addPost() {
 	
 	// And ensure that the preview field is hidden and empty
 	$('#previewImage').hide();
-	jQuery("#previewImage").attr('src','');
+	$("#previewImage").attr('src','');
 }
 
 
@@ -619,6 +645,13 @@ function hideBackButton() {
 // Show the back button
 function showBackButton() {
 	$(".backButton").show();
+	$("a.backButton").attr('href','#:back');
+}
+
+// Ensure that the back button goes to the wall
+function showBackButtonAndChangeDestinationToWall() {
+	showBackButton();
+	$("a.backButton").attr('href','#tabstrip-wall');
 }
 
 // Hide the add post button
@@ -642,7 +675,8 @@ function showDeletePostButton() {
 }
 
 // Hide both the delete post and back buttons (used by delete post only)
-function hideBackButtonAndDeletePostButton() {
+function hideAndResetBackButtonAndDeletePostButton() {
+	$("a.backButton").attr('href','#:back');
 	hideBackButton();
 	hideDeletePostButton();
 }
