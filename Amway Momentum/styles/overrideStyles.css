@@ -1,110 +1,18 @@
-/* Fix for footer appearing above keyboard - http://www.icenium.com/resources/forums/icenium-graphite-/latest-version-of-graphite-not-fit-for-purpose- */
-#tabstrip-login .km-footer {
-    position: absolute;
-}
-
-/* Appliation background colour */
-.km-ios .km-view .km-content {
-    background-color: white;
-}
-
-/* Navigation bar & footer colour */
-.km-ios .km-view .km-navbar {
-    background-color: #f08638;
-    background-image: none;
-    background-image: none;
-    background-image: none;
-    background-repeat: repeat;
-    background-position: 0 0;
-}
-.km-ios7 .km-view .km-navbar {
-    background-color: #f08638;
-    background-image: none;
-    background-image: none;
-    background-image: none;
-    background-repeat: repeat;
-    background-position: 0 0;
-}
-.km-ios .km-view .km-navbar .km-view-title > * {
-    color: white;
-}
-
-.km-root a {
-	color: Black;
-}
-.km_footer {
-	background: #f08638;
-}
-.km-ios .km-tabstrip {
-	background-color: #f08638;
-}
-.km-ios7 .km-tabstrip {
-	background-color: #f08638;
-}
-.km-ios .km-view .km-tabstrip .km-button {
-    background-color: #f08638;
-}
-.km-ios7 .km-view .km-tabstrip .km-button {
-    background-color: #f08638;
-}
-
-/* Footer icon colour */
-.km-ios .km-view .km-tabstrip .km-state-active span.km-icon {
-    color: rgb(0, 0, 0);
-}
-.km-ios7 .km-view .km-tabstrip .km-state-active span.km-icon {
-    color: rgb(0, 0, 0);
-}
-
-/* Buttons */
-.km-ios .km-view .km-content .km-button .km-text {
-    color: green;
-	padding: 0;
-}
-.km-ios7 .km-view .km-content .km-button .km-text {
-    color: green;
-	padding: 0;
-}
-.km-ios7 .km-view .km-content .km-button2 .km-text {
-    color: red;
-	padding: 0;
-}
-.km-ios .km-view .km-content .km-button {
-    background-color: rgb(229, 229, 229);
-}
-.km-ios7 .km-view .km-content .km-button {
-    background-color: rgb(229, 229, 229);
-	font-weight: bold;
-	font-size: 1.1em;
-}
-.km-ios7 .km-widget {
-	color: #000;
-}
-
-/* List header */
-.km-ios .km-listgroup .km-group-title, .km-ios7 .km-listgroupinset .km-group-title {
-	line-height: 1em;
-	border-top: 0;
-}
-.km-ios7 .km-listgroup .km-group-title, .km-ios7 .km-listgroupinset .km-group-title {
-	line-height: 1em;
-	border-top: 0;
-	padding-bottom: 1em;
-}
-
-/* List item */
-.topcoat-list__item {
-	background-clip: padding-box;
-	-webkit-background-clip: padding-box;
-}
-
 
 .km-android input {
 	color: rgb(0,0,0);
 }
-.km-android .km-view .km-content .km-listgroupinset .km-group-title {
-}
 .km-android .km-view .km-content {
     background-color: rgb(255, 255, 255);
+}
+
+.km-android .km-view .km-tabstrip .km-button.km-state-active {
+    background-color: rgb(255, 148, 0);
+}
+.km-android .km-view .km-tabstrip .km-state-active span.km-icon {
+    color: rgb(255, 255, 255);
+}
+.km-android .km-view .km-tabstrip .km-button {
+    background-color: rgb(255, 148, 0);
 }
 

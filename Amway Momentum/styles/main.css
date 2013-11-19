@@ -8,7 +8,7 @@ body, html {
 
 /* COMMON STYLES*/
 .view-content {
-	background-color: white;
+	/*background-color: white;*/
 	width:98%;
 	max-width:800px;
 	margin: auto

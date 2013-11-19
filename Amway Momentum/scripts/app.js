@@ -7,6 +7,8 @@
 
     document.addEventListener('deviceready', function () {
 		navigator.splashscreen.hide();
+		mobileSkin = "flat";
+		app.application.skin(mobileSkin);
     }, false);
 
     app.application = new kendo.mobile.Application(document.body, {
