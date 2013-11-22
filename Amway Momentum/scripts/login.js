@@ -9,64 +9,6 @@
 		nickname: "",
         userShortId: "",
 		
-		// This is nothing to do with login - it handles post submssion to the wall!
-		onNewPost: function () {
-			
-			var that = this,
-				newpost = that.get('newpost').trim();
-	
-			if(typeof newpost === undefined) {
-                navigator.notification.alert('Please enter a post!', function () { }, 'Post failed', 'OK');
-                return;
-            }
-			
-			// Get the imageId if one is set
-			var imageId = window.localStorage.getItem("imageId");
-			
-			// We need the userId to attribute the post to
-			var uid = window.localStorage.getItem("userShortId");
-			
-			$.ajax({
-    			url: 'http://amway.650h.co.uk/index/default/newPost/' + uid + '/' + btoa(newpost) + '/' + imageId,
-				error: function() {
-					$("#resultBlock").html('<h2>Sorry, an error ocurred. Please try again.</h2>');	
-                },
-				cache: false}).done(function(data) {
-					$('#postComment').val('');
-					window.localStorage.setItem("imageId", 0);
-					navigator.notification.alert('Your new post has been created and will immediately show on the wall.', function () { }, 'Sucessful Post', 'OK');
-					
-					// This 0.5 second delay prevents a click persistence resulting in us ending up on a random wall post...!
-					//setTimeout(navigateToWall, 1000);
-					navigateToWall();
-			    }); 
-		},
-		
-		// This is nothing to do with login - it handles comment submission from an existing comment!
-		onPostComment: function () {
-			
-			var that = this,
-				comment = that.get('comment').trim();
-			
-			if(comment === '') {
-                navigator.notification.alert('Please enter a comment!', function () { }, 'Comment failed', 'OK');
-                return;
-            }
-			
-			// We need the original post and the ID of the user making the comment
-			var pid = window.localStorage.getItem("pid");
-			var uid = window.localStorage.getItem("userShortId");
-			
-			$.ajax({
-    			url: 'http://amway.650h.co.uk/index/default/postComment/' + pid + '/' + uid + '/' + btoa(comment),
-				error: function() {
-					$("#resultBlock").html('<h2>Sorry, an error ocurred. Please try again.</h2>');	
-                },
-				cache: false}).done(function(data) {
-					navigateToPost();
-			    });
-		},
-		
         onLogin: function () {
 			var that = this,
 				username = that.get('username').trim(),
